@@ -96,16 +96,14 @@ end
 def make_move(current_position, move)
   case move
   when 'U'
-    current_position -= 3
+    current_position - 3
   when 'D'
-    current_position += 3
+    current_position + 3
   when 'L'
-    current_position -= 1
+    current_position - 1
   when 'R'
-    current_position += 1
+    current_position + 1
   end
-
-  current_position
 end
 
 [array_1, array_2, array_3, array_4, array_5].each do |array|
