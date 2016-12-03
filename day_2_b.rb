@@ -44,76 +44,83 @@ array_3 = input_3.split('')
 array_4 = input_4.split('')
 array_5 = input_5.split('')
 
-# 1 2 3
-# 4 5 6
-# 7 8 9
+#     1
+#   2 3 4
+# 5 6 7 8 9
+#   A B C
+#     D
 
-# start at 5
-# U is up
-# L is left
-# R is right
-# D is down
+options = %w(1 2 3 4 5 6 7 8 9 A B C D)
 
-# unless current position is 1, 4, 7 and direction is L make move
-# unless current position is 3, 6, 9 and direction is R make move
-# unless current position is 1, 2, 3 and direction is U make move
-# unless current position is 7, 8, 9 and direction is D make move
+# unless index is 4, 1, 0, 3, 8 and move is up make move
+# unless index is 4, 9, 12, 11, 8 and move is down make move
+# unless index is 0, 3, 8, 11, 12 and move is right make move
+# unless index is 0, 1, 4, 9, 12 and move is left make move
 
-# if move is up -3 from current position
-# if move is down +3 from current position
-# if move is left -1 from current position
-# if move is right +1 from current position
+# if move is up and index is 2 or 12 subtract 2 else subtract 4
+# if move is down and indes is 0 or 10 add 2 else add 4
+# if move is left  subtract 1
+# if move is right add 1
 
-STARTING_POSITION = 5
-VERTICAL_CHANGE = 3
+STARTING_POSITION = 4
+VERTICAL_CHANGE = 4
+ALT_VERTICAL_CHANGE = 2
 HORIZONTAL_CHANGE = 1
 
-def illegal_left?(current_position, move)
-  (current_position == 1 || current_position == 4 || current_position == 7) &&
-    (move == 'L')
-end
-
-def illegal_right?(current_position, move)
-  (current_position == 3 || current_position == 6 || current_position == 9) &&
-    (move == 'R')
-end
-
-def illegal_up?(current_position, move)
-  (current_position == 1 || current_position == 2 || current_position == 3) &&
+def illegal_up?(index, move)
+  (index == 4 || index == 1 || index.zero? || index == 3 || index == 8) &&
     (move == 'U')
 end
 
-def illegal_down?(current_position, move)
-  (current_position == 7 || current_position == 8 || current_position == 9) &&
+def illegal_down?(index, move)
+  (index == 4 || index == 9 || index == 12 || index == 11 || index == 8) &&
     (move == 'D')
 end
 
-def illegal_move?(current_position, move)
-  illegal_left?(current_position, move) ||
-    illegal_right?(current_position, move) ||
-    illegal_up?(current_position, move) ||
-    illegal_down?(current_position, move)
+def illegal_right?(index, move)
+  (index.zero? || index == 3 || index == 8 || index == 11 || index == 12) &&
+    (move == 'R')
 end
 
-def make_move(current_position, move)
+def illegal_left?(index, move)
+  (index.zero? || index == 1 || index == 4 || index == 9 || index == 12) &&
+    (move == 'L')
+end
+
+def illegal_move?(index, move)
+  illegal_left?(index, move) ||
+    illegal_right?(index, move) ||
+    illegal_up?(index, move) ||
+    illegal_down?(index, move)
+end
+
+def make_move(index, move)
   case move
   when 'U'
-    current_position - VERTICAL_CHANGE
+    if index == 2 || index == 12
+      index - ALT_VERTICAL_CHANGE
+    else
+      index - VERTICAL_CHANGE
+    end
   when 'D'
-    current_position + VERTICAL_CHANGE
+    if index.zero? || index == 10
+      index + ALT_VERTICAL_CHANGE
+    else
+      index + VERTICAL_CHANGE
+    end
   when 'L'
-    current_position - HORIZONTAL_CHANGE
+    index - HORIZONTAL_CHANGE
   when 'R'
-    current_position + HORIZONTAL_CHANGE
+    index + HORIZONTAL_CHANGE
   end
 end
 
 [array_1, array_2, array_3, array_4, array_5].each do |array|
-  current_position = STARTING_POSITION
+  index = STARTING_POSITION
 
   array.each do |move|
-    next if illegal_move?(current_position, move)
-    current_position = make_move(current_position, move)
+    next if illegal_move?(index, move)
+    index = make_move(index, move)
   end
-  puts current_position
+  puts options[index]
 end
