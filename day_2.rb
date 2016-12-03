@@ -64,6 +64,8 @@ array_5 = input_5.split('')
 # if move is left -1 from current position
 # if move is right +1 from current position
 
+STARTING_POSITION = 5
+
 def illegal_left?(current_position, move)
   (current_position == 1 || current_position == 4 || current_position == 7) &&
     (move == 'L')
@@ -106,42 +108,12 @@ def make_move(current_position, move)
   current_position
 end
 
-current_position = 5
+[array_1, array_2, array_3, array_4, array_5].each do |array|
+  current_position = STARTING_POSITION
 
-array_1.each do |move|
-  next if illegal_move?(current_position, move)
-  current_position = make_move(current_position, move)
+  array.each do |move|
+    next if illegal_move?(current_position, move)
+    current_position = make_move(current_position, move)
+  end
+  puts current_position
 end
-puts current_position
-
-current_position = 5
-
-array_2.each do |move|
-  next if illegal_move?(current_position, move)
-  current_position = make_move(current_position, move)
-end
-puts current_position
-
-current_position = 5
-
-array_3.each do |move|
-  next if illegal_move?(current_position, move)
-  current_position = make_move(current_position, move)
-end
-puts current_position
-
-current_position = 5
-
-array_4.each do |move|
-  next if illegal_move?(current_position, move)
-  current_position = make_move(current_position, move)
-end
-puts current_position
-
-current_position = 5
-
-array_5.each do |move|
-  next if illegal_move?(current_position, move)
-  current_position = make_move(current_position, move)
-end
-puts current_position
