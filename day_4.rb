@@ -36,17 +36,13 @@ data.each do |string|
   # drop all the counts
   new_array.each { |value| newest_array.push(value[0]) }
 
-  # get checksum start
-  checksum_start = array.index('[')
-  # index variable set to the index of the start of the checksum
-  i = checksum_start + 1
-  # initialize array for storing the checksum
-  checksum = []
-  # put the checksum in the checksum array
-  5.times do
-    checksum.push(array[i])
-    i += 1
-  end
+  # get checksum
+  # split the string on the '[' character
+  # make it an array (which gives you the two parts of the string)
+  # pop the last part of the array (that's all you need here)
+  # split that into an array
+  # pop the last character of the array (']') and keep the array
+  checksum = string.split('[').to_a.pop.split('').tap(&:pop)
 
   # do nothing unless the first five values are equal to the checksum
   next unless checksum == newest_array[0..4]
