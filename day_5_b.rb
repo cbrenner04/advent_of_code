@@ -22,12 +22,11 @@ until password.compact.length == 8
   end
 
   # if the character is a digit and a valid index of an 8 element array
-  if (hex_input[5] =~ /[[:digit:]]/) && hex_input[5].to_i.between?(0, 7)
-    # if position is open
-    if password[hex_input[5].to_i].nil?
-      # put 7th character of hex string in 6th character position of password
-      password[hex_input[5].to_i] = hex_input[6]
-    end
+  # and position is open
+  if (hex_input[5] =~ /[[:digit:]]/) && hex_input[5].to_i.between?(0, 7) &&
+     password[hex_input[5].to_i].nil?
+    # put 7th character of hex string in 6th character position of password
+    password[hex_input[5].to_i] = hex_input[6]
   end
 
   # increment the integer to start again
