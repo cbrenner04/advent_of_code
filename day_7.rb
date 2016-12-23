@@ -4,7 +4,7 @@
 
 data = []
 
-File.open('day_7_data.rb', 'r') { |f| f.each_line { |l| data.push l[0..-2] } }
+File.open('day_7_data.txt', 'r') { |f| f.each_line { |l| data.push l[0..-2] } }
 
 square_bracket_strings = []
 
