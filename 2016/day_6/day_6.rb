@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # get data
 data = []
-File.open("day_4_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
+File.open("day_6_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
 # initialize the message array for the max character in each column
 max_message = []
 # initialize the message array for the min character in each column
