@@ -1,0 +1,8 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+StringLiterals:
+  EnforcedStyle: double_quotes
+
+VariableNumber:
+  EnforcedStyle: snake_case

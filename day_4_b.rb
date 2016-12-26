@@ -1,16 +1,16 @@
-require_relative './day_4_data.rb'
-
+# frozen_string_literal: true
 # get data
-data = Day4Data::STRINGS
+data = []
+File.open("day_4_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
 # initialize digits variable
-digits = ''
+digits = []
 # ordinal of 'a'
 A_ORDINAL = 97
 
 # for each of the strings in the data
 data.each do |string|
   # split the string into chars
-  array = string.split('')
+  array = string.split("")
   # append the digits to the digits variable
   array.each { |char| digits << char if char =~ /[[:digit:]]/ }
   # initialize new array for putting the counts
@@ -20,13 +20,13 @@ data.each do |string|
     # stop iterating over the string when it hits the numbers
     break unless char =~ /[[:alpha:]]/ || char =~ /-/
     # if current character is '-' turn it into a space
-    new_array.push(' ') if char =~ /-/
+    new_array.push(" ") if char =~ /-/
     # go to next character if current character is '-'
     next if char =~ /-/
     # if char is an alphabetic character
     if char =~ /[[:alpha:]]/
       # change digits to integer
-      offset = digits.to_i
+      offset = digits.join("").to_i
       # if offset is greater than 26 (number of characters in alphabet)
       # the offset will be the remainder of the offset given divided by 26
       offset = offset % 26 if offset > 26
@@ -41,9 +41,9 @@ data.each do |string|
     new_array.push(num.chr)
   end
   # stop if northpole is found
-  break if new_array.join('').include? 'northpole'
+  break if new_array.join("").include? "northpole"
   # reset digits
-  digits = ''
+  digits = []
 end
 
-p digits
+p digits.join("").to_i

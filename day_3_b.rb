@@ -1,7 +1,9 @@
-require_relative './day_3_data.rb'
-
-# split the data by whitespace
-data = Day3Data::TRIANGLES.gsub(/\s+/m, ' ').strip.split(' ')
+# frozen_string_literal: true
+data = []
+File.open("day_3_data.txt", "r") do |f|
+  f.each_line { |l| data.push l[0..-2].split(" ") }
+end
+data.flatten!
 # set the first value of the each of the new arrays
 # these arrays are where I put my side values based on column
 # first set is the first column

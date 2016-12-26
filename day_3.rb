@@ -1,15 +1,14 @@
+# frozen_string_literal: true
 # get that data
-require_relative './day_3_data.rb'
-
-# split the data by whitespace
-data = Day3Data::TRIANGLES.gsub(/\s+/m, ' ').strip.split(' ')
-# split the data array into arrays of 3
-arrays = data.each_slice(3).to_a
+data = []
+File.open("day_3_data.txt", "r") do |f|
+  f.each_line { |l| data.push l[0..-2].split(" ") }
+end
 # start count at 0
 count = 0
 
 # for every array in arrays
-arrays.each do |array|
+data.each do |array|
   # get the first element of the array
   first = array[0].to_i
   # get the second element of the array

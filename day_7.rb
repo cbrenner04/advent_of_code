@@ -1,18 +1,19 @@
+# frozen_string_literal: true
 # This is SUPER hacky. I am not even going to comment it. It works but only
 # because of brute force. I should be using regex. I can guarantee there is an
 # easier way to do this... but this worked so I'm leaving it.
 
 data = []
 
-File.open('day_7_data.txt', 'r') { |f| f.each_line { |l| data.push l[0..-2] } }
+File.open("day_7_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
 
 square_bracket_strings = []
 
 data.each do |str|
-  count_of_hypernet_sequences = str.split('[').length
+  count_of_hypernet_sequences = str.split("[").length
   strings = []
   (1..count_of_hypernet_sequences - 1).each do |i|
-    strings.push str.split('[')[i].split(']')[0]
+    strings.push str.split("[")[i].split("]")[0]
   end
   square_bracket_strings.push strings
 end
@@ -43,11 +44,11 @@ count = 0
 
 data.each_with_index do |str, index|
   next if indeces.include? index
-  count_of_hypernet_sequences = str.split(']').length
-  strings = str.split(']')
+  count_of_hypernet_sequences = str.split("]").length
+  strings = str.split("]")
   array_of_strings = []
   (0..count_of_hypernet_sequences - 2).each do |i|
-    array_of_strings.push strings[i].split('[')[0]
+    array_of_strings.push strings[i].split("[")[0]
   end
   array_of_strings.push strings[count_of_hypernet_sequences - 1]
   counted = false

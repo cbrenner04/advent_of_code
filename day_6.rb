@@ -1,7 +1,7 @@
-require_relative './day_6_data.rb'
-
-# get the data
-strings = Day6Data::STRINGS
+# frozen_string_literal: true
+# get data
+data = []
+File.open("day_4_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
 # initialize the message array for the max character in each column
 max_message = []
 # initialize the message array for the min character in each column
@@ -12,7 +12,7 @@ min_message = []
   # initialize hash -- local to the column
   hash = {}
   # each string
-  strings.each do |string|
+  data.each do |string|
     # get the character from the string
     char = string[index]
     # if the character already exists in the hash increment the count

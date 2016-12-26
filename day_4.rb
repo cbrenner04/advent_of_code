@@ -1,14 +1,14 @@
-require_relative './day_4_data.rb'
-
+# frozen_string_literal: true
 # get data
-data = Day4Data::STRINGS
+data = []
+File.open("day_4_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
 # initialize variable for total
 total = 0
 
 # for each of the strings in the data
 data.each do |string|
   # split the string into chars
-  array = string.split('')
+  array = string.split("")
   # initialize new array for putting the counts
   new_array = []
   # for each character
@@ -42,17 +42,17 @@ data.each do |string|
   # pop the last part of the array (that's all you need here)
   # split that into an array
   # pop the last character of the array (']') and keep the array
-  checksum = string.split('[').to_a.pop.split('').tap(&:pop)
+  checksum = string.split("[").to_a.pop.split("").tap(&:pop)
 
   # do nothing unless the first five values are equal to the checksum
   next unless checksum == newest_array[0..4]
   # initialize digits variable
-  digits = ''
+  digits = []
   # append the digits to the digits variable
   array.each { |char| digits << char if char =~ /[[:digit:]]/ }
 
   # add the digits to the total
-  total += digits.to_i
+  total += digits.join("").to_i
 end
 
 p total

@@ -1,11 +1,12 @@
-require 'digest'
+# frozen_string_literal: true
+require "digest"
 
 # input given
-input = 'ugkcyxxp'
+input = "ugkcyxxp"
 # starting integer
 i = 0
 # initialize hex_input variable
-hex_input = ''
+hex_input = ""
 # initialize password array - array now because positions aren't linear
 password = []
 
@@ -17,7 +18,7 @@ until password.compact.length == 8
     # make the input hexadecimal
     hex_input = Digest::MD5.hexdigest new_input
     # stop if the hex starts with 5 0s
-    break if hex_input.start_with?('00000')
+    break if hex_input.start_with?("00000")
     i += 1
   end
 
@@ -33,4 +34,4 @@ until password.compact.length == 8
   i += 1
 end
 
-p password.join('')
+p password.join("")
