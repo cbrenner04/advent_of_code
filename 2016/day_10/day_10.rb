@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# this is failing saying the value is too high, but it is curiously the correct
-# answer for someone else's input.
+# this is failing both parts right now
 
 def give_values(bot, value, bots)
   if bots[bot] && bots[bot].length < 2
@@ -47,8 +46,14 @@ while done_instructions.length < data.length
   end
 
   instructions_index = increment(instructions_index, data)
-  break if bots.any? { |b| b[1].sort == %w(17 61) }
 end
 # rubocop:enable BlockNesting
 
+# Part 1
 bots.each { |b| p b[0] if b[1].sort == %w(17 61) }
+
+# Part 2
+p outputs.map { |o| o[1] if %w(0 1 2).include?(o[0]) }
+         .compact
+         .flatten
+         .inject(1) { |acc, elem| acc * elem.to_i }
