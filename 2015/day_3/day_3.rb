@@ -1,19 +1,33 @@
 # frozen_string_literal: true
-x = 0
-y = 0
-positions = [[0, 0]]
+# object for santa and his robot clone
+Deliverer = Struct.new(:x, :y, :positions)
 
-File.read("day_3_data.txt")[0..-2].each_char do |char|
-  case char
-  when "^"
-    positions.push([x, y += 1])
-  when "v"
-    positions.push([x, y -= 1])
-  when ">"
-    positions.push([x += 1, y])
-  when "<"
-    positions.push([x -= 1, y])
+# rubocop:disable AbcSize
+def solve(part_two)
+  santa = Deliverer.new(0, 0, [[0, 0]])
+  robo_santa = Deliverer.new(0, 0, [[0, 0]])
+
+  File.read("day_3_data.txt")[0..-2].each_char.with_index do |char, index|
+    object = index.odd? && part_two == true ? robo_santa : santa
+    update_position(char, object)
   end
+
+  p santa.positions.concat(robo_santa.positions).uniq.length
 end
 
-p positions.uniq.length
+def update_position(char, object)
+  case char
+  when "^"
+    object.positions.push([object.x, object.y += 1])
+  when "v"
+    object.positions.push([object.x, object.y -= 1])
+  when ">"
+    object.positions.push([object.x += 1, object.y])
+  when "<"
+    object.positions.push([object.x -= 1, object.y])
+  end
+end
+# rubocop:enable AbcSize
+
+solve(false)
+solve(true)
