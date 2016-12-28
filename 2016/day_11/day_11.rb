@@ -66,18 +66,18 @@ hash = {
 
 hash["E"].count = 0
 current = hash["E"].floor
-# current_flr_chips =
-#   hash.map { |k, v| k if v.is_a?(Microchip) && v.floor == current }.compact
-# next_flr = [current - 1, current + 1].reject do |floor|
-#   next_floor_gens = hash.map do |_k, v|
-#     v.name if v.is_a?(Generator) && v.floor == floor
-#   end.compact
-#   good_chips = current_flr_chips.map do |chip|
-#     hash[chip] if next_floor_gens.include? hash[chip].name
-#   end.compact
-#   floor > 4 || floor < 1 || good_chips.empty?
-# end
+current_flr_chips =
+  hash.map { |k, v| k if v.is_a?(Microchip) && v.floor == current }.compact
+next_flr = [current - 1, current + 1].reject do |floor|
+  next_floor_gens = hash.map do |_k, v|
+    v.name if v.is_a?(Generator) && v.floor == floor
+  end.compact
+  good_chips = current_flr_chips.map do |chip|
+    hash[chip] if next_floor_gens.include? hash[chip].name
+  end.compact
+  floor > 4 || floor < 1 || good_chips.empty?
+end
 
-# p next_flr
+p next_flr
 
 p hash["E"].count unless hash.any? { |_key, value| value.floor < 4 }
