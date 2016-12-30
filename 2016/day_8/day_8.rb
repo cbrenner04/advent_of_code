@@ -14,17 +14,9 @@ def switch(value)
   value == false ? true : false
 end
 
-data = []
+data = File.open("day_8_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
 
-File.open("day_8_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
-
-matrix = []
-
-ROWS.times do
-  column = []
-  COLUMNS.times { column.push(false) }
-  matrix.push(column)
-end
+matrix = Array.new(ROWS) { Array.new(COLUMNS, false) }
 
 data.each do |d|
   if d.include? "rect"

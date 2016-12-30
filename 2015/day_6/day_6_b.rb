@@ -2,23 +2,16 @@
 ROWS = 1000
 COLUMNS = 1000
 
-data = []
-File.open("day_6_data.txt", "r") do |file|
-  file.each_line do |line|
-    data.push line[0..-2]
+data = File.open("day_6_data.txt", "r") do |file|
+  file.each_line.map do |line|
+    line[0..-2]
       .gsub("turn on", "turn-on")
       .gsub("turn off", "turn-off")
       .split(" ")
   end
 end
 
-matrix = []
-
-ROWS.times do
-  column = []
-  COLUMNS.times { column.push(0) }
-  matrix.push(column)
-end
+matrix = Array.new(ROWS) { Array.new(COLUMNS, 0) }
 
 data.each do |datum|
   command = datum[0]

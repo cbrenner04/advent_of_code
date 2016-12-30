@@ -1,9 +1,7 @@
 # frozen_string_literal: true
-data = []
-File.open("day_3_data.txt", "r") do |f|
-  f.each_line { |l| data.push l[0..-2].split(" ") }
-end
-data.flatten!
+data = File.open("day_3_data.txt", "r") do |file|
+  file.each_line.map { |line| line[0..-2].split(" ") }
+end.flatten
 # set the first value of the each of the new arrays
 # these arrays are where I put my side values based on column
 # first set is the first column

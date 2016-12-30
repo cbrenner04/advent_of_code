@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-data = []
-File.open("day_2_data.txt", "r") do |file|
-  file.each_line { |line| data.push line[0..-2].split("x") }
+data = File.open("day_2_data.txt", "r") do |file|
+  file.each_line.map { |line| line[0..-2].split("x") }
 end
 
 square_feets = []

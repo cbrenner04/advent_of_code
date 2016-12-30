@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 # get data
-data = []
-File.open("day_4_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
+data = File.open("day_4_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
 # initialize variable for total
 total = 0
 
@@ -31,10 +30,8 @@ data.each do |string|
   # get the unique values and sort by count (in reverse) and alphabetically
   new_array.uniq!.sort_by! { |char, count| [-count, char] }
 
-  # initialize another array
-  newest_array = []
   # drop all the counts
-  new_array.each { |value| newest_array.push(value[0]) }
+  newest_array = new_array.map { |value| value[0] }
 
   # get checksum
   # split the string on the '[' character
@@ -46,10 +43,8 @@ data.each do |string|
 
   # do nothing unless the first five values are equal to the checksum
   next unless checksum == newest_array[0..4]
-  # initialize digits variable
-  digits = []
   # append the digits to the digits variable
-  array.each { |char| digits << char if char =~ /[[:digit:]]/ }
+  digits = array.map { |char| char if char =~ /[[:digit:]]/ }
 
   # add the digits to the total
   total += digits.join("").to_i

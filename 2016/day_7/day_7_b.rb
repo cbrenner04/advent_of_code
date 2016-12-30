@@ -50,22 +50,17 @@ def return_count(array, length, new_sub_strings)
 end
 # rubocop:enable MethodLength
 
-data = []
-
-File.open("day_7_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
+data = File.open("day_7_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
 
 count = 0
 
 data.each do |string|
-  array = []
-  string.split("[").each { |str| array.push str.split("]") }
-  array.flatten!
+  array = string.split("[").map { |str| str.split("]") }.flatten
   length = array.length
   sub_strings = return_sub_strings(array, length)
 
   next if sub_strings.empty?
-  new_sub_strings = []
-  sub_strings.each { |sub| new_sub_strings.push sub[1] + sub[0] + sub[1] }
+  new_sub_strings = sub_strings.map { |sub| sub[1] + sub[0] + sub[1] }
 
   count += return_count(array, length, new_sub_strings)
 end

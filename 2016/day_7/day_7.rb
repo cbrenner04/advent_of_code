@@ -3,19 +3,10 @@
 # because of brute force. I should be using regex. I can guarantee there is an
 # easier way to do this... but this worked so I'm leaving it.
 
-data = []
+data = File.open("day_7_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
 
-File.open("day_7_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
-
-square_bracket_strings = []
-
-data.each do |str|
-  count_of_hypernet_sequences = str.split("[").length
-  strings = []
-  (1..count_of_hypernet_sequences - 1).each do |i|
-    strings.push str.split("[")[i].split("]")[0]
-  end
-  square_bracket_strings.push strings
+square_bracket_strings = data.map do |str|
+  (1..str.split("[").length - 1).map { |i| str.split("[")[i].split("]")[0] }
 end
 
 indeces = []
@@ -23,10 +14,9 @@ indeces = []
 square_bracket_strings.each_with_index do |arry, index|
   counted = false
   arry.each do |str|
-    length = str.length
     start_index = 0
 
-    until start_index == length - 4
+    until start_index == str.length - 4
       first_sub_str = str[start_index..start_index + 1]
       second_sub_str = str[start_index + 2..start_index + 3]
       if first_sub_str == second_sub_str.reverse
@@ -46,9 +36,8 @@ data.each_with_index do |str, index|
   next if indeces.include? index
   count_of_hypernet_sequences = str.split("]").length
   strings = str.split("]")
-  array_of_strings = []
-  (0..count_of_hypernet_sequences - 2).each do |i|
-    array_of_strings.push strings[i].split("[")[0]
+  array_of_strings = (0..count_of_hypernet_sequences - 2).map do |i|
+    strings[i].split("[")[0]
   end
   array_of_strings.push strings[count_of_hypernet_sequences - 1]
   counted = false

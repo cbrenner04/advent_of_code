@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 # get data
-data = []
-File.open("day_4_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
+data = File.open("day_4_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
 # initialize digits variable
 digits = []
 # ordinal of 'a'

@@ -31,11 +31,7 @@ array.each_with_index do |_value, index|
 
   # arbitrarily pick right as positive, left as negative
   # these can be switched with same results
-  facing = if direction == "R"
-             facing + 1
-           else
-             facing - 1
-           end
+  facing = direction == "R" ? facing + 1 : facing - 1
 
   # find out which of the 4 directions you are facing
   card_dir = facing % 4

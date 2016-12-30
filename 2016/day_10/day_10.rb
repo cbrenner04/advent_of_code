@@ -14,8 +14,7 @@ def increment(instructions_index, data)
   instructions_index < data.length - 1 ? instructions_index + 1 : 0
 end
 
-data = []
-File.open("day_10_data.txt", "r") { |f| f.each_line { |l| data.push l[0..-2] } }
+data = File.open("day_10_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
 
 done_instructions = []
 instructions_index = 0
