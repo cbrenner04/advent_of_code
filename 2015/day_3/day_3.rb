@@ -7,7 +7,7 @@ def solve(part_two)
   santa = Deliverer.new(0, 0, [[0, 0]])
   robo_santa = Deliverer.new(0, 0, [[0, 0]])
 
-  File.read("day_3_data.txt")[0..-2].each_char.with_index do |char, index|
+  File.read("day_3_data.txt").chomp.each_char.with_index do |char, index|
     object = index.odd? && part_two == true ? robo_santa : santa
     update_position(char, object)
   end

@@ -4,7 +4,8 @@ COLUMNS = 1000
 
 data = File.open("day_6_data.txt", "r") do |file|
   file.each_line.map do |line|
-    line[0..-2]
+    line
+      .chomp
       .gsub("turn on", "turn-on")
       .gsub("turn off", "turn-off")
       .split(" ")

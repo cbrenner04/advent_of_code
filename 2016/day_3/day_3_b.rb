@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 data = File.open("day_3_data.txt", "r") do |file|
-  file.each_line.map { |line| line[0..-2].split(" ") }
+  file.each_line.map { |line| line.chomp.split(" ") }
 end.flatten
 # set the first value of the each of the new arrays
 # these arrays are where I put my side values based on column

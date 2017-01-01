@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 data = File.open("day_7_data.txt", "r") do |file|
-  file.each_line.map { |line| line[0..-2].split(" ") }
+  file.each_line.map { |line| line.chomp.split(" ") }
 end
 part_two = false
 hash = {}

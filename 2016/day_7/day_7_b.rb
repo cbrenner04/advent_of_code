@@ -50,7 +50,7 @@ def return_count(array, length, new_sub_strings)
 end
 # rubocop:enable MethodLength
 
-data = File.open("day_7_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
+data = File.open("day_7_data.txt", "r") { |f| f.each_line.map(&:chomp) }
 
 count = 0
 

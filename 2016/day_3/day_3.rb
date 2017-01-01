@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # get that data
 data = File.open("day_3_data.txt", "r") do |file|
-  file.each_line.map { |line| line[0..-2].split(" ") }
+  file.each_line.map { |line| line.chomp.split(" ") }
 end
 # start count at 0
 count = 0

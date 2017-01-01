@@ -14,7 +14,7 @@ def switch(value)
   value == false ? true : false
 end
 
-data = File.open("day_8_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
+data = File.open("day_8_data.txt", "r") { |f| f.each_line.map(&:chomp) }
 
 matrix = Array.new(ROWS) { Array.new(COLUMNS, false) }
 

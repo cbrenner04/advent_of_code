@@ -3,7 +3,7 @@
 # because of brute force. I should be using regex. I can guarantee there is an
 # easier way to do this... but this worked so I'm leaving it.
 
-data = File.open("day_7_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
+data = File.open("day_7_data.txt", "r") { |f| f.each_line.map(&:chomp) }
 
 square_bracket_strings = data.map do |str|
   (1..str.split("[").length - 1).map { |i| str.split("[")[i].split("]")[0] }

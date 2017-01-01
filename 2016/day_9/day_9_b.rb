@@ -2,7 +2,7 @@
 # this works with examples but is not efficient enough to run in any kind of
 # reasonable amount of time to test on full data
 
-data = File.read("day_9_data.txt")[0..-2]
+data = File.read("day_9_data.txt").chomp
 starting_length = data.length
 num_of_chars_to_add = []
 string = data

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-data = File.read("day_9_data.txt")[0..-2]
+data = File.read("day_9_data.txt").chomp
 starting_length = data.length
 num_of_chars_to_add = []
 next_starting_point = 0

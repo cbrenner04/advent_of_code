@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-data = File.open("day_5_data.txt", "r") { |f| f.each_line.map { |l| l[0..-2] } }
+data = File.open("day_5_data.txt", "r") { |f| f.each_line.map(&:chomp) }
 count = 0
 
 data.each do |datum|

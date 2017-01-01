@@ -26,4 +26,4 @@ def decomp(string)
 end
 # rubocop:enable MethodLength, AbcSize
 
-p decomp(File.read("day_9_data.txt")[0..-2])
+p decomp(File.read("day_9_data.txt").chomp)

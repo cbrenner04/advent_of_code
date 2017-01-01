@@ -15,6 +15,6 @@ def solve(data, part_two)
   p position if part_two == true
 end
 
-data = File.read("day_1_data.txt")[0..-2]
+data = File.read("day_1_data.txt").chomp
 solve(data, false)
 solve(data, true)
