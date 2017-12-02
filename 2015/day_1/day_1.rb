@@ -5,16 +5,15 @@ def solve(data, part_two)
   position = 1
 
   data.each_char do |d|
-    d == "(" ? count += 1 : count -= 1
-
-    break if count == -1 && part_two == true
+    count += d == "(" ? 1 : -1
+    break if count.negative? && part_two
     position += 1
   end
 
-  p count if part_two == false
-  p position if part_two == true
+  p part_two ? position : count
 end
 
-data = File.read("day_1_data.txt").chomp
+data_file = File.join(File.dirname(__FILE__), "day_1_data.txt")
+data = File.read(data_file).chomp
 solve(data, false)
 solve(data, true)

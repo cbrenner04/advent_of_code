@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../helpers/maths"
-
 data_file = File.join(File.dirname(__FILE__), "day_2_data.txt")
 data = File.open(data_file).each_line.map do |line|
   line.chomp.split(" ").map(&:to_i).sort
@@ -21,5 +19,5 @@ data.each do |line|
   end
 end
 
-p sum(diffs)
-p sum(products)
+p diffs.reduce(&:+)
+p products.reduce(&:+)

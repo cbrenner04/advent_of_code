@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../helpers/maths"
-
 data_file = File.join(File.dirname(__FILE__), "day_1_data.txt")
 data = File.read(data_file).chomp.split("").map(&:to_i)
 
@@ -15,5 +13,5 @@ part_two_matches =  data.each_with_index.map do |x, i|
   x if x == data[matcher_index]
 end.compact
 
-p sum(part_one_matches)
-p sum(part_two_matches)
+p part_one_matches.reduce(&:+)
+p part_two_matches.reduce(&:+)
