@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-data = File.open("day_5_data.txt", "r") { |f| f.each_line.map(&:chomp) }
+
+data_file = File.join(File.dirname(__FILE__), "day_5_data.txt")
+data = File.open(data_file).each_line.map(&:chomp)
 count = 0
 
 data.each do |datum|

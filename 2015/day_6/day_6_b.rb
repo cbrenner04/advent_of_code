@@ -1,15 +1,15 @@
 # frozen_string_literal: true
+
 ROWS = 1000
 COLUMNS = 1000
 
-data = File.open("day_6_data.txt", "r") do |file|
-  file.each_line.map do |line|
-    line
-      .chomp
-      .gsub("turn on", "turn-on")
-      .gsub("turn off", "turn-off")
-      .split(" ")
-  end
+data_file = File.join(File.dirname(__FILE__), "day_6_data.txt")
+data = File.open(data_file).each_line.map do |line|
+  line
+    .chomp
+    .gsub("turn on", "turn-on")
+    .gsub("turn off", "turn-off")
+    .split(" ")
 end
 
 matrix = Array.new(ROWS) { Array.new(COLUMNS, 0) }
