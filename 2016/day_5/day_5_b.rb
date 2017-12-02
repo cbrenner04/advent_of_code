@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 require "digest"
 
 # input given
-input = "ugkcyxxp"
+input = "ffykfhsq"
 # starting integer
 i = 0
 # initialize hex_input variable

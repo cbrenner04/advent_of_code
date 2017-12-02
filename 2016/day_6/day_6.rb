@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+
 # get data
-data = File.open("day_6_data.txt", "r") { |f| f.each_line.map(&:chomp) }
+data_file = File.join(File.dirname(__FILE__), "day_6_data.txt")
+data = File.open(data_file).each_line.map(&:chomp)
 # initialize the message array for the max character in each column
 max_message = []
 # initialize the message array for the min character in each column

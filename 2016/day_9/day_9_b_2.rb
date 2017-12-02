@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rework from https://www.reddit.com/user/DeathWalrus
 
 # rubocop:disable MethodLength, AbcSize
@@ -26,4 +27,5 @@ def decomp(string)
 end
 # rubocop:enable MethodLength, AbcSize
 
-p decomp(File.read("day_9_data.txt").chomp)
+data_file = File.join(File.dirname(__FILE__), "day_9_data.txt")
+p decomp(File.read(data_file).chomp)

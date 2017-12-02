@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-data = File.read("day_9_data.txt").chomp
+
+data_file = File.join(File.dirname(__FILE__), "day_9_data.txt")
+data = File.read(data_file).chomp
 starting_length = data.length
 num_of_chars_to_add = []
 next_starting_point = 0
@@ -7,6 +9,7 @@ string = data
 
 loop do
   first_marker = string[/(\(\w{3,9}\))/, 1]
+  break if first_marker.nil? # added in 2017 b/c different data
   index_of_end_of_first_marker = string.index("(") + first_marker.length
   x = first_marker.tr("(", "")[/(.*x)/].tr("x", "").to_i
   y = first_marker[/(x.*)/].tr("x", "").tr(")", "").to_i - 1

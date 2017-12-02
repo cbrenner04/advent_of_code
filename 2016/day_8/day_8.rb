@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ROWS = 6
 COLUMNS = 50
 
@@ -11,10 +12,11 @@ def update_index(index, offset, total)
 end
 
 def switch(value)
-  value == false ? true : false
+  value == false
 end
 
-data = File.open("day_8_data.txt", "r") { |f| f.each_line.map(&:chomp) }
+data_file = File.join(File.dirname(__FILE__), "day_8_data.txt")
+data = File.open(data_file).each_line.map(&:chomp)
 
 matrix = Array.new(ROWS) { Array.new(COLUMNS, false) }
 
@@ -51,6 +53,6 @@ matrix.each { |s| s.each { |a| count += 1 if a == true } }
 
 p count
 
-matrix.each { |s| s.map! { |a| a == true ? "*" : " " } }
+matrix.each { |s| s.map! { |a| a ? "*" : " " } }
 
 matrix.each { |s| p s.join(",").tr(",", "") }

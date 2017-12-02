@@ -1,5 +1,8 @@
 # frozen_string_literal: true
+
 # again... hacked to hell, but it works so I'm moving on.
+
+# UPDATE FROM 2017: unlike part 1 at least this one actually works
 
 def the_sub_strings(string_length, new_string)
   place = 0
@@ -50,7 +53,8 @@ def return_count(array, length, new_sub_strings)
 end
 # rubocop:enable MethodLength
 
-data = File.open("day_7_data.txt", "r") { |f| f.each_line.map(&:chomp) }
+data_file = File.join(File.dirname(__FILE__), "day_7_data.txt")
+data = File.open(data_file) { |f| f.each_line.map(&:chomp) }
 
 count = 0
 

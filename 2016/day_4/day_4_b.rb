@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+
 # get data
-data = File.open("day_4_data.txt", "r") { |f| f.each_line.map(&:chomp) }
+data_file = File.join(File.dirname(__FILE__), "day_4_data.txt")
+data = File.open(data_file).each_line.map(&:chomp)
 # initialize digits variable
 digits = []
 # ordinal of 'a'

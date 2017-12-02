@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-data = File.open("day_3_data.txt", "r") do |file|
+
+data_file = File.join(File.dirname(__FILE__), "day_3_data.txt")
+data = File.open(data_file) do |file|
   file.each_line.map { |line| line.chomp.split(" ") }
 end.flatten
 # set the first value of the each of the new arrays

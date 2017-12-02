@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 # get that data
-data = File.open("day_3_data.txt", "r") do |file|
-  file.each_line.map { |line| line.chomp.split(" ") }
-end
+data_file = File.join(File.dirname(__FILE__), "day_3_data.txt")
+data = File.open(data_file).each_line.map { |line| line.chomp.split(" ") }
 # start count at 0
 count = 0
 
