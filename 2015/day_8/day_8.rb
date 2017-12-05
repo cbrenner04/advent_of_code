@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 data_file = File.join(File.dirname(__FILE__), "day_8_data.txt")
-data = File.open(data_file).each_line.map { |line| line[1..-3] }
-original_lengths = data.map(&:length)
-original_total = original_lengths.reduce(&:+)
-not_escaped = data.map(&:dump)
-not_escaped_lengths = not_escaped.map(&:length)
-not_escaped_total = not_escaped_lengths.reduce(&:+)
-p not_escaped
-p not_escaped_lengths
-p not_escaped_total
-p data
-p original_lengths
-p original_total
-p not_escaped_total - original_total
+data = File.open(data_file).each_line.map(&:strip)
+
+# with help from https://github.com/gchan/advent-of-code-ruby/blob/master/2015/day-08/day-08-part-1.rb
+# couldn't figure out the `eval` use -- also the `strip` above came in handy
+
+original_lengths_total = data.map(&:length).reduce(&:+)
+not_escaped_lengths_total = data.map { |line| eval(line).length }.reduce(&:+)
+encoded_lengths_total = data.map { |line| line.dump.length }.reduce(&:+)
+
+p original_lengths_total - not_escaped_lengths_total
+p encoded_lengths_total - original_lengths_total
