@@ -3,6 +3,7 @@
 data_file = File.join(File.dirname(__FILE__), "day_7_data.txt")
 DATA = File.open(data_file).each_line.map { |line| line.chomp.split(" ") }
 
+# rubocop:disable AbcSize,CyclomaticComplexity,MethodLength,PerceivedComplexity
 def solve(answer_to_a, part_two)
   hash = {}
   done = []
@@ -25,6 +26,7 @@ def solve(answer_to_a, part_two)
     elsif current_step.length == 5
       if (!current_step[0].match(/^[[:alpha:]]+$/) || hash[current_step[0]]) &&
          (!current_step[2].match(/^[[:alpha:]]+$/) || hash[current_step[2]])
+        # rubocop:disable BlockNesting
         hash[current_step[4]] =
           if current_step[1] == "AND"
             if !current_step[0].match(/^[[:alpha:]]+$/)
@@ -39,6 +41,7 @@ def solve(answer_to_a, part_two)
           elsif current_step[1] == "RSHIFT"
             hash[current_step[0]] >> current_step[2].to_i
           end
+        # rubocop:enable BlockNesting
         done.push(datum_index)
       end
     end
@@ -49,6 +52,7 @@ def solve(answer_to_a, part_two)
 
   hash["a"]
 end
+# rubocop:enable AbcSize,CyclomaticComplexity,MethodLength,PerceivedComplexity
 
 part_a = solve(nil, false)
 part_b = solve(part_a, true)

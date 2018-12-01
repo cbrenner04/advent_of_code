@@ -12,7 +12,9 @@ data.each do |datum|
   split_datum[0] = "register['#{split_datum[0]}']"
   split_datum[1] = split_datum[1] == "inc" ? "+=" : "-="
   split_datum[4] = "register['#{split_datum[4]}']"
+  # rubocop:disable Eval
   eval(split_datum.join(" "))
+  # rubocop:enable Eval
   maxes << register.map { |_key, value| value }.max
 end
 

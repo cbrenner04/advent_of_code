@@ -1,56 +1,38 @@
 # frozen_string_literal: true
 
-Disc = Struct.new(:name, :weight, :total_weight, :children)
+# couldn't figure this one out
+# got part one but wasn't coming close to part two
+# this was likely due to poor implementation of part one
+# below is pretty much copy/paste from
+# https://github.com/petertseng/adventofcode-rb-2017/blob/master/07_balancing_discs.rb
 
-def move_children(disc, data)
-  return unless disc.children.any?
-  disc.children.each do |child|
-    if child.is_a? String
-      data.each do |datum|
-        next unless datum.name == child
-        disc.children << datum
-        disc.children.delete(child)
-        data.delete(datum)
-      end
-    else
-      move_children(child, data)
-    end
-  end
+own_weights = {}
+children = {}
+
+data_file = File.join(File.dirname(__FILE__), "day_7_data.txt")
+File.open(data_file).each_line.map(&:chomp).each do |datum|
+  name = datum.split.first
+  datum_weight = datum[/\d+/].to_i
+  datum_children =
+    datum.include?("->") ? datum.split(" -> ").last.split(", ") : []
+  own_weights[name] = datum_weight
+  children[name] = datum_children
 end
 
-def calculate_weights(disc)
-  return unless disc.children.any?
-  disc.children.each do |c|
-    c.children.any? ? calculate_weights(c) : disc.total_weight += c.weight
-  end
+bottom = (own_weights.keys - children.values.flatten).first
+puts bottom
+
+total_weights = {}
+total = ->(n) { total_weights[n] ||= own_weights[n] + children[n].sum(&total) }
+_ = total[bottom]
+total_weights.freeze
+
+at = bottom
+prev_weight = nil
+until (weights = children[at].group_by(&total_weights)).size == 1
+  singles = weights.select { |_, w| w.size == 1 }
+  at = singles.values[0][0]
+  prev_weight = (weights.keys - singles.keys).first
 end
 
-def remove_weights(disc)
-  return unless disc.children.any?
-  disc.children.each do |c|
-    if c.children.any?
-      remove_weights(c)
-    elsif c.weight == c.total_weight
-      disc.children.delete(c)
-    end
-  end
-end
-
-data_file = File.join(File.dirname(__FILE__), "day_7_example_data.txt")
-data = File.open(data_file).each_line.map(&:chomp).map do |datum|
-  d = datum.split(" (")
-  name = d.first
-  weight = d.last.split(")").first
-  children = datum.include?(" -> ") ? d.last.split(" -> ").last.split(", ") : []
-  Disc.new(name, weight.to_i, weight.to_i, children)
-end
-
-data.each { |disc| move_children(disc, data) } until data.count == 1
-
-p data.first.name # part one
-
-# part two --- does not work
-calculate_weights(data.first)
-remove_weights(data.first)
-
-p data.first
+puts own_weights[at] - (total[at] - prev_weight)

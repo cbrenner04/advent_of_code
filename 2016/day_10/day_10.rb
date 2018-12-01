@@ -49,10 +49,10 @@ end
 # rubocop:enable BlockNesting
 
 # Part 1
-bots.each { |b| p b[0] if b[1].sort == %w(17 61) }
+bots.each { |b| p b[0] if b[1].sort == %w[17 61] }
 
 # Part 2
-p outputs.map { |o| o[1] if %w(0 1 2).include?(o[0]) }
+p outputs.map { |o| o[1] if %w[0 1 2].include?(o[0]) }
          .compact
          .flatten
          .inject(1) { |acc, elem| acc * elem.to_i }

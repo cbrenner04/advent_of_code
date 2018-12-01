@@ -13,19 +13,19 @@ data.each do |string|
   # split the string into chars
   array = string.split("")
   # append the digits to the digits variable
-  array.each { |char| digits << char if char =~ /[[:digit:]]/ }
+  array.each { |char| digits << char if char.match?(/[[:digit:]]/) }
   # initialize new array for putting the counts
   new_array = []
   # for each character
   array.each do |char|
     # stop iterating over the string when it hits the numbers
-    break unless char =~ /[[:alpha:]]/ || char =~ /-/
+    break unless char.match?(/[[:alpha:]]/) || char.match?("-")
     # if current character is '-' turn it into a space
-    new_array.push(" ") if char =~ /-/
+    new_array.push(" ") if char.match?("-")
     # go to next character if current character is '-'
-    next if char =~ /-/
+    next if char.match?("-")
     # if char is an alphabetic character
-    if char =~ /[[:alpha:]]/
+    if char.match?(/[[:alpha:]]/)
       # change digits to integer
       offset = digits.join("").to_i
       # if offset is greater than 26 (number of characters in alphabet)

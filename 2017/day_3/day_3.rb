@@ -9,7 +9,19 @@
 # 325756 - 325489 = 267 (moves from my number to center of bottom line)
 # 285 + 267 = 552 (total moves from my number to center of spiral)
 
+# an attempt to put above into code (may not work)
+input = 325_489
+floored = Math.sqrt(input).floor
+new_num = floored.even? ? floored + 1 : floored
+sqred = new_num * new_num
+steps_to_center = (new_num - 1) / 2
+line_center = sqred - steps_to_center
+diff = (input - line_center).abs
+p steps_to_center + diff
+
 # Part 2:
 # Found answer on https://oeis.org/A141481
 
 # From: https://www.reddit.com/r/adventofcode/comments/7h7ufl/comment/dqovogc?st=JASGSODE&amp;sh=101239ee
+
+# can use: https://oeis.org/A141481/b141481.txt as a look-up
