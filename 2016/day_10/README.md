@@ -10,7 +10,7 @@ in a marked "output" bin. Sometimes, bots take microchips from "input" bins, too
 Inspecting one of the microchips, it seems like they each contain a single
 number; the bots must use some logic to decide what to do with each chip. You
 access the local control computer and download the bots' instructions (your
-  puzzle input).
+puzzle input).
 
 Some of the instructions specify that a specific-valued microchip should be
 given to a specific bot; the rest of the instructions indicate what a given bot
@@ -46,5 +46,5 @@ for comparing value-61 microchips with value-17 microchips?
 
 ## Part Two
 
-What do you get if you multiply together the values of one chip in each of
+What do you get if you **multiply together the values** of one chip in each of
 outputs 0, 1, and 2?

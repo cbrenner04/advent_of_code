@@ -3,10 +3,10 @@
 # this is failing both parts right now
 
 def give_values(bot, value, bots)
-  if bots[bot] && bots[bot].length < 2
-    bots[bot].push(value)
-  elsif !bots[bot]
-    bots[bot] = [value]
+  if bots[bot]
+    bots[bot].push(value.to_i)
+  else
+    bots[bot] = [value.to_i]
   end
 end
 
@@ -14,7 +14,8 @@ def increment(instructions_index, data)
   instructions_index < data.length - 1 ? instructions_index + 1 : 0
 end
 
-data = File.open("day_10_data.txt", "r") { |f| f.each_line.map(&:chomp) }
+data_file = File.join(File.dirname(__FILE__), "day_10_data.txt")
+data = File.open(data_file).each_line.map(&:chomp)
 
 done_instructions = []
 instructions_index = 0
@@ -49,10 +50,10 @@ end
 # rubocop:enable BlockNesting
 
 # Part 1
-bots.each { |b| p b[0] if b[1].sort == %w[17 61] }
+bots.each { |b| p b[0] if b[1].sort == [17, 61] }
 
 # Part 2
 p outputs.map { |o| o[1] if %w[0 1 2].include?(o[0]) }
          .compact
          .flatten
-         .inject(1) { |acc, elem| acc * elem.to_i }
+         .inject(1) { |acc, elem| acc * elem }
