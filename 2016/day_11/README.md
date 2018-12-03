@@ -5,19 +5,21 @@ the rest of the building except for a small dedicated lobby. There are some
 radiation warnings and a big sign which reads "Radioisotope Testing Facility".
 
 According to the project status board, this facility is currently being used to
-experiment with Radioisotope Thermoelectric Generators (RTGs, or simply
-"generators") that are designed to be paired with specially-constructed
-microchips. Basically, an RTG is a highly radioactive rock that generates
-electricity through heat.
+experiment with
+[Radioisotope Thermoelectric Generators](https://en.wikipedia.org/wiki/Radioisotope_thermoelectric_generator)
+(RTGs, or simply "generators") that are designed to be paired with
+specially-constructed microchips. Basically, an RTG is a highly radioactive
+rock that generates electricity through heat.
 
 The experimental RTGs have poor radiation containment, so they're dangerously
 radioactive. The chips are prototypes and don't have normal radiation shielding,
-but they do have the ability to generate an electromagnetic radiation shield
-when powered. Unfortunately, they can only be powered by their corresponding
-RTG. An RTG powering a microchip is still dangerous to other microchips.
+but they do have the ability to
+**generate an electromagnetic radiation shield when powered**. Unfortunately,
+they can **only** be powered by their corresponding RTG. An RTG powering a microchip
+is still dangerous to other microchips.
 
 In other words, if a chip is ever left in the same area as another RTG, and it's
-not connected to its own RTG, the chip will be fried. Therefore, it is assumed
+not connected to its own RTG, the chip will be **fried**. Therefore, it is assumed
 that you will follow procedure and keep chips connected to their corresponding
 RTG when they're in the same room, and away from other RTGs otherwise.
 
@@ -47,7 +49,7 @@ first floor.
 
 For example, suppose the isolated area has the following arrangement:
 
-```
+```text
 The first floor contains a hydrogen-compatible microchip and a
 lithium-compatible microchip.
 The second floor contains a hydrogen generator.
@@ -59,7 +61,7 @@ As a diagram (F# for a Floor number, E for Elevator, H for Hydrogen, L for
 Lithium, M for Microchip, and G for Generator), the initial state looks like
 this:
 
-```
+```text
 F4 .  .  .  .  .
 F3 .  .  .  LG .
 F2 .  HG .  .  .
@@ -72,7 +74,7 @@ following steps could be taken:
 Bring the Hydrogen-compatible Microchip to the second floor, which is safe
 because it can get power from the Hydrogen Generator:
 
-```
+```text
 F4 .  .  .  .  .
 F3 .  .  .  LG .
 F2 E  HG HM .  .
@@ -82,7 +84,7 @@ F1 .  .  .  .  LM
 Bring both Hydrogen-related items to the third floor, which is safe because the
 Hydrogen-compatible microchip is getting power from its generator:
 
-```
+```text
 F4 .  .  .  .  .
 F3 E  HG HM LG .
 F2 .  .  .  .  .
@@ -92,7 +94,7 @@ F1 .  .  .  .  LM
 Leave the Hydrogen Generator on floor three, but bring the Hydrogen-compatible
 Microchip back down with you so you can still use the elevator:
 
-```
+```text
 F4 .  .  .  .  .
 F3 .  HG .  LG .
 F2 E  .  HM .  .
@@ -102,7 +104,7 @@ F1 .  .  .  .  LM
 At the first floor, grab the Lithium-compatible Microchip, which is safe because
 Microchips don't affect each other:
 
-```
+```text
 F4 .  .  .  .  .
 F3 .  HG .  LG .
 F2 .  .  .  .  .
@@ -111,7 +113,7 @@ F1 E  .  HM .  LM
 
 Bring both Microchips up one floor, where there is nothing to fry them:
 
-```
+```text
 F4 .  .  .  .  .
 F3 .  HG .  LG .
 F2 E  .  HM .  LM
@@ -122,7 +124,7 @@ Bring both Microchips up again to floor three, where they can be temporarily
 connected to their corresponding generators while the elevator recharges,
 preventing either of them from being fried:
 
-```
+```text
 F4 .  .  .  .  .
 F3 E  HG HM LG LM
 F2 .  .  .  .  .
@@ -131,7 +133,7 @@ F1 .  .  .  .  .
 
 Bring both Microchips to the fourth floor:
 
-```
+```text
 F4 E  .  HM .  LM
 F3 .  HG .  LG .
 F2 .  .  .  .  .
@@ -143,7 +145,7 @@ Hydrogen-compatible one so you can still use the elevator; this is safe because
 although the Lithium Generator is on the destination floor, you can connect
 Hydrogen-compatible microchip to the Hydrogen Generator there:
 
-```
+```text
 F4 .  .  .  .  LM
 F3 E  HG HM LG .
 F2 .  .  .  .  .
@@ -153,7 +155,7 @@ F1 .  .  .  .  .
 Bring both Generators up to the fourth floor, which is safe because you can
 connect the Lithium-compatible Microchip to the Lithium Generator upon arrival:
 
-```
+```text
 F4 E  HG .  LG LM
 F3 .  .  HM .  .
 F2 .  .  .  .  .
@@ -163,7 +165,7 @@ F1 .  .  .  .  .
 Bring the Lithium Microchip with you to the third floor so you can use the
 elevator:
 
-```
+```text
 F4 .  HG .  LG .
 F3 E  .  HM .  LM
 F2 .  .  .  .  .
@@ -172,16 +174,16 @@ F1 .  .  .  .  .
 
 Bring both Microchips to the fourth floor:
 
-```
+```text
 F4 E  HG HM LG LM
 F3 .  .  .  .  .
 F2 .  .  .  .  .
 F1 .  .  .  .  .
 ```
 
-In this arrangement, it takes 11 steps to collect all of the objects at the
+In this arrangement, it takes `11` steps to collect all of the objects at the
 fourth floor for assembly. (Each elevator stop counts as one step, even if
 nothing is added to or removed from it.)
 
-In your situation, what is the minimum number of steps required to bring all of
-the objects to the fourth floor?
+In your situation, what is the **minimum number of steps** required to bring
+all of the objects to the fourth floor?
