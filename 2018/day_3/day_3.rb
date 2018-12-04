@@ -27,7 +27,11 @@ range_info = data.map do |datum|
   greatest_x = x_ending_point if x_ending_point > greatest_x
   greatest_y = y_ending_point if y_ending_point > greatest_y
 
-  [[x_starting_point, x_ending_point], [y_starting_point, y_ending_point], arry[0]]
+  [
+    [x_starting_point, x_ending_point],
+    [y_starting_point, y_ending_point],
+    arry[0]
+  ]
 end
 
 matrix = Array.new(greatest_x + 1) { Array.new(greatest_y + 1, 0) }
@@ -41,7 +45,7 @@ range_info.each do |info|
 
   (x_range.first..x_range.last).each do |x_coor|
     (y_range.first..y_range.last).each do |y_coor|
-      overlap_occurred = true if matrix[x_coor - 1][y_coor - 1] > 0
+      overlap_occurred = true if matrix[x_coor - 1][y_coor - 1].positive?
       matrix[x_coor - 1][y_coor - 1] += 1
     end
   end

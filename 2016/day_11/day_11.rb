@@ -27,7 +27,7 @@ end
 class Generator < Element
   def initialize(floor, name)
     super
-    @type = 'generator'
+    @type = "generator"
   end
 end
 
@@ -36,18 +36,19 @@ end
 class Microchip < Element
   def initialize(floor, name)
     super
-    @type = 'microchip'
+    @type = "microchip"
   end
 end
 
-# Example input -- this only gets through the first 2 steps of 11
+# Example input
 lookup = [
   Generator.new(3, "lithium"),
   Generator.new(2, "hydrogen"),
   Microchip.new(1, "lithium"),
-  Microchip.new(1, "hydrogen"),
+  Microchip.new(1, "hydrogen")
 ]
 
+# this only gets through the first 2 steps of 11
 current_floor = 1
 next_floor_gens = []
 good_chips = []
