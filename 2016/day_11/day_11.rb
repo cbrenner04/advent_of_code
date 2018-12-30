@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# NOT CURRENTLY WORKING
+
 # Example:
 
 # F4 .  .  .  .  .
@@ -53,6 +55,7 @@ current_floor = 1
 next_floor_gens = []
 good_chips = []
 
+# rubocop:disable BlockLength
 2.times do
   current_floor_chips = lookup.select do |item|
     item.is_a?(Microchip) && item.floor == current_floor
@@ -89,6 +92,7 @@ good_chips = []
   end
   current_floor = next_floor
 end
+# rubocop:enable BlockLength
 
 p lookup
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# this is failing both parts right now
-
 def give_values(bot, value, bots)
   if bots[bot]
     bots[bot].push(value.to_i)

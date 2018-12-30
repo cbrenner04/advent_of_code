@@ -1,22 +1,19 @@
 # frozen_string_literal: true
 
 # this could use some optimization
+# rubocop:disable AbcSize, MethodLength
 def compare_and_remove_chars(string)
   index_array = []
   char_array = string.split("")
   index = 0
   until index >= string.length
-    check_index = 0
     char = char_array[index]
     next_char = char_array[index + 1]
     # can't just make case equal and compare chars like this
     # next_char_match = next_char.upcase == char.downcase
     # match is if the cases are opposite so `aA` is a match
-    next_char_match = if char.match /[[:lower:]]/
-                        next_char == char.upcase
-                      else
-                        next_char == char.downcase
-                      end
+    next_char_match =
+      next_char == (char.match?(/[[:lower:]]/) ? char.upcase : char.downcase)
     if next_char_match
       index_array << index
       index_array << index + 1
@@ -33,6 +30,7 @@ def compare_and_remove_chars(string)
     compare_and_remove_chars(new_string)
   end
 end
+# rubocop:enable AbcSize, MethodLength
 
 data_file = File.join(File.dirname(__FILE__), "day_5_data.txt")
 data = File.read(data_file).chomp
@@ -43,7 +41,7 @@ puts "Part one: #{updated_string.length}"
 
 lengths = []
 
-[*?a..?z].each do |char|
+[*"a".."z"].each do |char|
   new_string = data.dup
   new_string.delete!(char)
   new_string.delete!(char.upcase)
