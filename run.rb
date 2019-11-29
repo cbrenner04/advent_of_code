@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "optparse"
-
 require_relative "./parser.rb"
 
 year, day = parse_cli

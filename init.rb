@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "optparse"
 require "net/http"
 
 require_relative "./parser.rb"
