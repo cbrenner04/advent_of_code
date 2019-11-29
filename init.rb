@@ -1,31 +1,47 @@
 # frozen_string_literal: true
 
 require "optparse"
+require "net/http"
 
-year = nil
-day = nil
+require_relative "./parser.rb"
 
-OptionParser.new do |parser|
-  parser.banner = "Usage: init.rb [options]"
+year, day = parse_cli
 
-  parser.on("-h", "--help", "Show this help message") do
-    puts parser
-  end
-
-  parser.on("-y", "--year YEAR", "The year of the puzzle.") do |y|
-    raise "Must have year" unless y
-    year = y
-  end
-
-  parser.on("-d", "--day DAY", "The day of the puzzle.") do |d|
-    raise "Must have day" unless d
-    day = d
-  end
-end.parse!
-
-raise "Must have YEAR and DAY; use -h for help" unless day && year
-
-dir = "#{year}/day_#{day}"
+dir = "#{year}/#{day}"
 
 system "mkdir #{dir}"
-system "touch #{dir}/README.md #{dir}/day_#{day}.rb #{dir}/day_#{day}_data.txt"
+system "touch #{dir}/solution.rb"
+
+def get(uri)
+  session_cookie = "53616c7465645f5f0253fd517d23069d8025874c3d7ab3dba787a776" \
+                   "49c091a89cd7782af315f72379761b440bb13435"
+  req = Net::HTTP::Get.new(uri)
+  req["Cookie"] = "session=#{session_cookie}"
+
+  Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+    http.request(req)
+  end
+end
+
+input_file = File.new(
+  File.join(File.dirname(__FILE__), "#{dir}/input.txt"),
+  "w"
+)
+
+input_response = get URI("https://adventofcode.com/#{year}/day/#{day}/input")
+
+input_file.write(input_response.body) if input_response.is_a?(Net::HTTPSuccess)
+
+readme_file = File.new(
+  File.join(File.dirname(__FILE__), "#{dir}/README.md"),
+  "w"
+)
+
+readme_response = get URI("https://adventofcode.com/#{year}/day/#{day}")
+
+if readme_response.is_a?(Net::HTTPSuccess)
+  readme_file.write(readme_response.body
+    .gsub(/<\/?[^>]*>/, "")
+    .gsub(/^(\s*.*\s*.*)\[Stats\]\s*/, "")
+    .gsub(/To begin(.*\s.*)*/, ""))
+end
