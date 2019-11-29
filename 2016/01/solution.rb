@@ -101,6 +101,7 @@ array.each_with_index do |_value, index|
     repeat = true if values.include? coordinates
     # break if repeat has happened
     break if repeat == true
+
     # send coordinates to values array for checking against next step
     values.push coordinates
   end

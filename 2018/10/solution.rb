@@ -87,6 +87,7 @@ end
       sign = "."
       points.each do |pt|
         next unless pt[:position][:x] == x && pt[:position][:y] == y
+
         sign = "#"
       end
       row << sign

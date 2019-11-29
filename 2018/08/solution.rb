@@ -7,6 +7,7 @@ data = INPUT.split(" ").map(&:to_i)
 
 def metadata_total(data, totals = [])
   return if data.empty?
+
   number_of_children = data.shift
   number_of_metadata = data.shift
   number_of_children.times { metadata_total(data, totals) }

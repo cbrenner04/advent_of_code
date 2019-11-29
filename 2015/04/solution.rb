@@ -8,6 +8,7 @@ def solve(leading_zeroes)
 
   loop do
     break if Digest::MD5.hexdigest(secret + i.to_s).start_with?(leading_zeroes)
+
     i += 1
   end
 

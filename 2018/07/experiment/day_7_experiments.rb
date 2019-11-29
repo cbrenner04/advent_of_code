@@ -52,6 +52,7 @@ end
 
 def visit(current_node, nodes, list)
   return if %w[permanent temporary].include?(current_node.marked)
+
   current_node.marked = "temporary"
   nodes.each { |node| visit(node, nodes, list) if node.from == current_node.to }
   current_node.marked = "permanent"

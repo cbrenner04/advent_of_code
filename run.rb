@@ -6,6 +6,8 @@ year, day = parse_cli
 
 dir = "./#{year}/#{day}"
 
-INPUT = File.read("#{dir}/input.txt").chomp
+input_file = "#{dir}/input.txt"
+
+INPUT = File.read(input_file).chomp if File.exist?(input_file)
 
 require_relative "#{dir}/solution.rb"

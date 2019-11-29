@@ -49,8 +49,10 @@ best_power = 0
       sub_grid_power = 0
       (x..x + n).each do |xx|
         next if xx > 300
+
         (y..y + n).each do |yy|
           next if yy > 300
+
           sub_grid_power += get_power(xx, yy)
         end
       end

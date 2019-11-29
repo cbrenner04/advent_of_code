@@ -13,7 +13,8 @@ parsed = JSON.parse(json)
 
 def sum_without_red(obj)
   if obj.is_a? Hash
-    return if obj.values.include?("red")
+    return if obj.value?("red")
+
     obj.values.each { |value| sum_without_red(value) }
   elsif obj.is_a? Array
     obj.each { |value| sum_without_red(value) }

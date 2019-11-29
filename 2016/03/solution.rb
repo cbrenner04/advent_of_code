@@ -44,6 +44,7 @@ third_set = [data[2]]
 data.each_with_index.map do |value, index|
   # unless those values are any of the first three
   next unless index > 2
+
   # if the value is in the first column (meaning the index is divisible by 3)
   if (index % 3).zero?
     # send it to the first set

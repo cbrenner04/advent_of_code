@@ -22,7 +22,7 @@ def compare_and_remove_chars(string)
       index += 1
     end
   end
-  index_array.reverse.each { |i| char_array.delete_at(i) }
+  index_array.reverse_each { |i| char_array.delete_at(i) }
   new_string = char_array.join
   if new_string.length == string.length
     new_string

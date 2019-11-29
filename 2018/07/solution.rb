@@ -46,6 +46,7 @@ until part_one.length <= 1
   alpha.each do |char|
     # find the first letter (in alphabetical order) where it has no dependencies
     next unless part_one.each { |_k, v| break if v.any?(char) }
+
     # add that letter to the list
     instruction_list << char
     # remove dependents since its "finished"

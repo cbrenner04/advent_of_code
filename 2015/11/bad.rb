@@ -22,6 +22,7 @@ def chunk_is_straight?(chunk)
   third_index = alpha.find_index(chunk[2])
   return false unless first_index + 1 == second_index
   return false unless second_index + 1 == third_index
+
   true
 end
 
@@ -40,6 +41,7 @@ def contains_forbidden_chars?(password)
   return true if password.index("i")
   return true if password.index("o")
   return true if password.index("l")
+
   false
 end
 
@@ -56,7 +58,8 @@ def good_password?(password)
   return false unless contains_straight?(password)
   return false if contains_forbidden_chars?(password)
   return false unless contains_two_pairs?(password)
-  p 'good password'
+
+  p "good password"
   true
 end
 
@@ -72,6 +75,7 @@ def increment_password(password)
     new_char = increment_char(pwd_array[current_index])
     pwd_array[current_index] = new_char
     break if new_char != "a"
+
     current_index -= 1
   end
   pwd_array.join("")

@@ -15,8 +15,10 @@ end
 data.each_with_index do |d, i|
   asleep = d.scan("falls asleep")&.first
   next unless asleep
+
   awake = data[i + 1].scan("wakes up")&.first
   next unless awake
+
   guard_id = nil
   x = i
   x -= 1 until data[x].scan(/#(\d+)/)&.first&.first || x.zero?

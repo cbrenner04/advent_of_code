@@ -24,6 +24,7 @@ data.each_with_index do |datum, datum_index|
   matrix.each_with_index do |row, row_index|
     row.each_with_index do |column, column_index|
       next unless column.is_a? Array
+
       distance = manhattan(datum, [column_index, row_index])
       if column[0].nil? || distance < column[1]
         matrix[row_index][column_index] = [datum_index, distance]
@@ -53,6 +54,7 @@ matrix.each do |row|
     next unless column.is_a? Array
     next if infinite_indeces.include? column.first
     next if column.first == "x"
+
     not_infinite_indeces << column.first
   end
 end
@@ -83,6 +85,7 @@ matrix.each_with_index do |row, row_index|
             (column.nil? && column_index.zero?) ||
             (column.nil? &&
               (row[column_index - 1].nil? || row[column_index + 1].nil?))
+
     matrix[row_index][column_index] = true
   end
 end

@@ -7,9 +7,11 @@ data.each do |datum|
   next if datum.include?("ab") || datum.include?("cd") ||
           datum.include?("pq") || datum.include?("xy")
   next unless datum.scan(/[aeoui]/).count >= 3
+
   repeated = false
   datum.each_char.with_index { |c, i| repeated = true if c == datum[i + 1] }
   next unless repeated == true
+
   part_1_count += 1
 end
 
@@ -27,6 +29,7 @@ data.each do |datum|
   repeated = false
   datum.each_char.with_index { |c, i| repeated = true if c == datum[i + 2] }
   next unless repeated == true
+
   part_2_count += 1
 end
 

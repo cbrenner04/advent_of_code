@@ -40,6 +40,7 @@ data.each_with_index do |str, index|
   # UPDATE FROM 2017: added `-1` here, got the right answer, dunno if its a good
   # solution
   next if indeces.include? index - 1
+
   count_of_hypernet_sequences = str.split("]").length
   strings = str.split("]")
   array_of_strings = (0..count_of_hypernet_sequences - 2).map do |i|
@@ -104,12 +105,14 @@ def return_count(array, length, new_sub_strings)
       new_string = array[j]
       new_sub_strings.each do |bab|
         next unless new_string.include? bab
+
         count += 1
         counted = true
         break
       end
     end
     break if counted == true
+
     j += 1
   end
   count
@@ -124,6 +127,7 @@ data.each do |string|
   sub_strings = return_sub_strings(array, length)
 
   next if sub_strings.empty?
+
   new_sub_strings = sub_strings.map { |sub| sub[1] + sub[0] + sub[1] }
 
   count += return_count(array, length, new_sub_strings)

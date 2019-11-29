@@ -1,7 +1,8 @@
 # frozen_string_literal: false
 
 def all_possible_straights
-  @all_possible_straights ||= /abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz/
+  @all_possible_straights ||= /abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|
+                               mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz/
 end
 
 def good_password?(password)
@@ -13,6 +14,7 @@ def good_password?(password)
   # =~ returns the index where the match starts
   # if there aren't two matches then it returns nil
   return false if (password =~ /(.)\1.*(.)\2/).nil?
+
   true
 end
 

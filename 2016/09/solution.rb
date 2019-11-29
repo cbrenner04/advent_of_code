@@ -8,6 +8,7 @@ string = INPUT
 loop do
   first_marker = string[/(\(\w{3,9}\))/, 1]
   break if first_marker.nil? # added in 2017 b/c different data
+
   index_of_end_of_first_marker = string.index("(") + first_marker.length
   x = first_marker.tr("(", "")[/(.*x)/].tr("x", "").to_i
   y = first_marker[/(x.*)/].tr("x", "").tr(")", "").to_i - 1
@@ -16,6 +17,7 @@ loop do
 
   next_starting_point = index_of_end_of_first_marker + x
   break if next_starting_point >= string.length
+
   string = string[next_starting_point..-1]
 end
 

@@ -15,12 +15,14 @@ data.each do |string|
   array.each do |char|
     # stop iterating over the string when it hits the numbers
     break unless char =~ /[[:alpha:]]/ || char =~ /-/
+
     # initialize count variable
     count = 0
     # for each character in the array
     array.each_with_index do |_value, index|
       # do nothing if the character is '-'
       next if char =~ /-/
+
       # increment count when the characters match
       count += 1 if char == array[index]
     end
@@ -44,6 +46,7 @@ data.each do |string|
 
   # do nothing unless the first five values are equal to the checksum
   next unless checksum == newest_array[0..4]
+
   # append the digits to the digits variable
   digits = array.map { |char| char if char =~ /[[:digit:]]/ }
 
@@ -70,10 +73,12 @@ data.each do |string|
   array.each do |char|
     # stop iterating over the string when it hits the numbers
     break unless char.match?(/[[:alpha:]]/) || char.match?("-")
+
     # if current character is '-' turn it into a space
     new_array.push(" ") if char.match?("-")
     # go to next character if current character is '-'
     next if char.match?("-")
+
     # if char is an alphabetic character
     if char.match?(/[[:alpha:]]/)
       # change digits to integer
@@ -93,6 +98,7 @@ data.each do |string|
   end
   # stop if northpole is found
   break if new_array.join("").include? "northpole"
+
   # reset digits
   digits = []
 end

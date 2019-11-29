@@ -66,6 +66,7 @@ bathroom_code = data.map do |array|
   current_position = STARTING_POSITION_1
   array.each do |move|
     next if illegal_move?(current_position, move)
+
     current_position = make_move(current_position, move)
   end
   current_position

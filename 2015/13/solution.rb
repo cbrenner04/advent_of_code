@@ -29,6 +29,7 @@ people["Chris"] = {}
 
 people.keys.each do |person|
   next if person == "Chris"
+
   people[person]["Chris"] = 0
   people["Chris"][person] = 0
 end

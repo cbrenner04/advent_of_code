@@ -7,6 +7,7 @@ def solve(data, part_two)
   data.each_char do |d|
     count += d == "(" ? 1 : -1
     break if count.negative? && part_two
+
     position += 1
   end
 
