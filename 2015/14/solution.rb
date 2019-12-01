@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Reindeer = Struct.new(:name, :speed, :length, :rest, :points) do
+  # rubocop:disable Metrics/MethodLength
   def distance_traveled(time)
     distance = 0
     while time.positive?
@@ -15,6 +16,7 @@ Reindeer = Struct.new(:name, :speed, :length, :rest, :points) do
     end
     distance
   end
+  # rubocop:enable Metrics/MethodLength
 end
 
 TOTAL_TIME = 2503

@@ -33,8 +33,10 @@ def solve(ingredients, part_two = false)
         flavor = calculate_total(ingredients, "flavor", i, j, k, l)
         texture = calculate_total(ingredients, "texture", i, j, k, l)
         calories = calculate_total(ingredients, "calories", i, j, k, l)
+
         next if part_two && calories != 500
         next if capacity <= 0 || durability <= 0 || flavor <= 0 || texture <= 0
+
         score = capacity * durability * flavor * texture
         max = score if score > max
       end

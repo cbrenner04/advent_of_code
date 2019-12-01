@@ -27,7 +27,9 @@ input_file = File.new(
   "w"
 )
 
-input_response = get URI("https://adventofcode.com/#{year}/day/#{day}/input")
+input_response = get(
+  URI("https://adventofcode.com/#{year}/day/#{day.to_i}/input")
+)
 
 input_file.write(input_response.body) if input_response.is_a?(Net::HTTPSuccess)
 
@@ -36,7 +38,7 @@ readme_file = File.new(
   "w"
 )
 
-readme_response = get URI("https://adventofcode.com/#{year}/day/#{day}")
+readme_response = get URI("https://adventofcode.com/#{year}/day/#{day.to_i}")
 
 if readme_response.is_a?(Net::HTTPSuccess)
   readme_file.write(readme_response.body
