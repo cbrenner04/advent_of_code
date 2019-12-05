@@ -2,31 +2,29 @@
 
 # this is a pretty lame solution
 
-def good_pass(pass, part_two = false)
+def good_pass(pass)
   local_pass = pass.to_s
   good_length = local_pass.length == 6
   return false unless good_length
-  has_double = local_pass.each_char.map.with_index do |char, i|
-    next if i == local_pass.length - 1
-    if part_two && local_pass[i + 1].to_i == char.to_i &&
-       (local_pass[i - 1].to_i == char.to_i ||
-        local_pass[i + 2].to_i == char.to_i)
-      false
-    else
-      local_pass[i + 1].to_i == char.to_i
-    end
-  end.compact.any?(true)
+  has_double = local_pass.scan(/(.)\1/).any?
   return false unless has_double
-  has_descrease = local_pass.each_char.map.with_index do |char, i|
-    next if i == local_pass.length - 1
-    local_pass[i + 1].to_i >= char.to_i
-  end.compact.any?(false)
-  return false if has_descrease
+  array = local_pass.split("")
+  decreases = array.sort != array
+  return false if decreases
   true
+end
+
+def part_two(pass)
+  local_pass = pass.to_s
+  triples = local_pass.scan(/(.)\1\1/).flatten.uniq
+  doubles = local_pass.scan(/(.)\1/).flatten.uniq
+  (triples.empty? && doubles.any?) ||
+    (triples.any? && (doubles - triples).any? && (triples - doubles).empty?)
 end
 
 bounds = INPUT.split("-").map(&:to_i)
 range = (bounds.first..bounds.last)
 
-puts range.select { |pass| pass if good_pass(pass) }.length
-puts range.select { |pass| pass if good_pass(pass, true) }.length
+passes_with_doubles = range.select { |pass| pass if good_pass(pass) }
+puts passes_with_doubles.length
+puts passes_with_doubles.select { |pass| pass if part_two(pass) }.length
