@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require_relative("../util.rb")
+require_relative("../intcode.rb")
 
 data = INPUT.split(",").map(&:to_i)
 program = data.dup
 program[1] = 12
 program[2] = 2
-part_one = run(program)
+intcode_comp = Intcode.new(program)
+part_one = intcode_comp.run
 
 puts part_one
 
@@ -21,7 +22,8 @@ catch :whatever do
       verb = j
       program[1] = noun
       program[2] = verb
-      result = run(program)
+      intcode_comp = Intcode.new(program)
+      result = intcode_comp.run
       throw :whatever if result == 19_690_720
     end
   end
