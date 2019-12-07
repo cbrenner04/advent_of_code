@@ -2,9 +2,11 @@
 
 # intcode computer for days 2 and 5
 class Intcode
-  def initialize(instructions)
+  def initialize(instructions, inputs = [])
     @instructions = instructions
     @instruction_pointer = 0
+    @inputs = inputs
+    @output = 0
   end
 
   def instruction
@@ -38,6 +40,8 @@ class Intcode
     modes = param_modes
     first_int = modes.first.zero? ? @instructions[first_param] : first_param
     second_int = modes[1].zero? ? @instructions[second_param] : second_param
+    # first_int ||= 0
+    # second_int ||= 0
     @instructions[third_param] = first_int + second_int
     @instruction_pointer += 4
   end
@@ -46,20 +50,20 @@ class Intcode
     modes = param_modes
     first_int = modes.first.zero? ? @instructions[first_param] : first_param
     second_int = modes[1].zero? ? @instructions[second_param] : second_param
+    # first_int ||= 0
+    # second_int ||= 0
     @instructions[third_param] = first_int * second_int
     @instruction_pointer += 4
   end
 
   def input_and_store
-    puts "ENTER INPUT:"
-    input = gets.chomp
-    @instructions[first_param] = input.to_i
+    @instructions[first_param] = @inputs.shift
     @instruction_pointer += 2
   end
 
   def output_param
     modes = param_modes
-    puts modes.last.zero? ? @instructions[first_param] : first_param
+    @output = modes.last.zero? ? @instructions[first_param] : first_param
     @instruction_pointer += 2
   end
 
@@ -123,6 +127,6 @@ class Intcode
         raise "bad instruction"
       end
     end
-    @instructions.first
+    @output.zero? ? @instructions.first : @output
   end
 end
