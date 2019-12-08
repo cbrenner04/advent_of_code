@@ -45,5 +45,6 @@ if readme_response.is_a?(Net::HTTPSuccess)
              .gsub(%r{<\/?[^>]*>}, "")
              .gsub(/^(\s*.*\s*.*)\[Stats\]\s*/, "")
              .gsub(/To begin(.*\s.*)*/, "")
-             .gsub(/Our sponsors.*\s+/, ""))
+             .gsub(/Our sponsors.*\s+/, "")
+             .gsub(/window.*\s---/, "#"))
 end
