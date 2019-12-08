@@ -22,4 +22,4 @@ layers.to_a.reverse.each do |layer|
   end
 end
 
-matrix.each { |m| puts m.map { |x| x == "0" ? " " : x }.join(" ") }
+matrix.each { |m| puts m.map { |x| x == "0" ? " " : x }.join("") }

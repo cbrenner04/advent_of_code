@@ -7,7 +7,7 @@ program = data.dup
 program[1] = 12
 program[2] = 2
 intcode_comp = Intcode.new(program)
-part_one = intcode_comp.run
+part_one, = intcode_comp.run
 
 puts part_one
 
@@ -23,7 +23,7 @@ catch :whatever do
       program[1] = noun
       program[2] = verb
       intcode_comp = Intcode.new(program)
-      result = intcode_comp.run
+      result, = intcode_comp.run
       throw :whatever if result == 19_690_720
     end
   end

@@ -2,10 +2,10 @@
 
 # intcode computer for days 2 and 5
 class Intcode
-  def initialize(instructions, inputs = [])
+  def initialize(instructions, initial_input = nil)
     @instructions = instructions
     @instruction_pointer = 0
-    @inputs = inputs
+    @inputs = initial_input ? [initial_input] : []
     @output = 0
   end
 
@@ -40,8 +40,6 @@ class Intcode
     modes = param_modes
     first_int = modes.first.zero? ? @instructions[first_param] : first_param
     second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    # first_int ||= 0
-    # second_int ||= 0
     @instructions[third_param] = first_int + second_int
     @instruction_pointer += 4
   end
@@ -50,13 +48,12 @@ class Intcode
     modes = param_modes
     first_int = modes.first.zero? ? @instructions[first_param] : first_param
     second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    # first_int ||= 0
-    # second_int ||= 0
     @instructions[third_param] = first_int * second_int
     @instruction_pointer += 4
   end
 
   def input_and_store
+    throw :whatever if @inputs.empty?
     @instructions[first_param] = @inputs.shift
     @instruction_pointer += 2
   end
@@ -105,28 +102,35 @@ class Intcode
     @instruction_pointer += 4
   end
 
-  def run
-    until opcode == 99
-      if opcode == 1
-        add_and_store
-      elsif opcode == 2
-        multiply_and_store
-      elsif opcode == 3
-        input_and_store
-      elsif opcode == 4
-        output_param
-      elsif opcode == 5
-        jump_if_true
-      elsif opcode == 6
-        jump_if_false
-      elsif opcode == 7
-        less_than
-      elsif opcode == 8
-        equals
-      else
-        raise "bad instruction"
+  def run(new_input = nil)
+    @inputs << new_input if new_input
+    # catching so i can throw in input_and_store if inputs are empty
+    catch :whatever do
+      loop do
+        if opcode == 1
+          add_and_store
+        elsif opcode == 2
+          multiply_and_store
+        elsif opcode == 3
+          input_and_store
+        elsif opcode == 4
+          output_param
+        elsif opcode == 5
+          jump_if_true
+        elsif opcode == 6
+          jump_if_false
+        elsif opcode == 7
+          less_than
+        elsif opcode == 8
+          equals
+        elsif opcode == 99
+          throw :whatever
+        else
+          raise "bad instruction"
+        end
       end
     end
-    @output.zero? ? @instructions.first : @output
+    output = @output.zero? ? @instructions.first : @output
+    [output, opcode]
   end
 end
