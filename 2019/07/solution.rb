@@ -26,8 +26,7 @@ part_two_outputs = []
   input = 0
   index = 0
   loop do
-    output, last_opcode = int_comps[index].run(input)
-    input = output
+    input, last_opcode = int_comps[index].run(input)
     break if last_opcode == 99 && index == 4
     index == 4 ? index = 0 : index += 1
   end

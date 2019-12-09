@@ -2,11 +2,13 @@
 
 # intcode computer for days 2 and 5
 class Intcode
-  def initialize(instructions, initial_input = nil)
+  def initialize(instructions, initial_input = nil, display_outputs = false)
     @instructions = instructions
     @instruction_pointer = 0
     @inputs = initial_input ? [initial_input] : []
     @output = 0
+    @relative_base = 0
+    @display_outputs = display_outputs
   end
 
   def instruction
@@ -17,93 +19,103 @@ class Intcode
     instruction % 100
   end
 
-  def param_modes
-    first_param_mode = (instruction / 100) % 10
-    second_param_mode = (instruction / 1000) % 10
-    third_param_mode = (instruction / 10_000) % 10
-    [first_param_mode, second_param_mode, third_param_mode]
+  def allocate_more_mem(pointer)
+    return unless @instructions.count < pointer
+    (pointer + 1).times { @instructions.append(0) }
   end
 
-  def first_param
-    @instructions[@instruction_pointer + 1]
+  def first_param(modes_dont_matter = false)
+    first = @instructions[@instruction_pointer + 1]
+    return first if modes_dont_matter
+    first_mode = (instruction / 100) % 10
+    if first_mode.zero?
+      allocate_more_mem(first)
+      return @instructions[first]
+    end
+    return first if first_mode == 1
+    raise "bad param mode" unless first_mode == 2
+    pointer = relative_mode_param(first)
+    allocate_more_mem(pointer)
+    @instructions[pointer]
   end
 
   def second_param
-    @instructions[@instruction_pointer + 2]
+    second = @instructions[@instruction_pointer + 2]
+    second_mode = (instruction / 1000) % 10
+    if second_mode.zero?
+      allocate_more_mem(second)
+      return @instructions[second]
+    end
+    return second if second_mode == 1
+    raise "bad param mode" unless second_mode == 2
+    pointer = relative_mode_param(second)
+    allocate_more_mem(pointer)
+    @instructions[pointer]
   end
 
   def third_param
     @instructions[@instruction_pointer + 3]
   end
 
+  def relative_mode_param(param)
+    @relative_base + param
+  end
+
   def add_and_store
-    modes = param_modes
-    first_int = modes.first.zero? ? @instructions[first_param] : first_param
-    second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    @instructions[third_param] = first_int + second_int
+    @instructions[third_param] = first_param + second_param
     @instruction_pointer += 4
   end
 
   def multiply_and_store
-    modes = param_modes
-    first_int = modes.first.zero? ? @instructions[first_param] : first_param
-    second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    @instructions[third_param] = first_int * second_int
+    @instructions[third_param] = first_param * second_param
     @instruction_pointer += 4
   end
 
   def input_and_store
     throw :whatever if @inputs.empty?
-    @instructions[first_param] = @inputs.shift
+    @instructions[first_param(true)] = @inputs.shift
     @instruction_pointer += 2
   end
 
   def output_param
-    modes = param_modes
-    @output = modes.last.zero? ? @instructions[first_param] : first_param
+    @output = first_param
+    p @output if @display_outputs
     @instruction_pointer += 2
   end
 
   def jump_if_true
-    modes = param_modes
-    first_int = modes.first.zero? ? @instructions[first_param] : first_param
-    if first_int.zero?
+    if first_param.zero?
       @instruction_pointer += 3
       return
     end
-    second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    @instruction_pointer = second_int
+    @instruction_pointer = second_param
   end
 
   def jump_if_false
-    modes = param_modes
-    first_int = modes.first.zero? ? @instructions[first_param] : first_param
-    unless first_int.zero?
+    unless first_param.zero?
       @instruction_pointer += 3
       return
     end
-    second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    @instruction_pointer = second_int
+    @instruction_pointer = second_param
   end
 
   def less_than
-    modes = param_modes
-    first_int = modes.first.zero? ? @instructions[first_param] : first_param
-    second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    @instructions[third_param] = first_int < second_int ? 1 : 0
+    @instructions[third_param] = first_param < second_param ? 1 : 0
     @instruction_pointer += 4
   end
 
   def equals
-    modes = param_modes
-    first_int = modes.first.zero? ? @instructions[first_param] : first_param
-    second_int = modes[1].zero? ? @instructions[second_param] : second_param
-    @instructions[third_param] = first_int == second_int ? 1 : 0
+    @instructions[third_param] = first_param == second_param ? 1 : 0
     @instruction_pointer += 4
   end
 
+  def adjust_relative_base
+    @relative_base += first_param
+    @instruction_pointer += 2
+  end
+
   def run(new_input = nil)
-    @inputs << new_input if new_input
+    @inputs << new_input unless new_input.nil?
     # catching so i can throw in input_and_store if inputs are empty
     catch :whatever do
       loop do
@@ -123,6 +135,8 @@ class Intcode
           less_than
         elsif opcode == 8
           equals
+        elsif opcode == 9
+          adjust_relative_base
         elsif opcode == 99
           throw :whatever
         else
