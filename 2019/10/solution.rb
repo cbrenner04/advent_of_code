@@ -18,6 +18,11 @@ hit_angles = asteroids.map.with_index do |a, ai|
     # I was really struggling with getting the slopes right
     # My assumption is it had to do with float imprecision
     # found this https://stackoverflow.com/questions/42210889/calculate-angle-of-line-with-negative-slope
+    # which gives me `Math.atan2(y_diff, x_diff) / (Math::PI / 180)`
+    # surprisingly when plugged in it gave me the correct answer for part 1
+    # unsurprisingly it gave me the wrong answer for part 2
+    # needed to fiddle around to realize it was effectively giving me the negative of the angle I wanted
+    # once I got that sorted I got to the correct answer
     angle = Math.atan2(x_diff, y_diff) / Math::PI
     distance = Math.sqrt((x_diff * x_diff) + (y_diff * y_diff))
     hits << { coords: b, angle: angle, distance: distance }
