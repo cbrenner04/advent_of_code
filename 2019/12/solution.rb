@@ -1,52 +1,57 @@
 # frozen_string_literal: true
 
-def gravity(moons)
-  moons.combination(2).to_a.each do |moon_a, moon_b|
-    if moon_a[:position][:x] < moon_b[:position][:x]
-      moon_a[:velocity][:x] += 1
-      moon_b[:velocity][:x] -= 1
-    elsif moon_b[:position][:x] < moon_a[:position][:x]
-      moon_a[:velocity][:x] -= 1
-      moon_b[:velocity][:x] += 1
-    end
+class JupiterSystem
+  attr_reader :moons
 
-    if moon_a[:position][:y] < moon_b[:position][:y]
-      moon_a[:velocity][:y] += 1
-      moon_b[:velocity][:y] -= 1
-    elsif moon_b[:position][:y] < moon_a[:position][:y]
-      moon_a[:velocity][:y] -= 1
-      moon_b[:velocity][:y] += 1
-    end
+  def initialize(moons)
+    @moons = Marshal.load(Marshal.dump(moons))
+  end
 
-    if moon_a[:position][:z] < moon_b[:position][:z]
-      moon_a[:velocity][:z] += 1
-      moon_b[:velocity][:z] -= 1
-    elsif moon_b[:position][:z] < moon_a[:position][:z]
-      moon_a[:velocity][:z] -= 1
-      moon_b[:velocity][:z] += 1
+  def gravity
+    @moons.combination(2).to_a.each do |moon_a, moon_b|
+      if moon_a[:position][:x] < moon_b[:position][:x]
+        moon_a[:velocity][:x] += 1
+        moon_b[:velocity][:x] -= 1
+      elsif moon_b[:position][:x] < moon_a[:position][:x]
+        moon_a[:velocity][:x] -= 1
+        moon_b[:velocity][:x] += 1
+      end
+
+      if moon_a[:position][:y] < moon_b[:position][:y]
+        moon_a[:velocity][:y] += 1
+        moon_b[:velocity][:y] -= 1
+      elsif moon_b[:position][:y] < moon_a[:position][:y]
+        moon_a[:velocity][:y] -= 1
+        moon_b[:velocity][:y] += 1
+      end
+
+      if moon_a[:position][:z] < moon_b[:position][:z]
+        moon_a[:velocity][:z] += 1
+        moon_b[:velocity][:z] -= 1
+      elsif moon_b[:position][:z] < moon_a[:position][:z]
+        moon_a[:velocity][:z] -= 1
+        moon_b[:velocity][:z] += 1
+      end
     end
   end
-end
 
-def velocity(moons)
-  moons.each do |moon|
-    moon[:position][:x] += moon[:velocity][:x]
-    moon[:position][:y] += moon[:velocity][:y]
-    moon[:position][:z] += moon[:velocity][:z]
+  def velocity
+    @moons.each do |moon|
+      moon[:position][:x] += moon[:velocity][:x]
+      moon[:position][:y] += moon[:velocity][:y]
+      moon[:position][:z] += moon[:velocity][:z]
+    end
+  end
+
+  def energy
+    moon_total = @moons.map do |moon|
+      potential = moon[:position][:x].abs + moon[:position][:y].abs + moon[:position][:z].abs
+      kinetic = moon[:velocity][:x].abs + moon[:velocity][:y].abs + moon[:velocity][:z].abs
+      potential * kinetic
+    end
+    moon_total.reduce(:+)
   end
 end
-
-def energy(moons)
-  moon_total = moons.map do |moon|
-    potential = moon[:position][:x].abs + moon[:position][:y].abs + moon[:position][:z].abs
-    kinetic = moon[:velocity][:x].abs + moon[:velocity][:y].abs + moon[:velocity][:z].abs
-    potential * kinetic
-  end
-  moon_total.reduce(:+)
-end
-
-# INPUT = "<x=-1, y=0, z=2>\n<x=2, y=-10, z=-7>\n<x=4, y=-8, z=8>\n<x=3, y=5, z=-1>"
-# INPUT = "<x=-8, y=-10, z=0>\n<x=5, y=5, z=10>\n<x=2, y=-7, z=3>\n<x=9, y=-8, z=-3>"
 
 moons = INPUT.each_line.map do |line|
   x, y, z = line.chomp.scan(/-?\d+/)
@@ -56,27 +61,69 @@ moons = INPUT.each_line.map do |line|
   }
 end
 
+sys = JupiterSystem.new(moons)
+
 1000.times do
-  gravity(moons)
-  velocity(moons)
+  sys.gravity
+  sys.velocity
 end
 
-puts energy(moons)
+puts sys.energy
 
-=begin
-# this would take til the end of time to run
-
-count = 0
-previous_sets = []
-
+sys_1 = JupiterSystem.new(moons)
+x_count = 1
 loop do
-  gravity(moons)
-  velocity(moons)
-  break if previous_sets.include?(moons)
-  previous_sets << Marshal.load(Marshal.dump(moons))
-  count += 1
+  sys_1.gravity
+  sys_1.velocity
+  break if sys_1.moons[0][:position][:x] == moons[0][:position][:x] &&
+    sys_1.moons[0][:velocity][:x] == moons[0][:velocity][:x] &&
+    sys_1.moons[1][:position][:x] == moons[1][:position][:x] &&
+    sys_1.moons[1][:velocity][:x] == moons[1][:velocity][:x] &&
+    sys_1.moons[2][:position][:x] == moons[2][:position][:x] &&
+    sys_1.moons[2][:velocity][:x] == moons[2][:velocity][:x] &&
+    sys_1.moons[3][:position][:x] == moons[3][:position][:x] &&
+    sys_1.moons[3][:velocity][:x] == moons[3][:velocity][:x]
+  x_count += 1
 end
 
-puts count
-=end
+sys_2 = JupiterSystem.new(moons)
+y_count = 1
+loop do
+  sys_2.gravity
+  sys_2.velocity
+  break if sys_2.moons[0][:position][:y] == moons[0][:position][:y] &&
+    sys_2.moons[0][:velocity][:y] == moons[0][:velocity][:y] &&
+    sys_2.moons[1][:position][:y] == moons[1][:position][:y] &&
+    sys_2.moons[1][:velocity][:y] == moons[1][:velocity][:y] &&
+    sys_2.moons[2][:position][:y] == moons[2][:position][:y] &&
+    sys_2.moons[2][:velocity][:y] == moons[2][:velocity][:y] &&
+    sys_2.moons[3][:position][:y] == moons[3][:position][:y] &&
+    sys_2.moons[3][:velocity][:y] == moons[3][:velocity][:y]
+  y_count += 1
+end
+
+sys_3 = JupiterSystem.new(moons)
+z_count = 1
+loop do
+  sys_3.gravity
+  sys_3.velocity
+  break if sys_3.moons[0][:position][:z] == moons[0][:position][:z] &&
+    sys_3.moons[0][:velocity][:z] == moons[0][:velocity][:z] &&
+    sys_3.moons[1][:position][:z] == moons[1][:position][:z] &&
+    sys_3.moons[1][:velocity][:z] == moons[1][:velocity][:z] &&
+    sys_3.moons[2][:position][:z] == moons[2][:position][:z] &&
+    sys_3.moons[2][:velocity][:z] == moons[2][:velocity][:z] &&
+    sys_3.moons[3][:position][:z] == moons[3][:position][:z] &&
+    sys_3.moons[3][:velocity][:z] == moons[3][:velocity][:z]
+  z_count += 1
+end
+
+puts [x_count, y_count, z_count].reduce(1, :lcm)
+
+
+
+
+
+
+
 
