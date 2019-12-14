@@ -7,7 +7,6 @@ require_relative("../intcode.rb")
 # INPUT = "104,1125899906842624,99"
 program = INPUT.split(",").map(&:to_i)
 
-int_comp = Intcode.new(program.dup, 1, true)
-int_comp.run
-# output, = int_comp.run
-# puts output
+int_comp = Intcode.new(program.dup, 1)
+output, = int_comp.run
+puts output

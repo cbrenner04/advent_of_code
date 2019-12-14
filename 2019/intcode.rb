@@ -2,13 +2,12 @@
 
 # intcode computer for days 2 and 5
 class Intcode
-  def initialize(instructions, initial_input = nil, display_outputs = false)
+  def initialize(instructions, initial_input = nil)
     @instructions = instructions
     @instruction_pointer = 0
     @inputs = initial_input ? [initial_input] : []
-    @output = 0
+    @output = []
     @relative_base = 0
-    @display_outputs = display_outputs
   end
 
   def instruction
@@ -78,8 +77,7 @@ class Intcode
   end
 
   def output_param
-    @output = first_param
-    p @output if @display_outputs
+    @output << first_param
     @instruction_pointer += 2
   end
 
@@ -116,6 +114,7 @@ class Intcode
 
   def run(new_input = nil)
     @inputs << new_input unless new_input.nil?
+    @output = []
     # catching so i can throw in input_and_store if inputs are empty
     catch :whatever do
       loop do
@@ -144,7 +143,7 @@ class Intcode
         end
       end
     end
-    output = @output.zero? ? @instructions.first : @output
+    output = @output.empty? ? @instructions.first : @output
     [output, opcode]
   end
 end
