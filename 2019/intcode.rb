@@ -53,7 +53,13 @@ class Intcode
   end
 
   def third_param
-    @instructions[@instruction_pointer + 3]
+    third = @instructions[@instruction_pointer + 3]
+    third_mode = (instruction / 10_000) % 10
+    return third unless third_mode == 2
+    raise "bad param mode" unless third_mode == 2
+    pointer = relative_mode_param(third)
+    allocate_more_mem(pointer)
+    pointer
   end
 
   def relative_mode_param(param)
