@@ -2,12 +2,13 @@
 
 # intcode computer for days 2 and 5
 class Intcode
-  def initialize(instructions, initial_input = nil)
+  def initialize(instructions, initial_input = nil, day_9 = false)
     @instructions = instructions
     @instruction_pointer = 0
     @inputs = initial_input ? [initial_input] : []
     @output = []
     @relative_base = 0
+    @day_9 = day_9
   end
 
   def instruction
@@ -23,18 +24,18 @@ class Intcode
     (pointer + 1).times { @instructions.append(0) }
   end
 
-  def first_param(modes_dont_matter = false)
+  def first_param(input_function = false)
     first = @instructions[@instruction_pointer + 1]
-    return first if modes_dont_matter
+    return first if !@day_9 && input_function
     first_mode = (instruction / 100) % 10
     if first_mode.zero?
       allocate_more_mem(first)
       return @instructions[first]
     end
     return first if first_mode == 1
-    raise "bad param mode" unless first_mode == 2
     pointer = relative_mode_param(first)
     allocate_more_mem(pointer)
+    return pointer if first_mode == 2 && input_function
     @instructions[pointer]
   end
 
@@ -46,7 +47,6 @@ class Intcode
       return @instructions[second]
     end
     return second if second_mode == 1
-    raise "bad param mode" unless second_mode == 2
     pointer = relative_mode_param(second)
     allocate_more_mem(pointer)
     @instructions[pointer]
@@ -56,7 +56,6 @@ class Intcode
     third = @instructions[@instruction_pointer + 3]
     third_mode = (instruction / 10_000) % 10
     return third unless third_mode == 2
-    raise "bad param mode" unless third_mode == 2
     pointer = relative_mode_param(third)
     allocate_more_mem(pointer)
     pointer
