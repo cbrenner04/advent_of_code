@@ -17,9 +17,9 @@ def draw(output)
     if tile_id.zero?
       m[y][x] = " "
     elsif tile_id == 1
-      m[y][x] = "#"
+      m[y][x] = "|"
     elsif tile_id == 2
-      m[y][x] = "X"
+      m[y][x] = "□"
     elsif tile_id == 3
       paddle_pos = x
       m[y][x] = "_"
@@ -52,6 +52,7 @@ while count.positive?
   int_comp = Intcode.new(program)
   output, = int_comp.run(joystick)
   count, joystick, score = draw(output)
+  sleep 0.05
 end
 
 puts part_one
