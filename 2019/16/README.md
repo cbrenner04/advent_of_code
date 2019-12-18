@@ -1,4 +1,8 @@
-# Day 16: Flawed Frequency Transmission ---You're 3/4ths of the way through the gas giants. Not only do roundtrip signals to Earth take five hours, but the signal quality is quite bad as well.  You can clean up the signal with the Flawed Frequency Transmission algorithm, or FFT.
+# Day 16: Flawed Frequency Transmission
+
+## Part One
+
+You're 3/4ths of the way through the gas giants. Not only do roundtrip signals to Earth take five hours, but the signal quality is quite bad as well.  You can clean up the signal with the Flawed Frequency Transmission algorithm, or FFT.
 As input, FFT takes a list of numbers.  In the signal you received (your puzzle input), each number is a single digit: data like 15243 represents the sequence 1, 5, 2, 4, 3.
 FFT operates in repeated phases.  In each phase, a new list is constructed with the same length as the input list.  This new list is also used as the input for the next phase.
 Each element in the new list is built by multiplying every value in the input list by a value in a repeating pattern and then adding up the results. So, if the input list were 9, 8, 7, 6, 5 and the pattern for a given element were 1, 2, 3, the result would be 9*1 + 8*2 + 7*3 + 6*1 + 5*2 (with each input element on the left and each value in the repeating pattern on the right of each multiplication). Then, only the ones digit is kept: 38 becomes 8, -17 becomes 7, and so on.
@@ -59,20 +63,3 @@ Here are the first eight digits of the final output list after 100 phases for so
 69317163492948606335995924319873 becomes 52432133.
 
 After 100 phases of FFT, what are the first eight digits in the final output list?
-
-To play, please identify yourself via one of these services:
-[GitHub] [Google] [Twitter] [Reddit] - [How Does Auth Work?]
-
-
-
-
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-69522494-1', 'auto');
-ga('set', 'anonymizeIp', true);
-ga('send', 'pageview');
-
-
-
