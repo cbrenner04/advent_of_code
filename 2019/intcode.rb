@@ -2,8 +2,10 @@
 
 # intcode computer for days 2, 5, 7, 9, 11, 13, 15, 17
 class Intcode
+  attr_accessor :instructions
+
   def initialize(instructions, initial_input = nil, day_9 = false)
-    @instructions = instructions
+    @instructions = instructions.split(",").map(&:to_i)
     @instruction_pointer = 0
     @inputs = initial_input ? [initial_input] : []
     @output = []

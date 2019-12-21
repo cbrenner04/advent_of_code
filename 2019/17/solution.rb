@@ -3,9 +3,9 @@
 require_relative("../intcode.rb")
 require_relative("./util.rb")
 
-program = INPUT.split(",").map(&:to_i)
-program[0] = 2 # figured I do this first to not have to initialize the comp 2x
-int_comp = Intcode.new(program.dup)
+int_comp = Intcode.new(INPUT)
+# figured I do this first to not have to initialize the comp 2x
+int_comp.instructions[0] = 2
 output, opcode = int_comp.run
 scaffolds = Scaffolds.new(output)
 scaffolds.build
@@ -41,10 +41,11 @@ c = c.each_byte.map(&:ord)
 continuous_feed = "y\n".each_byte.map(&:ord)
 not_continuous = "n\n".each_byte.map(&:ord)
 
-# should be able to do
+# # should be able to do
 # inputs = main.concat(a, b, c, not_continuous)
 # inputs.each { |input| output, = int_comp.run(input) }
-# but I am getting errors so I am doing this one at a time
+# puts output
+# # but I am getting errors so I am doing this one at a time
 
 main.each { |input| output, opcode = int_comp.run(input) }
 view_output(output)

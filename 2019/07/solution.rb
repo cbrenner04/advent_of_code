@@ -2,12 +2,10 @@
 
 require_relative("../intcode.rb")
 
-program = INPUT.split(",").map(&:to_i)
-
 part_one_outputs = []
 
 (0..4).to_a.permutation.each do |perm|
-  int_comps = perm.map { |i| Intcode.new(program.dup, i) }
+  int_comps = perm.map { |i| Intcode.new(INPUT, i) }
   input = 0
   int_comps.each do |ic|
     outputs, = ic.run(input)
@@ -21,7 +19,7 @@ puts part_one_outputs.max
 part_two_outputs = []
 
 (5..9).to_a.permutation.each do |perm|
-  int_comps = perm.map { |i| Intcode.new(program.dup, i) }
+  int_comps = perm.map { |i| Intcode.new(INPUT, i) }
   input = 0
   index = 0
   loop do

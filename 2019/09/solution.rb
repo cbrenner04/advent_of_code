@@ -2,11 +2,8 @@
 
 require_relative("../intcode.rb")
 
-program = INPUT.split(",").map(&:to_i)
+part_one, = Intcode.new(INPUT, 1, true).run
+part_two, = Intcode.new(INPUT, 2, true).run
 
-int_comp = Intcode.new(program.dup, 1, true)
-output, = int_comp.run
-puts output
-int_comp = Intcode.new(program.dup, 2, true)
-output, = int_comp.run
-puts output
+puts part_one
+puts part_two
