@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# intcode computer for days 2, 5, 7, 9, 11, 13, 15
+# intcode computer for days 2, 5, 7, 9, 11, 13, 15, 17
 class Intcode
   def initialize(instructions, initial_input = nil, day_9 = false)
     @instructions = instructions
