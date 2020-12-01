@@ -1,50 +1,51 @@
 # frozen_string_literal: true
 
 require "net/http"
-
 require_relative "./parser"
 
-year, day = parse_cli
-
-dir = "#{year}/#{day}"
-
-system "mkdir #{dir}"
-system "touch #{dir}/solution.rb"
+YEAR, DAY = parse_cli
+DIR = "#{YEAR}/#{DAY}"
 
 def get(uri)
-  session_cookie = "53616c7465645f5f0253fd517d23069d8025874c3d7ab3dba787a776" \
-                   "49c091a89cd7782af315f72379761b440bb13435"
+  session_cookie = "53616c7465645f5f154adc60db902ad2c806266722c9a9570c7ff9414c00002fc489a707fbff6c5216a951afe4484442"
   req = Net::HTTP::Get.new(uri)
   req["Cookie"] = "session=#{session_cookie}"
 
-  Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-    http.request(req)
-  end
+  Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req) }
 end
 
-input_file = File.new(
-  File.join(File.dirname(__FILE__), "#{dir}/input.txt"),
-  "w"
-)
+def create_file(filename)
+  File.new(File.join(File.dirname(__FILE__), filename), "w")
+end
 
-input_response = get(
-  URI("https://adventofcode.com/#{year}/day/#{day.to_i}/input")
-)
+def write_input
+  input_file = create_file("#{DIR}/input.txt")
+  input_response = get URI("https://adventofcode.com/#{YEAR}/day/#{DAY.to_i}/input")
 
-input_file.write(input_response.body) if input_response.is_a?(Net::HTTPSuccess)
+  return unless input_response.is_a?(Net::HTTPSuccess)
 
-readme_file = File.new(
-  File.join(File.dirname(__FILE__), "#{dir}/README.md"),
-  "w"
-)
+  input_file.write(input_response.body)
+end
 
-readme_response = get URI("https://adventofcode.com/#{year}/day/#{day.to_i}")
+def write_readme
+  readme_file = create_file("#{DIR}/README.md")
+  readme_response = get URI("https://adventofcode.com/#{YEAR}/day/#{DAY.to_i}")
 
-if readme_response.is_a?(Net::HTTPSuccess)
+  return unless readme_response.is_a?(Net::HTTPSuccess)
+
   readme_file.write(readme_response.body
-             .gsub(%r{</?[^>]*>}, "")
-             .gsub(/^(\s*.*\s*.*)\[Stats\]\s*/, "")
-             .gsub(/To begin(.*\s.*)*/, "")
-             .gsub(/Our sponsors.*\s+/, "")
-             .gsub(/window.*\s---/, "#"))
+    .gsub(%r{</?[^>]*>}, "")
+    .gsub(/^(\s*.*\s*.*)\[Stats\]\s*/, "")
+    .gsub(/To begin(.*\s.*)*/, "")
+    .gsub(/Our sponsors.*\s+/, "")
+    .gsub(/window.*\s---/, "#"))
 end
+
+def main
+  system "mkdir #{DIR}"
+  system "touch #{DIR}/solution.rb"
+  write_input
+  write_readme
+end
+
+main
