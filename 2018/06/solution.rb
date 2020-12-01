@@ -16,11 +16,8 @@ y_max = data.map(&:last).max
 
 matrix = Array.new(y_max + 1) { Array.new(x_max + 1, [nil, 0]) }
 
-data.each_with_index do |coor, index|
-  coor.each { matrix[coor[1]][coor[0]] = index }
-end
-
 data.each_with_index do |datum, datum_index|
+  datum.each { matrix[datum[1]][datum[0]] = datum_index }
   matrix.each_with_index do |row, row_index|
     row.each_with_index do |column, column_index|
       next unless column.is_a? Array
@@ -77,9 +74,9 @@ matrix.each_with_index do |row, row_index|
     sum = nil if sum.nil? || sum >= 10_000
     matrix[row_index][column_index] = sum
   end
-end
 
-matrix.each_with_index do |row, row_index|
+  # TODO: rework to combine above loop and this. as is, this has to run after the previous
+  # rubocop:disable Style/CombinableLoops
   row.each_with_index do |column, column_index|
     next if (column.nil? && column_index == x_max) ||
             (column.nil? && column_index.zero?) ||
@@ -88,6 +85,7 @@ matrix.each_with_index do |row, row_index|
 
     matrix[row_index][column_index] = true
   end
+  # rubocop:enable Style/CombinableLoops
 end
 
 puts "Part 2: #{matrix.flatten.compact.count}"

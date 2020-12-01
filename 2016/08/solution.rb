@@ -52,6 +52,7 @@ matrix.each { |s| s.each { |a| count += 1 if a == true } }
 
 p count
 
-matrix.each { |s| s.map! { |a| a ? "*" : " " } }
-
-matrix.each { |s| p s.join(",").tr(",", "") }
+matrix.each do |s|
+  s.map! { |a| a ? "*" : " " }
+  p s.join(",").tr(",", "")
+end

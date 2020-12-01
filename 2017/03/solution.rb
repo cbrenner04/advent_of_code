@@ -13,7 +13,7 @@
 input = 325_489
 floored = Math.sqrt(input).floor
 new_num = floored.even? ? floored + 1 : floored
-sqred = new_num * new_num
+sqred = new_num**2
 steps_to_center = (new_num - 1) / 2
 line_center = sqred - steps_to_center
 diff = (input - line_center).abs
