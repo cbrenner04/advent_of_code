@@ -35,6 +35,7 @@ class Scaffolds
     coord_scores = []
     @matrix.each_with_index do |row, ri|
       next unless @matrix[ri + 1] && @matrix[ri - 1]
+
       row.each_with_index do |cell, ci|
         if intersection?(ri, ci)
           @intersections << "#{ri},#{ci}"
@@ -61,8 +62,9 @@ class Scaffolds
       above_cell = @matrix[ri - 1] ? @matrix[ri - 1][ci] : "."
       below_cell = @matrix[ri + 1] ? @matrix[ri + 1][ci] : "."
       break if [left_of_cell, right_of_cell, above_cell, below_cell].all? "."
+
       current_dir = next_dir(direction, left_of_cell, right_of_cell,
-                              above_cell, below_cell)
+                             above_cell, below_cell)
       ri, ci, current_count = find_next_turn(ri, ci, direction, current_dir)
       @path << "#{current_dir},#{current_count}"
       turn(ri, ci, direction, current_dir)
@@ -79,13 +81,14 @@ class Scaffolds
 
   # 1 == north, 2 == east, 3 == south, 4 == west
   def map_direction(cell)
-    if cell == "^"
+    case cell
+    when "^"
       1
-    elsif cell == ">"
+    when ">"
       2
-    elsif cell == "v"
+    when "v"
       3
-    elsif cell == "<"
+    when "<"
       4
     end
   end
@@ -95,40 +98,46 @@ class Scaffolds
     cell = "#"
     loop do
       @matrix[ri][ci] = "." unless @intersections.include?("#{ri},#{ci}")
-      if current_dir == "R"
-        if direction == 1
+      case current_dir
+      when "R"
+        case direction
+        when 1
           ci += 1
-        elsif direction == 2
+        when 2
           ri += 1
-        elsif direction == 3
+        when 3
           ci -= 1
-        elsif direction == 4
+        when 4
           ri -= 1
         end
-      elsif current_dir == "L"
-        if direction == 1
+      when "L"
+        case direction
+        when 1
           ci -= 1
-        elsif direction == 2
+        when 2
           ri -= 1
-        elsif direction == 3
+        when 3
           ci += 1
-        elsif direction == 4
+        when 4
           ri += 1
         end
       end
       break unless @matrix[ri] && @matrix[ri][ci]
+
       cell = @matrix[ri][ci]
       break if cell == "."
+
       current_count += 1
     end
     # need to account the last cell checked is one too far
     # probs could deal with this in the loop above but :shrug:
-    if current_dir == "R"
+    case current_dir
+    when "R"
       ci -= 1 if direction == 1
       ri -= 1 if direction == 2
       ci += 1 if direction == 3
       ri += 1 if direction == 4
-    elsif current_dir == "L"
+    when "L"
       ci += 1 if direction == 1
       ri += 1 if direction == 2
       ci -= 1 if direction == 3
@@ -138,25 +147,26 @@ class Scaffolds
   end
 
   def next_dir(direction, left_of_cell, right_of_cell, above_cell, below_cell)
-    if direction == 1
+    case direction
+    when 1
       if left_of_cell == "#"
         "L"
       elsif right_of_cell == "#"
         "R"
       end
-    elsif direction == 2
+    when 2
       if above_cell == "#"
         "L"
       elsif below_cell == "#"
         "R"
       end
-    elsif direction == 3
+    when 3
       if right_of_cell == "#"
         "L"
       elsif left_of_cell == "#"
         "R"
       end
-    elsif direction == 4
+    when 4
       if below_cell == "#"
         "L"
       elsif above_cell == "#"
@@ -166,16 +176,17 @@ class Scaffolds
   end
 
   def turn(ri, ci, direction, current_dir)
-    if direction == 1
+    case direction
+    when 1
       @matrix[ri][ci] = ">" if current_dir == "R"
       @matrix[ri][ci] = "<" if current_dir == "L"
-    elsif direction == 2
+    when 2
       @matrix[ri][ci] = "v" if current_dir == "R"
       @matrix[ri][ci] = "^" if current_dir == "L"
-    elsif direction == 3
+    when 3
       @matrix[ri][ci] = "<" if current_dir == "R"
       @matrix[ri][ci] = ">" if current_dir == "L"
-    elsif direction == 4
+    when 4
       @matrix[ri][ci] = "^" if current_dir == "R"
       @matrix[ri][ci] = "v" if current_dir == "L"
     end

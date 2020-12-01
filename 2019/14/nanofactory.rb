@@ -45,10 +45,10 @@ class Nanofactory
     ore
   end
 
-  # rubocop:disable AbcSize, MethodLength
+  # rubocop:disable Metrics/MethodLength
   def run_reactions(reaction, multiplier)
     ore = 0
-    reaction[:inputs].keys.each do |input_name|
+    reaction[:inputs].each_key do |input_name|
       input_amount = multiplier * reaction[:inputs][input_name]
       if input_name == "ORE"
         ore += input_amount
@@ -62,5 +62,5 @@ class Nanofactory
     end
     ore
   end
-  # rubocop:enable AbcSize, MethodLength
+  # rubocop:enable Metrics/MethodLength
 end

@@ -27,7 +27,7 @@ puts "Part one: #{totals(people).max}"
 
 people["Chris"] = {}
 
-people.keys.each do |person|
+people.each_key do |person|
   next if person == "Chris"
 
   people[person]["Chris"] = 0

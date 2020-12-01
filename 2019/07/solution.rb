@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative("../intcode.rb")
+require_relative("../intcode")
 
 part_one_outputs = []
 
@@ -26,6 +26,7 @@ part_two_outputs = []
     outputs, last_opcode = int_comps[index].run(input)
     input = outputs.first
     break if last_opcode == 99 && index == 4
+
     index == 4 ? index = 0 : index += 1
   end
   part_two_outputs.append(input)

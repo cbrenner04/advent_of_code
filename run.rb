@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./parser.rb"
+require_relative "./parser"
 
 year, day = parse_cli
 

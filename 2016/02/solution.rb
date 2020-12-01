@@ -120,7 +120,7 @@ def illegal_move_2?(index, move)
     illegal_down_2?(index, move)
 end
 
-# rubocop:disable CyclomaticComplexity, MethodLength
+# rubocop:disable Metrics/MethodLength
 def make_move_2(index, move)
   case move
   when "U"
@@ -135,7 +135,7 @@ def make_move_2(index, move)
     index + HORIZONTAL_CHANGE_2
   end
 end
-# rubocop:enable CyclomaticComplexity, MethodLength
+# rubocop:enable Metrics/MethodLength
 
 bathroom_code = data.map do |array|
   index = STARTING_POSITION_2

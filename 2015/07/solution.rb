@@ -2,14 +2,15 @@
 
 DATA = INPUT.each_line.map { |line| line.chomp.split(" ") }
 
-# rubocop:disable AbcSize,CyclomaticComplexity,MethodLength,PerceivedComplexity
+# rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
 def solve(answer_to_a, part_two)
   hash = {}
   done = []
   datum_index = 0
   while done.uniq.length < DATA.length
     current_step = DATA[datum_index]
-    if current_step.length == 3
+    case current_step.length
+    when 3
       if !current_step[0].match(/^[[:alpha:]]+$/)
         hash[current_step[2]] = current_step[0].to_i
         done.push(datum_index)
@@ -17,30 +18,31 @@ def solve(answer_to_a, part_two)
         hash[current_step[2]] = hash[current_step[0]]
         done.push(datum_index)
       end
-    elsif current_step.length == 4
+    when 4
       if hash[current_step[1]]
         hash[current_step[3]] = 65_536 + (~ hash[current_step[1]])
         done.push(datum_index)
       end
-    elsif current_step.length == 5
+    when 5
       if (!current_step[0].match(/^[[:alpha:]]+$/) || hash[current_step[0]]) &&
          (!current_step[2].match(/^[[:alpha:]]+$/) || hash[current_step[2]])
-        # rubocop:disable BlockNesting
+        # rubocop:disable Metrics/BlockNesting
         hash[current_step[4]] =
-          if current_step[1] == "AND"
-            if !current_step[0].match(/^[[:alpha:]]+$/)
-              current_step[0].to_i & hash[current_step[2]]
-            else
+          case current_step[1]
+          when "AND"
+            if current_step[0].match(/^[[:alpha:]]+$/)
               hash[current_step[0]] & hash[current_step[2]]
+            else
+              current_step[0].to_i & hash[current_step[2]]
             end
-          elsif current_step[1] == "OR"
+          when "OR"
             hash[current_step[0]] | hash[current_step[2]]
-          elsif current_step[1] == "LSHIFT"
+          when "LSHIFT"
             hash[current_step[0]] << current_step[2].to_i
-          elsif current_step[1] == "RSHIFT"
+          when "RSHIFT"
             hash[current_step[0]] >> current_step[2].to_i
           end
-        # rubocop:enable BlockNesting
+        # rubocop:enable Metrics/BlockNesting
         done.push(datum_index)
       end
     end
@@ -51,7 +53,7 @@ def solve(answer_to_a, part_two)
 
   hash["a"]
 end
-# rubocop:enable AbcSize,CyclomaticComplexity,MethodLength,PerceivedComplexity
+# rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
 
 part_a = solve(nil, false)
 part_b = solve(part_a, true)

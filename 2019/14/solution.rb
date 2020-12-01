@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./nanofactory.rb"
+require_relative "./nanofactory"
 
 factory = Nanofactory.new(INPUT)
 p factory.run(1)

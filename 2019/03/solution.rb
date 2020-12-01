@@ -23,16 +23,17 @@ def coordinates(instructions_string)
     direction = instruction[0]
     distance = instruction.scan(/\d+/).first.to_i
     distance.times do
-      if direction == "R"
+      case direction
+      when "R"
         position[0] += 1
         array << position.clone
-      elsif direction == "L"
+      when "L"
         position[0] -= 1
         array << position.clone
-      elsif direction == "U"
+      when "U"
         position[1] += 1
         array << position.clone
-      elsif direction == "D"
+      when "D"
         position[1] -= 1
         array << position.clone
       end

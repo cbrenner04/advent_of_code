@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "set"
-require_relative("../intcode.rb")
+require_relative("../intcode")
 
 # really struggled here. looked at a lot of solutions to realize the problem.
 # i need to run the same state of the incode machine for checking the adjacent
@@ -31,6 +31,7 @@ until queue.empty?
     next_x = current.first + X_CHANGES[index]
     next_pos = matrix[next_y][next_x]
     next if next_pos.type # skip if its been visited
+
     output, = local_int_comp.run(direction)
     response, = output
     if response.zero?

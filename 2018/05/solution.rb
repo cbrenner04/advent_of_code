@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # this could use some optimization
-# rubocop:disable AbcSize, MethodLength
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def compare_and_remove_chars(string)
   index_array = []
   char_array = string.split("")
@@ -30,7 +30,7 @@ def compare_and_remove_chars(string)
     compare_and_remove_chars(new_string)
   end
 end
-# rubocop:enable AbcSize, MethodLength
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 updated_string = compare_and_remove_chars(INPUT.dup)
 

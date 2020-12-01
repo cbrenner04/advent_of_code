@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./jupiter_system.rb"
+require_relative "./jupiter_system"
 
 moons = INPUT.each_line.map do |line|
   x, y, z = line.chomp.scan(/-?\d+/)
@@ -32,6 +32,7 @@ loop do
            sys_1.moons[2][:velocity][:x] == moons[2][:velocity][:x] &&
            sys_1.moons[3][:position][:x] == moons[3][:position][:x] &&
            sys_1.moons[3][:velocity][:x] == moons[3][:velocity][:x]
+
   x_count += 1
 end
 
@@ -48,6 +49,7 @@ loop do
            sys_2.moons[2][:velocity][:y] == moons[2][:velocity][:y] &&
            sys_2.moons[3][:position][:y] == moons[3][:position][:y] &&
            sys_2.moons[3][:velocity][:y] == moons[3][:velocity][:y]
+
   y_count += 1
 end
 
@@ -64,6 +66,7 @@ loop do
            sys_3.moons[2][:velocity][:z] == moons[2][:velocity][:z] &&
            sys_3.moons[3][:position][:z] == moons[3][:position][:z] &&
            sys_3.moons[3][:velocity][:z] == moons[3][:velocity][:z]
+
   z_count += 1
 end
 

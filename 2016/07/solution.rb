@@ -81,7 +81,7 @@ def the_sub_strings(string_length, new_string)
   sub_strings
 end
 
-# rubocop:disable MethodLength
+# rubocop:disable Metrics/MethodLength
 def return_sub_strings(array, length)
   i = 0
   sub_strings = []
@@ -117,7 +117,7 @@ def return_count(array, length, new_sub_strings)
   end
   count
 end
-# rubocop:enable MethodLength
+# rubocop:enable Metrics/MethodLength
 
 count = 0
 

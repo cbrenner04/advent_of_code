@@ -23,21 +23,25 @@ class Intcode
 
   def allocate_more_mem(pointer)
     return unless @instructions.count < pointer
+
     (pointer + 1).times { @instructions.append(0) }
   end
 
   def first_param(input_function = false)
     first = @instructions[@instruction_pointer + 1]
     return first if !@day_9 && input_function
+
     first_mode = (instruction / 100) % 10
     if first_mode.zero?
       allocate_more_mem(first)
       return @instructions[first]
     end
     return first if first_mode == 1
+
     pointer = relative_mode_param(first)
     allocate_more_mem(pointer)
     return pointer if first_mode == 2 && input_function
+
     @instructions[pointer]
   end
 
@@ -49,6 +53,7 @@ class Intcode
       return @instructions[second]
     end
     return second if second_mode == 1
+
     pointer = relative_mode_param(second)
     allocate_more_mem(pointer)
     @instructions[pointer]
@@ -58,6 +63,7 @@ class Intcode
     third = @instructions[@instruction_pointer + 3]
     third_mode = (instruction / 10_000) % 10
     return third unless third_mode == 2
+
     pointer = relative_mode_param(third)
     allocate_more_mem(pointer)
     pointer
@@ -125,25 +131,26 @@ class Intcode
     # catching so i can throw in input_and_store if inputs are empty
     catch :whatever do
       loop do
-        if opcode == 1
+        case opcode
+        when 1
           add_and_store
-        elsif opcode == 2
+        when 2
           multiply_and_store
-        elsif opcode == 3
+        when 3
           input_and_store
-        elsif opcode == 4
+        when 4
           output_param
-        elsif opcode == 5
+        when 5
           jump_if_true
-        elsif opcode == 6
+        when 6
           jump_if_false
-        elsif opcode == 7
+        when 7
           less_than
-        elsif opcode == 8
+        when 8
           equals
-        elsif opcode == 9
+        when 9
           adjust_relative_base
-        elsif opcode == 99
+        when 99
           throw :whatever
         else
           raise "bad instruction"

@@ -6,9 +6,9 @@ data = INPUT.each_line.map(&:strip)
 # couldn't figure out the `eval` use -- also the `strip` above came in handy
 
 original_lengths_total = data.map(&:length).reduce(&:+)
-# rubocop:disable Eval
+# rubocop:disable Security/Eval
 not_escaped_lengths_total = data.map { |line| eval(line).length }.reduce(&:+)
-# rubocop:enable Eval
+# rubocop:enable Security/Eval
 encoded_lengths_total = data.map { |line| line.dump.length }.reduce(&:+)
 
 p original_lengths_total - not_escaped_lengths_total

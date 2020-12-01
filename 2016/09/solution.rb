@@ -25,7 +25,7 @@ p starting_length + num_of_chars_to_add.reduce(&:+)
 
 # rework from https://www.reddit.com/user/DeathWalrus
 
-# rubocop:disable MethodLength, AbcSize
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def decomp(string)
   i = 0
   total = 0
@@ -48,6 +48,6 @@ def decomp(string)
   end
   total
 end
-# rubocop:enable MethodLength, AbcSize
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
 p decomp(INPUT)

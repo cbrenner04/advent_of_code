@@ -21,25 +21,27 @@ def turn_west(current_panel)
 end
 
 def turn_left(facing, current_panel)
-  if facing == 1
+  case facing
+  when 1
     turn_west(current_panel)
-  elsif facing == 2
+  when 2
     turn_north(current_panel)
-  elsif facing == 3
+  when 3
     turn_east(current_panel)
-  elsif facing == 4
+  when 4
     turn_south(current_panel)
   end
 end
 
 def turn_right(facing, current_panel)
-  if facing == 1
+  case facing
+  when 1
     turn_east(current_panel)
-  elsif facing == 2
+  when 2
     turn_south(current_panel)
-  elsif facing == 3
+  when 3
     turn_west(current_panel)
-  elsif facing == 4
+  when 4
     turn_north(current_panel)
   end
 end

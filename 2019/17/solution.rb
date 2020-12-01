@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative("../intcode.rb")
-require_relative("./util.rb")
+require_relative("../intcode")
+require_relative("./util")
 
 int_comp = Intcode.new(INPUT)
 # figured I do this first to not have to initialize the comp 2x

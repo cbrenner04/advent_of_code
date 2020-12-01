@@ -1,8 +1,9 @@
 AllCops:
   TargetRubyVersion: 2.5
+  NewCops: enable
 
-StringLiterals:
+Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-VariableNumber:
+Naming/VariableNumber:
   EnforcedStyle: snake_case

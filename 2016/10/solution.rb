@@ -19,12 +19,13 @@ instructions_index = 0
 bots = {}
 outputs = {}
 
-# rubocop:disable BlockNesting
+# rubocop:disable Metrics/BlockNesting
 while done_instructions.length < data.length
   unless done_instructions.include?(instructions_index)
     instruction_array = data[instructions_index].split
     keyword = instruction_array[0]
-    if keyword == "bot"
+    case keyword
+    when "bot"
       bot_name = instruction_array[1]
       first_hash = instruction_array[5] == "bot" ? bots : outputs
       second_hash = instruction_array[10] == "bot" ? bots : outputs
@@ -34,7 +35,7 @@ while done_instructions.length < data.length
         give_values(instruction_array[11], bot.max, second_hash)
         done_instructions.push(instructions_index)
       end
-    elsif keyword == "value"
+    when "value"
       value = instruction_array[1]
       bot = instruction_array[5]
       give_values(bot, value, bots)
@@ -44,7 +45,7 @@ while done_instructions.length < data.length
 
   instructions_index = increment(instructions_index, data)
 end
-# rubocop:enable BlockNesting
+# rubocop:enable Metrics/BlockNesting
 
 # Part 1
 bots.each { |b| puts b[0] if b[1].sort == [17, 61] }

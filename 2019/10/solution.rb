@@ -5,6 +5,7 @@ asteroids = []
 INPUT.each_line.with_index do |line, y|
   line.chomp.split("").each_with_index do |value, x|
     next unless value == "#"
+
     asteroids << [x, y]
   end
 end
@@ -13,6 +14,7 @@ hit_angles = asteroids.map.with_index do |a, ai|
   hits = []
   asteroids.each_with_index do |b, bi|
     next if ai == bi
+
     x_diff = b[0] - a[0]
     y_diff = b[1] - a[1]
     # I was really struggling with getting the slopes right

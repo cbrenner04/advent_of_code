@@ -16,8 +16,8 @@
 
 # each thing in this puzzle is an element
 class Element
-  attr_reader :name, :floor, :type
-  attr_writer :floor
+  attr_accessor :floor
+  attr_reader :name, :type
 
   def initialize(floor, name)
     @floor = floor
@@ -55,7 +55,7 @@ current_floor = 1
 next_floor_gens = []
 good_chips = []
 
-# rubocop:disable BlockLength
+# rubocop:disable Metrics/BlockLength
 2.times do
   current_floor_chips = lookup.select do |item|
     item.is_a?(Microchip) && item.floor == current_floor
@@ -92,7 +92,7 @@ good_chips = []
   end
   current_floor = next_floor
 end
-# rubocop:enable BlockLength
+# rubocop:enable Metrics/BlockLength
 
 p lookup
 

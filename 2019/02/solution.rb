@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative("../intcode.rb")
+require_relative("../intcode")
 
 intcode_comp = Intcode.new(INPUT)
 intcode_comp.instructions[1] = 12

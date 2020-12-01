@@ -5,7 +5,6 @@ Deliverer = Struct.new(:x, :y, :positions)
 
 DATA = INPUT.each_char
 
-# rubocop:disable AbcSize
 def solve(part_two)
   santa = Deliverer.new(0, 0, [[0, 0]])
   robo_santa = Deliverer.new(0, 0, [[0, 0]])
@@ -30,7 +29,5 @@ def update_position(char, object)
     object.positions.push([object.x -= 1, object.y])
   end
 end
-# rubocop:enable AbcSize
-
 solve(false)
 solve(true)

@@ -14,9 +14,7 @@ patterns = []
     end
     skip_first = false
     foo = local_pattern.first(inputs.count)
-    if local_pattern.count >= inputs.count && !patterns.include?(foo)
-      patterns << foo
-    end
+    patterns << foo if local_pattern.count >= inputs.count && !patterns.include?(foo)
   end
 end
 

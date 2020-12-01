@@ -52,19 +52,18 @@ second_matrix = Array.new(ROWS) { Array.new(COLUMNS, 0) }
 
 data.each do |datum|
   command, start_x, start_y, finish_x, finish_y = split_it(datum)
-  value = if command == "turn-on"
+  value = case command
+          when "turn-on"
             1
-          elsif command == "turn-off"
+          when "turn-off"
             -1
-          elsif command == "toggle"
+          when "toggle"
             2
           end
   (start_x..finish_x).each do |x_index|
     (start_y..finish_y).each do |y_index|
       second_matrix[x_index][y_index] += value
-      if (second_matrix[x_index][y_index]).negative?
-        second_matrix[x_index][y_index] = 0
-      end
+      second_matrix[x_index][y_index] = 0 if (second_matrix[x_index][y_index]).negative?
     end
   end
 end

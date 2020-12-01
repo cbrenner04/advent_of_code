@@ -2,7 +2,7 @@
 
 require "net/http"
 
-require_relative "./parser.rb"
+require_relative "./parser"
 
 year, day = parse_cli
 
@@ -42,7 +42,7 @@ readme_response = get URI("https://adventofcode.com/#{year}/day/#{day.to_i}")
 
 if readme_response.is_a?(Net::HTTPSuccess)
   readme_file.write(readme_response.body
-             .gsub(%r{<\/?[^>]*>}, "")
+             .gsub(%r{</?[^>]*>}, "")
              .gsub(/^(\s*.*\s*.*)\[Stats\]\s*/, "")
              .gsub(/To begin(.*\s.*)*/, "")
              .gsub(/Our sponsors.*\s+/, "")

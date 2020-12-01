@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative("../intcode.rb")
-require_relative("./util.rb")
+require_relative("../intcode")
+require_relative("./util")
 
 def solve(part_two = false)
   int_comp = Intcode.new(INPUT)
@@ -31,7 +31,7 @@ puts panels.keys.count
 panels = solve(true)
 m = Array.new(6) { Array.new(50, 0) }
 
-panels.keys.each do |key|
+panels.each_key do |key|
   x, y = key.split(",")
   y = y.to_i
   y = y.zero? ? 5 : y - 1

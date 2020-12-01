@@ -3,11 +3,14 @@
 def good_pass(pass)
   good_length = pass.length == 6
   return false unless good_length
+
   has_double = pass.scan(/(.)\1/).any?
   return false unless has_double
+
   array = pass.split("")
   decreases = array.sort != array
   return false if decreases
+
   true
 end
 
