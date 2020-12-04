@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-data = INPUT.split("\n")
+data = INPUT.each_line.map(&:chomp)
 
 part_one = 0
 part_two = 0
