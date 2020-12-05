@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# object for mapping jupiter system
 class JupiterSystem
   attr_reader :moons
 
@@ -7,6 +8,7 @@ class JupiterSystem
     @moons = Marshal.load(Marshal.dump(moons))
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def gravity
     @moons.combination(2).to_a.each do |moon_a, moon_b|
       if moon_a[:position][:x] < moon_b[:position][:x]
@@ -34,6 +36,7 @@ class JupiterSystem
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def velocity
     @moons.each do |moon|
@@ -43,6 +46,7 @@ class JupiterSystem
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def energy
     moon_total = @moons.map do |moon|
       potential = moon[:position][:x].abs + moon[:position][:y].abs +
@@ -53,4 +57,5 @@ class JupiterSystem
     end
     moon_total.reduce(:+)
   end
+  # rubocop:enable Metrics/AbcSize
 end

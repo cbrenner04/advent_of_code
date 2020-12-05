@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 # intcode computer for days 2, 5, 7, 9, 11, 13, 15, 17
+# rubocop:disable Metrics/BlockLength, Metrics/ClassLength, Metrics/MethodLength
 class Intcode
   attr_accessor :instructions
 
-  def initialize(instructions, initial_input = nil, day_9 = false)
+  def initialize(instructions, initial_input = nil, day_9: false)
     @instructions = instructions.split(",").map(&:to_i)
     @instruction_pointer = 0
     @inputs = initial_input ? [initial_input] : []
@@ -27,7 +28,7 @@ class Intcode
     (pointer + 1).times { @instructions.append(0) }
   end
 
-  def first_param(input_function = false)
+  def first_param(input_function: false)
     first = @instructions[@instruction_pointer + 1]
     return first if !@day_9 && input_function
 
@@ -85,7 +86,7 @@ class Intcode
 
   def input_and_store
     throw :whatever if @inputs.empty?
-    @instructions[first_param(true)] = @inputs.shift
+    @instructions[first_param(input_function: true)] = @inputs.shift
     @instruction_pointer += 2
   end
 
@@ -125,6 +126,7 @@ class Intcode
     @instruction_pointer += 2
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def run(new_input = nil)
     @inputs << new_input unless new_input.nil?
     @output = []
@@ -160,4 +162,6 @@ class Intcode
     output = @output.empty? ? @instructions.first : @output
     [output, opcode]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end
+# rubocop:enable Metrics/BlockLength, Metrics/ClassLength, Metrics/MethodLength

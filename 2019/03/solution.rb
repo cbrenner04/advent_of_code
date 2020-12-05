@@ -15,6 +15,7 @@
 # https://github.com/ni3t/advent-2019/blob/master/3_crossed_wires.rb to get on
 # the right track.
 
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def coordinates(instructions_string)
   instructions = instructions_string.split(",")
   position = [0, 0]
@@ -26,21 +27,19 @@ def coordinates(instructions_string)
       case direction
       when "R"
         position[0] += 1
-        array << position.clone
       when "L"
         position[0] -= 1
-        array << position.clone
       when "U"
         position[1] += 1
-        array << position.clone
       when "D"
         position[1] -= 1
-        array << position.clone
       end
+      array << position.clone
     end
   end
   array
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 lines = INPUT.split("\n")
 first_array = coordinates(lines.first)

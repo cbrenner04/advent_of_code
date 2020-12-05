@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ClassLength, Metrics/BlockLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Naming/MethodParameterName
 def view_output(output)
   if output.is_a?(Array)
     matrix = output.map do |char|
       begin
         char = char.chr
       rescue RangeError
+        puts "RangeError"
       end
       char
     end
@@ -81,16 +83,7 @@ class Scaffolds
 
   # 1 == north, 2 == east, 3 == south, 4 == west
   def map_direction(cell)
-    case cell
-    when "^"
-      1
-    when ">"
-      2
-    when "v"
-      3
-    when "<"
-      4
-    end
+    { "^" => 1, ">" => 2, "v" => 3, "<" => 4 }[cell]
   end
 
   def find_next_turn(ri, ci, direction, current_dir)
@@ -192,3 +185,4 @@ class Scaffolds
     end
   end
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ClassLength, Metrics/BlockLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,Naming/MethodParameterName

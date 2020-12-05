@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-Reindeer = Struct.new(:name, :speed, :length, :rest, :points) do
+Reindeer = Struct.new(:name, :speed, :flight_time, :rest, :points) do
   # rubocop:disable Metrics/MethodLength
   def distance_traveled(time)
     distance = 0
     while time.positive?
-      fly_time = length
+      fly_time = flight_time
       while fly_time.positive?
         distance += speed
         time -= 1
@@ -25,8 +25,8 @@ reindeer = []
 
 INPUT.each_line do |line|
   name = line.chomp.scan(/^\w+/)[0]
-  speed, length, rest = line.chomp.scan(/\d+/)
-  reindeer << Reindeer.new(name, speed.to_i, length.to_i, rest.to_i, 0)
+  speed, flight_time, rest = line.chomp.scan(/\d+/)
+  reindeer << Reindeer.new(name, speed.to_i, flight_time.to_i, rest.to_i, 0)
 end
 
 distances = reindeer.map do |deer|

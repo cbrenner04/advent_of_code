@@ -3,7 +3,8 @@
 require_relative("../intcode")
 require_relative("./util")
 
-def solve(part_two = false)
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+def solve(part_two: false)
   int_comp = Intcode.new(INPUT)
   opcode = 0
   current_panel = [0, 0]
@@ -24,11 +25,12 @@ def solve(part_two = false)
   end
   panels
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-panels = solve
+panels = solve(part_two: false)
 puts panels.keys.count
 
-panels = solve(true)
+panels = solve(part_two: true)
 m = Array.new(6) { Array.new(50, 0) }
 
 panels.each_key do |key|

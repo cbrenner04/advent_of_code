@@ -27,6 +27,7 @@ def write_input
   input_file.write(input_response.body)
 end
 
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def write_readme
   readme_file = create_file("#{DIR}/README.md")
   readme_response = get URI("https://adventofcode.com/#{YEAR}/day/#{DAY.to_i}")
@@ -76,6 +77,7 @@ def write_readme
 
   readme_file.write(article)
 end
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 def main
   system "mkdir #{DIR}"

@@ -18,6 +18,13 @@ class Passport
     (%w[byr iyr eyr hgt hcl ecl pid] - keys).empty?
   end
 
+  def valid?
+    valid_birth_year? && valid_issue_year? && valid_expiration_year? && valid_height? &&
+      valid_hair_color? && valid_eye_color? && valid_id?
+  end
+
+  private
+
   def valid_birth_year?
     @passport_data["byr"].to_i.between?(1920, 2002)
   end
@@ -45,10 +52,5 @@ class Passport
 
   def valid_id?
     @passport_data["pid"].match?(/^[0-9]{9}$/)
-  end
-
-  def valid?
-    valid_birth_year? && valid_issue_year? && valid_expiration_year? && valid_height? &&
-      valid_hair_color? && valid_eye_color? && valid_id?
   end
 end

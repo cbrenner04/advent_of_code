@@ -39,7 +39,7 @@ class Nanofactory
   def create_fuel(name, amount)
     reaction = @reactions[name]
     reaction_amount = reaction[:amount]
-    multiplier = (amount.to_f / reaction_amount.to_f).ceil
+    multiplier = (amount / reaction_amount.to_f).ceil
     ore = run_reactions(reaction, multiplier)
     @reactions[name][:output] += multiplier * reaction_amount
     ore

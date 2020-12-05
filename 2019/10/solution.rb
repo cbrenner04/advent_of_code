@@ -26,7 +26,7 @@ hit_angles = asteroids.map.with_index do |a, ai|
     # needed to fiddle around to realize it was effectively giving me the negative of the angle I wanted
     # once I got that sorted I got to the correct answer
     angle = Math.atan2(x_diff, y_diff) / Math::PI
-    distance = Math.sqrt((x_diff * x_diff) + (y_diff * y_diff))
+    distance = Math.sqrt((x_diff**2) + (y_diff**2))
     hits << { coords: b, angle: angle, distance: distance }
   end
   hits

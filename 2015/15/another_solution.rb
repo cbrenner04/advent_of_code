@@ -2,8 +2,8 @@
 
 # this is hella slower but more concise and dynamic
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-def solve(part_two = false)
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+def solve(part_two: false)
   ingredients = INPUT.each_line.map { |line| line.scan(/-?\d+/).map(&:to_i) }
   highest_amount_for_one_ingredient = 100 - ingredients.length + 1
   # no ingredient will ever be 0 so start at 1
@@ -27,7 +27,7 @@ def solve(part_two = false)
     end.reduce(:*)
   end.max
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-puts solve(false)
-puts solve(true) # not the right answer. close, but under
+puts solve(part_two: false)
+puts solve(part_two: true) # not the right answer. close, but under

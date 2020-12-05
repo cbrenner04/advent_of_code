@@ -20,7 +20,7 @@ end
 
 # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity,
 # rubocop:disable Metrics/PerceivedComplexity, Metrics/MethodLength
-def solve(ingredients, part_two = false)
+def solve(ingredients, part_two: false)
   score = 0
   max = 0
 
@@ -47,5 +47,5 @@ end
 # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity,
 # rubocop:enable Metrics/PerceivedComplexity, Metrics/MethodLength
 
-puts solve(ingredients, false)
-puts solve(ingredients, true)
+puts solve(ingredients, part_two: false)
+puts solve(ingredients, part_two: true)

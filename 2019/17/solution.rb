@@ -36,10 +36,10 @@ end
 
 main = main.each_byte.map(&:ord)
 a = a.each_byte.map(&:ord)
-b = b.each_byte.map(&:ord)
-c = c.each_byte.map(&:ord)
-continuous_feed = "y\n".each_byte.map(&:ord)
-not_continuous = "n\n".each_byte.map(&:ord)
+# b = b.each_byte.map(&:ord)
+# c = c.each_byte.map(&:ord)
+# continuous_feed = "y\n".each_byte.map(&:ord)
+# not_continuous = "n\n".each_byte.map(&:ord)
 
 # # should be able to do
 # inputs = main.concat(a, b, c, not_continuous)
