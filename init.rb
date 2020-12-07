@@ -2,6 +2,7 @@
 
 require "net/http"
 require_relative "./parser"
+require_relative "./html_parsing"
 
 YEAR, DAY = parse_cli
 DIR = "#{YEAR}/#{DAY}"
@@ -27,7 +28,6 @@ def write_input
   input_file.write(input_response.body)
 end
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def write_readme
   readme_file = create_file("#{DIR}/README.md")
   readme_response = get URI("https://adventofcode.com/#{YEAR}/day/#{DAY.to_i}")
@@ -35,49 +35,10 @@ def write_readme
   return unless readme_response.is_a?(Net::HTTPSuccess)
 
   output = readme_response.body
+  article = parse_html(output)
 
-  article = output.match(%r{<article class=".*">((.|\n)*)</article>})[1]
-  # handle the title
-  article.gsub!("<h2>", "#")
-  article.gsub!("</h2>", "\n\n")
-  article.gsub!("---", "")
-  # handle large code blocks
-  article.gsub!("<pre><code>", "```text\n")
-  article.gsub!("</code></pre>", "```\n")
-  # handle emphasized code blocks
-  article.gsub!("<code><em>", "**")
-  article.gsub!("</em></code>", "**")
-  # handle rest of code blocks
-  article.gsub!(%r{</?code>}, "`")
-  # handle emphasized text
-  article.gsub!(%r{</?em>}, "**")
-  # handle links
-  link_matches = article.scan(%r{<a target="_blank" href="(.[^>]*)">(.[^<]*)</a>})
-  link_matches.each do |link, text|
-    article.gsub!("<a target=\"_blank\" href=\"#{link}\">#{text}</a>", "[#{text}](#{link})")
-  end
-  # handle paragraphs
-  article.gsub!("<p>", "")
-  article.gsub!("</p>", "\n")
-  # handle unordered lists
-  unordered_list_matches = article.scan(%r{<ul>(((?!</ul>).|\n)*)</ul>})
-  unordered_list_matches.each do |list, _|
-    updated = list.gsub("<li>", "- ").gsub("</li>", "")
-    article.gsub!("\n<ul>#{list}</ul>", updated)
-  end
-  # handle ordered lists
-  ordered_list_matches = article.scan(%r{<ul>(((?!</ul>).|\n)*)</ul>})
-  ordered_list_matches.each do |list, _|
-    updated = list.gsub("<li>", "1. ").gsub("</li>", "")
-    article.gsub!("\n<ul>#{list}</ul>", updated)
-  end
-  # handle spans
-  article.gsub!(/<span ((?!>).)*>/, "")
-  article.gsub!("</span>", "")
-
-  readme_file.write(article)
+  readme_file.write(article.chomp)
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 def main
   system "mkdir #{DIR}"
