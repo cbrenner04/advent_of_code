@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../../util"
+
 data = INPUT.each_line.map { |l| l.chomp.to_i }
 
 index = 25
@@ -23,7 +25,7 @@ end
 
 p invalid
 
-subsequences = (0..data.length).to_a.combination(2).map { |i, j| data[i...j] }
+subsequences = array_subsequences(data)
 
 subsequences.each do |subs|
   sum = subs.reduce(:+)
