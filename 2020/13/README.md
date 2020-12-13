@@ -21,7 +21,7 @@ For example, suppose you have the following notes:
 
 Here, the earliest timestamp you could depart is `939`, and the bus IDs in service are `7`, `13`, `59`, `31`, and `19`. Near timestamp `939`, these bus IDs depart at the times marked `D`:
 
-```md
+```markdown
 time   bus 7   bus 13  bus 59  bus 31  bus 19
 929      .       .       .       .       .
 930      .       .       .       D       .
