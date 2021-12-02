@@ -8,7 +8,7 @@ def update_code_blocks_and_emphases(text)
   text.gsub("<pre><code>", "```text\n").gsub("</code></pre>", "```\n") # handle large code blocks
       .gsub("<code><em>", "**").gsub("</em></code>", "**") # handle emphasized code blocks
       .gsub(%r{</?code>}, "`") # handle rest of code blocks
-      .gsub(%r{</?em>}, "**") # handle emphasized text
+      .gsub(%r{</?em(\s\w+="\w+")?>}, "**") # handle emphasized text
 end
 
 def update_links(string)
