@@ -5,8 +5,8 @@ fishes = INPUT.split(",").map(&:to_i)
 
 # it doesn't just double every 7 days
 
-# need to know how many fish have greater than 6 days before spawning
-# every 7 days and remove that before doubling
+# every 7 days, i need to know how many fish have greater than 6 days
+# before spawning and remove that count before doubling
 
 # i really don't want to brute force this but my maths is not good
 
