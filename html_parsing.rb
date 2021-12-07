@@ -52,6 +52,10 @@ def update_spans(text)
   text.gsub(/<span ((?!>).)*>/, "").gsub("</span>", "")
 end
 
+def update_special_characters(text)
+  text.gsub("&gt;", ">").gsub("&lt;", "<")
+end
+
 def parse_html(text)
   articles = text.scan(%r{<article class="((?!>).)*">(((?!<article).|\n)*)</article>})
   articles.map do |_, article, _|
@@ -61,6 +65,7 @@ def parse_html(text)
     article = update_paragraphs(article)
     article = update_unordered_lists(article)
     article = update_ordered_lists(article)
+    article = update_special_characters(article)
     update_spans(article)
   end.join("")
 end
