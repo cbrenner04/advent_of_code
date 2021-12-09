@@ -48,6 +48,7 @@ end
 
 # works for example but not real input
 # this currently returns 17220 which is wrong
+# (based on snooping I think I am looking for 16836 - no idea, won't submit til i do)
 input = INPUT.split("\n\n")
 numbers = input.shift.split(",").map(&:to_i)
 boards = input.map { |i| i.split("\n").map { |j| j.split.map(&:to_i) } }
