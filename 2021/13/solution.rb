@@ -4,19 +4,19 @@ dots, instructions = INPUT.split("\n\n").map { |a| a.split("\n") }
 dot_coords = dots.map { |d| d.split(",").map(&:to_i) }
 max_x = dot_coords.map(&:first).max
 max_y = dot_coords.map(&:last).max
-transparent_sheet = Array.new(max_y + 1) { Array.new(max_x + 1, " ") }
+transparent_sheet = Array.new(max_y + 1) { Array.new(max_x + 1, ".") }
 dot_coords.each { |x, y| transparent_sheet[y][x] = "#" }
 instructions.each_with_index do |instruction, index|
   dir, line = instruction.scan(/fold along (x|y)=(\d+)/).first
   if dir == "x"
-    transparent_sheet = transparent_sheet.each_with_index.map do |l, l_index|
+    transparent_sheet.each_with_index.map do |l, l_index|
       fold = l[line.to_i + 1..].reverse
       fold.each_with_index do |space, space_index|
         next unless space == "#"
 
         transparent_sheet[l_index][space_index] = "#"
       end
-      transparent_sheet[l_index][0..line.to_i - 1]
+      transparent_sheet[l_index] = transparent_sheet[l_index][0..line.to_i - 1]
     end
   else
     fold = transparent_sheet[line.to_i + 1..].reverse
