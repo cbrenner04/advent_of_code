@@ -28,3 +28,5 @@ fishes = INPUT.split(",").map(&:to_i)
 end
 
 p fishes.count
+
+# TODO: need better solution

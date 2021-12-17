@@ -27,7 +27,9 @@ end
 
 p low_points.map(&:keys).flatten.reduce(:+) + low_points.map(&:keys).count
 
-# part two not working :(
+# part two not working
+# its a naive solution so it doesn't surprise me
+# TODO: rewrite
 @directions = {
   "up_left" => [-1, -1],
   "up" => [-1, 0],
