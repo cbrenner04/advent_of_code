@@ -11,6 +11,7 @@ def update_code_blocks_and_emphases(text)
       .gsub(%r{</?em(\s\w+="\w+")?>}, "**") # handle emphasized text
 end
 
+# TODO: This needs to be cleaned up
 def update_links(string)
   article = string.dup
   link_matches_1 = article.scan(%r{<a target="_blank" href="(.[^>]*)">(.[^<]*)</a>})
@@ -20,6 +21,10 @@ def update_links(string)
   link_matches_2 = article.scan(%r{<a href="(.*)" target="_blank">(.[^<]*)</a>})
   link_matches_2.each do |link, text|
     article.gsub!("<a href=\"#{link}\" target=\"_blank\">#{text}</a>", "[#{text}](#{link})")
+  end
+  link_matches_3 = article.scan(%r{<a href="/(.*)">(.[^<]*)</a>})
+  link_matches_3.each do |link, text|
+    article.gsub!("<a href=\"\/#{link}\">#{text}</a>", "[#{text}](https://adventofcode.com/#{link})")
   end
   article
 end
