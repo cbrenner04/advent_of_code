@@ -13,7 +13,7 @@ end
 
 p_1 = INPUT.each_line.map do |line|
   line.chomp!
-  char = (line[0..(line.size / 2) - 1].split(//) & line[(line.size / 2)..-1].split(//)).first
+  char = (line[0..(line.size / 2) - 1].split(//) & line[(line.size / 2)..].split(//)).first
   get_priority(char)
 end.reduce(:+)
 
