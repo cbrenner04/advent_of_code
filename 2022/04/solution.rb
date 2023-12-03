@@ -1,4 +1,4 @@
-# frosen_string_literal: true
+# frozen_string_literal: true
 
 # INPUT = "2-4,6-8
 # 2-3,4-5
@@ -8,9 +8,9 @@
 # 2-6,4-8"
 
 def get_arrays(line)
-  pairs = line.chomp.split(',')
-  arrys = pairs.map do |range|
-    indeces = range.split('-').map(&:to_i)
+  pairs = line.chomp.split(",")
+  pairs.map do |range|
+    indeces = range.split("-").map(&:to_i)
     (indeces.first..indeces.last).to_a
   end
 end
