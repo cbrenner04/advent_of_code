@@ -13,12 +13,12 @@ loop do
   x = first_marker.tr("(", "")[/(.*x)/].tr("x", "").to_i
   y = first_marker[/(x.*)/].tr("x", "").tr(")", "").to_i - 1
 
-  num_of_chars_to_add.push(x * y - first_marker.length)
+  num_of_chars_to_add.push((x * y) - first_marker.length)
 
   next_starting_point = index_of_end_of_first_marker + x
   break if next_starting_point >= string.length
 
-  string = string[next_starting_point..-1]
+  string = string[next_starting_point..]
 end
 
 p starting_length + num_of_chars_to_add.reduce(&:+)

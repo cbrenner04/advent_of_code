@@ -10,9 +10,9 @@ rules.each do |rule|
   key, value = rule.split(": ")
   value = value.include?("|") ? value.split(" | ") : value
   if value.is_a? Array
-    value = value.map { |v| v.split(" ").map(&:to_i) }
+    value = value.map { |v| v.split.map(&:to_i) }
   elsif !value.scan(/\d/).empty?
-    value = value.split(" ").map(&:to_i)
+    value = value.split.map(&:to_i)
   end
   rules_hash[key] = value
 end
@@ -41,7 +41,7 @@ until rules_hash.keys.length == 1
       next unless value.flatten.all? { |v| v.is_a? String }
 
       new_value = if value.first.is_a? Array
-                    value.map { |v| v.first.product(*v[1..]).map { |vvv| vvv.join("") } }
+                    value.map { |v| v.first.product(*v[1..]).map(&:join) }
                   else
                     value.first.product(*value[1..])
                   end
@@ -60,7 +60,7 @@ until rules_hash.keys.length == 1
                   value.map do |v|
                     if v.is_a? Array
                       values = v.map { |vv| vv == current_key ? current_value : vv }
-                      values.all? { |vv| vv.is_a? String } ? values.join("") : values
+                      values.all? { |vv| vv.is_a? String } ? values.join : values
                     else
                       v
                     end

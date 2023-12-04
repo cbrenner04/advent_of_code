@@ -40,7 +40,7 @@ data = INPUT.each_line.map(&:chomp)
 corrupt_indeces = []
 corrupt_chars = data.each_with_index.map do |line, index|
   openers = []
-  chars = line.split("")
+  chars = line.chars
   current_char = ""
   chars.each do |char|
     current_char = char
@@ -69,7 +69,7 @@ corrupt_indeces.reverse.each { |index| data.delete_at(index) }
 
 closing_char_scores = data.map do |line|
   openers = []
-  chars = line.split("")
+  chars = line.chars
   chars.each do |char|
     if opener?(char)
       openers.push(char)

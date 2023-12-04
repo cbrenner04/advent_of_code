@@ -24,7 +24,7 @@ def update_links(string)
   end
   link_matches_3 = article.scan(%r{<a href="/(.*)">(.[^<]*)</a>})
   link_matches_3.each do |link, text|
-    article.gsub!("<a href=\"\/#{link}\">#{text}</a>", "[#{text}](https://adventofcode.com/#{link})")
+    article.gsub!("<a href=\"/#{link}\">#{text}</a>", "[#{text}](https://adventofcode.com/#{link})")
   end
   article
 end
@@ -72,5 +72,5 @@ def parse_html(text)
     article = update_ordered_lists(article)
     article = update_special_characters(article)
     update_spans(article)
-  end.join("")
+  end.join
 end

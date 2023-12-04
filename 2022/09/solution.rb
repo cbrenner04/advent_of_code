@@ -21,10 +21,10 @@ columns = { U: 0, D: 0 }
 data.each do |direction, amount|
   if %w[R L].include?(direction)
     current = rows[direction.to_sym].dup
-    rows[direction.to_sym] = amount > current ? amount : current
+    rows[direction.to_sym] = [amount, current].max
   else
     current = columns[direction.to_sym].dup
-    columns[direction.to_sym] = amount > current ? amount : current
+    columns[direction.to_sym] = [amount, current].max
   end
 end
 

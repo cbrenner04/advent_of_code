@@ -7,7 +7,7 @@ part_two = 0
 
 data.each do |line|
   rule, pass = line.split(": ")
-  counts, letter = rule.split(" ")
+  counts, letter = rule.split
 
   # part one
   min, max = counts.split("-")

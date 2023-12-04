@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-DATA = INPUT.each_line.map { |l| l.chomp.split("") }
+DATA = INPUT.each_line.map { |l| l.chomp.chars }
 TOTAL_ROWS = DATA.count
 
 def find_trees(index_change, row_change)

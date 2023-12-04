@@ -9,7 +9,7 @@ part_one.gsub!(/!./, "")
 part_one.gsub!(/<.*?>/, "")
 score = 0
 total = 0
-part_one.split("").each do |char|
+part_one.chars.each do |char|
   score += 1 if char == "{"
   if char == "}"
     total += score

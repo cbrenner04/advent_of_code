@@ -13,7 +13,7 @@ greatest_x = 0
 greatest_y = 0
 
 range_info = data.map do |datum|
-  arry = datum.split(" ")
+  arry = datum.split
 
   starting_points = arry[2].delete(":").split(",")
   x_starting_point = starting_points[1].to_i + 1

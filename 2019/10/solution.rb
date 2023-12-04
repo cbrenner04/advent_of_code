@@ -3,7 +3,7 @@
 asteroids = []
 
 INPUT.each_line.with_index do |line, y|
-  line.chomp.split("").each_with_index do |value, x|
+  line.chomp.chars.each_with_index do |value, x|
     next unless value == "#"
 
     asteroids << [x, y]
@@ -40,4 +40,4 @@ grouped = station_angles.group_by { |g| g[:angle] }.sort.reverse
 grouped.each { |group| group[1].sort_by! { |g| g[:distance] } }
 two_hundredth_group = grouped[199]
 two_hundredth_asteroid_coords = two_hundredth_group[1][0][:coords]
-puts two_hundredth_asteroid_coords[0] * 100 + two_hundredth_asteroid_coords[1]
+puts (two_hundredth_asteroid_coords[0] * 100) + two_hundredth_asteroid_coords[1]

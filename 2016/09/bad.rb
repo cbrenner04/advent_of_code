@@ -15,7 +15,7 @@ loop do
   x = first_marker.tr("(", "")[/(.*x)/].tr("x", "").to_i
   y = first_marker[/(x.*)/].tr("x", "").tr(")", "").to_i - 1
 
-  num_of_chars_to_add.push(x * y - first_marker.length)
+  num_of_chars_to_add.push((x * y) - first_marker.length)
 
   new_string =
     string[index_of_end_of_first_marker..index_of_end_of_first_marker + x - 1]

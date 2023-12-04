@@ -14,7 +14,7 @@ data = INPUT.each_line.map(&:chomp)
 # ]
 
 parsed_data = data.map do |string|
-  split_string = string.split(" ")
+  split_string = string.split
   [split_string[1], split_string[-3]]
 end
 

@@ -13,8 +13,8 @@ noun = 0
 verb = 0
 
 catch :whatever do
-  (0..99).each do |i|
-    (0..99).each do |j|
+  100.times do |i|
+    100.times do |j|
       noun = i
       verb = j
       local_int_comp = Intcode.new(INPUT)
@@ -26,4 +26,4 @@ catch :whatever do
   end
 end
 
-puts 100 * noun + verb
+puts (100 * noun) + verb

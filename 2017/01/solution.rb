@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-data = INPUT.split("").map(&:to_i)
+data = INPUT.chars.map(&:to_i)
 
 part_one_matches = data.each_with_index.map do |x, i|
   x if (i == data.length - 1 && x == data[0]) || x == data[i + 1]

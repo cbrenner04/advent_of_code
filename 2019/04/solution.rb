@@ -7,7 +7,7 @@ def good_pass(pass)
   has_double = pass.scan(/(.)\1/).any?
   return false unless has_double
 
-  array = pass.split("")
+  array = pass.chars
   decreases = array.sort != array
   return false if decreases
 

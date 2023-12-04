@@ -17,11 +17,11 @@ split_for_fields.first.each_line do |line|
 end
 
 value_options = fields.values.flatten.uniq
-part_one = nearby_tickets.flatten.map { |number| number unless value_options.include?(number) }.compact.reduce(:+)
+part_one = nearby_tickets.flatten.reject { |number| value_options.include?(number) }.reduce(:+)
 
 puts part_one
 
-good_nearby_tickets = nearby_tickets.map { |ticket| ticket if ticket.all? { |t| value_options.include? t } }.compact
+good_nearby_tickets = nearby_tickets.select { |ticket| ticket.all? { |t| value_options.include? t } }
 remaining_fields = fields.keys
 ordered_fields = []
 index = 0

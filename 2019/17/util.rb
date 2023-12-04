@@ -11,9 +11,9 @@ def view_output(output)
       end
       char
     end
-    matrix = matrix.join("").split("\n").map { |r| r.split("") }
+    matrix = matrix.join.split("\n").map(&:chars)
 
-    matrix.each { |m| puts m.join("") }
+    matrix.each { |m| puts m.join }
   else
     p output
   end
@@ -26,7 +26,7 @@ class Scaffolds
   def initialize(ascii)
     # need to remove the last two lines as they are not part of the map
     @matrix =
-      ascii.map(&:chr).join("").split("\n").map { |r| r.split("") }[0..-3]
+      ascii.map(&:chr).join.split("\n").map(&:chars)[0..-3]
     @coord_scores = []
     @starting_coords = []
     @intersections = []
@@ -41,7 +41,7 @@ class Scaffolds
       row.each_with_index do |cell, ci|
         if intersection?(ri, ci)
           @intersections << "#{ri},#{ci}"
-          coord_scores << ci * ri
+          coord_scores << (ci * ri)
         end
         @starting_coords = [ri, ci] if cell == "^"
       end
@@ -50,7 +50,7 @@ class Scaffolds
   end
 
   def view
-    @matrix.each { |m| puts m.join("") }
+    @matrix.each { |m| puts m.join }
   end
 
   def map_path

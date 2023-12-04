@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-DATA = INPUT.each_line.map { |line| line.chomp.split(" ") }
+DATA = INPUT.each_line.map { |line| line.chomp.split }
 
 # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
 def solve(answer_to_a, part_two)

@@ -40,4 +40,4 @@ panels.each_key do |key|
   m[y.to_i][x.to_i] = panels[key]
 end
 
-m.reverse.each { |row| puts row.map { |r| r.zero? ? " " : "#" }.join("") }
+m.reverse.each { |row| puts row.map { |r| r.zero? ? " " : "#" }.join }

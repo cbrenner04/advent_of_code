@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-inputs = INPUT.split("").map(&:to_i)
+inputs = INPUT.chars.map(&:to_i)
 
 base_pattern = [0, 1, 0, -1]
 patterns = []
@@ -23,14 +23,14 @@ end
   patterns.each do |pattern|
     local_inputs = []
     inputs.each_with_index do |input, input_index|
-      local_inputs << input * pattern[input_index]
+      local_inputs << (input * pattern[input_index])
     end
-    next_inputs << local_inputs.reduce(:+).abs % 10
+    next_inputs << (local_inputs.reduce(:+).abs % 10)
   end
   inputs = next_inputs
 end
 
-puts inputs.first(8).join("")
+puts inputs.first(8).join
 
 # This take about 18 minutes to run. Since part two would be >10,000 times
 # longer a different solution is required.

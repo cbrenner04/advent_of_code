@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # frosen_string_literal: true
 
 # INPUT = "vJrwpWtwJgWrhcsFMMfFFhFp
@@ -13,7 +15,7 @@ end
 
 p_1 = INPUT.each_line.map do |line|
   line.chomp!
-  char = (line[0..(line.size / 2) - 1].split(//) & line[(line.size / 2)..].split(//)).first
+  char = (line[0..(line.size / 2) - 1].chars & line[(line.size / 2)..].chars).first
   get_priority(char)
 end.reduce(:+)
 
@@ -21,7 +23,7 @@ p p_1
 
 data = INPUT.split(/\n/)
 p_2 = data.each_slice(3).map do |set_of_three|
-  char = (set_of_three.first.split(//) & set_of_three[1].split(//) & set_of_three.last.split(//)).first
+  char = (set_of_three.first.chars & set_of_three[1].chars & set_of_three.last.chars).first
   get_priority(char)
 end.reduce(:+)
 

@@ -17,10 +17,10 @@ p1 = INPUT.each_line.map do |line|
   sets = combos.split("; ")
   each = sets.map { |set| set.split(", ") }.flatten
   something = each.map do |e|
-    count, type = e.split(" ")
+    count, type = e.split
     count.to_i > maxes[type] ? "impossible" : "possible"
   end
-  something.any? { |s| s == "impossible" } ? nil : game.split(" ").last.to_i
+  something.any? { |s| s == "impossible" } ? nil : game.split.last.to_i
 end.compact.reduce(:+)
 
 puts p1
@@ -35,10 +35,8 @@ p2 = INPUT.each_line.map do |line|
     "blue" => 0
   }
   each.each do |e|
-    count, type = e.split(" ")
-    if count.to_i > counts[type]
-      counts[type] = count.to_i
-    end
+    count, type = e.split
+    counts[type] = count.to_i if count.to_i > counts[type]
   end
   counts.values.reduce(:*)
 end.reduce(:+)

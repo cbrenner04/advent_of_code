@@ -5,11 +5,11 @@ register = {}
 maxes = []
 
 # need to initialize all the keys in the register
-data.each { |datum| register[datum.split(" ").first] = 0 }
+data.each { |datum| register[datum.split.first] = 0 }
 
 # rubocop:disable Style/CombinableLoops
 data.each do |datum|
-  split_datum = datum.split(" ")
+  split_datum = datum.split
   split_datum[0] = "register['#{split_datum.first}']"
   split_datum[1] = split_datum[1] == "inc" ? "+=" : "-="
   split_datum[4] = "register['#{split_datum[4]}']"

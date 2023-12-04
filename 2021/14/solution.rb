@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def template_pairs(template)
-  template.split("")
+  template.chars
           .each_with_index
           .map { |l, i| "#{l}#{template[i + 1]}" if template[i + 1] }
           .compact
@@ -12,10 +12,10 @@ rule_map = {}
 rules.split("\n").map { |r| r.split(" -> ") }.each { |k, v| rule_map[k] = v }
 10.times do
   combinations = template_pairs(template)
-  new_template = [combinations.first.split("").first]
+  new_template = [combinations.first.chars.first]
   combinations.each do |c|
     new_template.push(rule_map[c])
-    new_template.push(c.split("").last)
+    new_template.push(c.chars.last)
   end
   template = new_template.join
 end
@@ -28,10 +28,10 @@ p char_counts.values.max - char_counts.values.min
 # TODO: this is not reasonably fast enough. need a more optimal solution
 30.times do
   combinations = template_pairs(template)
-  new_template = [combinations.first.split("").first]
+  new_template = [combinations.first.chars.first]
   combinations.each do |c|
     new_template.push(rule_map[c])
-    new_template.push(c.split("").last)
+    new_template.push(c.chars.last)
   end
   template = new_template.join
 end

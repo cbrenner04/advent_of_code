@@ -19,7 +19,7 @@ data = INPUT.each_line.map do |line|
     .chomp
     .gsub("turn on", "turn-on")
     .gsub("turn off", "turn-off")
-    .split(" ")
+    .split
 end
 
 first_matrix = Array.new(ROWS) { Array.new(COLUMNS, false) }

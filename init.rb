@@ -8,7 +8,7 @@ YEAR, DAY = parse_cli
 DIR = "#{YEAR}/#{DAY}"
 
 def get(uri)
-  session_cookie = ENV["AOC_SESSION_COOKIE"]
+  session_cookie = ENV.fetch("AOC_SESSION_COOKIE", nil)
   req = Net::HTTP::Get.new(uri)
   req["Cookie"] = "session=#{session_cookie}"
 

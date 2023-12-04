@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 data = INPUT.each_line.map do |line|
-  line.chomp.split(" ").map(&:to_i).sort
+  line.chomp.split.map(&:to_i).sort
 end
 products = []
 

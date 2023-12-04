@@ -29,7 +29,7 @@ password_one = []
   i += 1
 end
 
-puts password_one.join("")
+puts password_one.join
 
 # starting integer
 j = 0
@@ -64,4 +64,4 @@ until password_two.compact.length == 8
   j += 1
 end
 
-puts password_two.join("")
+puts password_two.join

@@ -17,7 +17,7 @@ class Nanofactory
   def parse_reactions(reaction_list)
     reaction_list.each_line do |line|
       inputs, output = line.chomp.split(" => ")
-      output_amount, output_name = output.split(" ")
+      output_amount, output_name = output.split
       input_hash = parse_inputs(inputs)
       @reactions[output_name] = {
         amount: output_amount.to_i,
@@ -27,10 +27,10 @@ class Nanofactory
     end
   end
 
-  def parse_inputs(inputs)\
+  def parse_inputs(inputs)
     input_hash = {}
     inputs.split(", ").each do |input|
-      splits = input.split(" ")
+      splits = input.split
       input_hash[splits.last] = splits.first.to_i
     end
     input_hash

@@ -8,7 +8,7 @@ max_message = []
 min_message = []
 
 # for each column index
-(0..7).each do |index|
+8.times do |index|
   # initialize hash -- local to the column
   hash = {}
   # each string
@@ -27,5 +27,5 @@ min_message = []
 end
 
 # display the results
-p "MAX MESSAGE: #{max_message.join('')}"
-p "MIN MESSAGE: #{min_message.join('')}"
+p "MAX MESSAGE: #{max_message.join}"
+p "MIN MESSAGE: #{min_message.join}"

@@ -4,7 +4,7 @@ Distance = Struct.new(:start, :stop, :mileage)
 
 data = []
 INPUT.each_line do |line|
-  start, _, stop, _, mileage = line.chomp.split(" ")
+  start, _, stop, _, mileage = line.chomp.split
   data << Distance.new(start, stop, mileage.to_i)
   data << Distance.new(stop, start, mileage.to_i)
 end

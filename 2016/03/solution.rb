@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # get that data
-data = INPUT.each_line.map { |line| line.chomp.split(" ") }
+data = INPUT.each_line.map { |line| line.chomp.split }
 # start count at 0
 count = 0
 
@@ -30,7 +30,7 @@ end
 # tell me whats up
 puts count
 
-data = INPUT.each_line.map { |line| line.chomp.split(" ") }.flatten
+data = INPUT.each_line.map { |line| line.chomp.split }.flatten
 # set the first value of the each of the new arrays
 # these arrays are where I put my side values based on column
 # first set is the first column

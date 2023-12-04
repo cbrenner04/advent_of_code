@@ -21,8 +21,8 @@ end
 
 def check_and_update(l_octo_matrix, l_flashes)
   step_flashes = []
-  (0..9).each do |y|
-    (0..9).each do |x|
+  10.times do |y|
+    10.times do |x|
       next unless l_octo_matrix[y][x] > 9
       next if step_flashes.include?([x, y])
 
@@ -33,11 +33,11 @@ def check_and_update(l_octo_matrix, l_flashes)
   [l_flashes, l_octo_matrix, step_flashes]
 end
 
-octo_matrix = INPUT.each_line.map { |line| line.chomp.split("").map(&:to_i) }
+octo_matrix = INPUT.each_line.map { |line| line.chomp.chars.map(&:to_i) }
 
 flashes = 0
-100.times do |i|
-  (0..9).each { |y| (0..9).each { |x| octo_matrix[y][x] += 1 } }
+100.times do |_i|
+  10.times { |y| 10.times { |x| octo_matrix[y][x] += 1 } }
 
   flashes, octo_matrix, step_flashes = check_and_update(octo_matrix, flashes)
 
@@ -51,7 +51,7 @@ step_flashes = []
 step = 0
 loop do
   step += 1
-  (0..9).each { |y| (0..9).each { |x| octo_matrix[y][x] += 1 } }
+  10.times { |y| 10.times { |x| octo_matrix[y][x] += 1 } }
 
   flashes, octo_matrix, step_flashes = check_and_update(octo_matrix, flashes)
 

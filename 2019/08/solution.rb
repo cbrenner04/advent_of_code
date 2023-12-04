@@ -16,10 +16,10 @@ matrix = Array.new(HEIGHT) { Array.new(WIDTH) }
 
 layers.to_a.reverse.each do |layer|
   layer.each_with_index do |pixel, pixel_index|
-    pixel.split("").each_with_index do |a, i|
+    pixel.chars.each_with_index do |a, i|
       matrix[pixel_index][i] = a if %w[0 1].include?(a)
     end
   end
 end
 
-matrix.each { |m| puts m.map { |x| x == "0" ? " " : x }.join("") }
+matrix.each { |m| puts m.map { |x| x == "0" ? " " : x }.join }

@@ -21,7 +21,7 @@ end
 data.shift # handles blank line between pieces
 number_of_stacks = arrangement.pop.strip.split.last.to_i
 levels = arrangement.map do |level|
-  l = level.split("").each_slice(4).map { |cargo| cargo.join.strip }
+  l = level.chars.each_slice(4).map { |cargo| cargo.join.strip }
   l.count < number_of_stacks ? l << "" : l
 end
 stacks = (0...number_of_stacks).map do |stack_number|

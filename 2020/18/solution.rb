@@ -2,7 +2,7 @@
 
 def part_one(equation, paranthetical: false)
   equation = paranthetical ? equation[1..-2] : equation
-  subeq = equation.split(" ")
+  subeq = equation.split
   until subeq.length == 1
     left = subeq.shift.to_i
     operator = subeq.shift.to_sym

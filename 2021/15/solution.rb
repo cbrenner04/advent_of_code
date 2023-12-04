@@ -16,7 +16,7 @@ right = [1, 0]
 down = [0, 1]
 left = [-1, 0]
 
-matrix = INPUT.each_line.map { |line| line.chomp.split("").map(&:to_i) }
+matrix = INPUT.each_line.map { |line| line.chomp.chars.map(&:to_i) }
 current_coord = [0, 0]
 end_coord = [matrix.first.count - 1, matrix.count - 1]
 until current_coord == end_coord

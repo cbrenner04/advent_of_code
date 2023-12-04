@@ -27,7 +27,7 @@ def draw(output)
       m[y][x] = "o"
     end
   end
-  m.each { |row| puts row.join("") }
+  m.each { |row| puts row.join }
   joystick =
     if ball_pos > paddle_pos
       1

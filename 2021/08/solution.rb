@@ -21,24 +21,24 @@ data.each do |inputs, outputs|
   # TODO: i bet i can do this in less steps
   # first using unique numbers we can get some possibilities and a single definite
   # comparing 1 (2 digits) and 7 (3 digits) will give you "a" as well as "c" and "f" possibiles (1)
-  a_seg = (inputs[1].split("") - inputs.first.split(""))
+  a_seg = (inputs[1].chars - inputs.first.chars)
   # comparing 1 (2 digits) with 4 (4 digits) will give you "b" and "d" possibilities
-  bd = inputs[2].split("") - inputs.first.split("")
+  bd = inputs[2].chars - inputs.first.chars
   # taking a and those possibilities to compare with 8 (7 digits) will give you "e" and "g" possibilities
-  eg = inputs.last.split("") - bd.dup.concat(inputs.first.split("")).push(a_seg.first)
+  eg = inputs.last.chars - bd.dup.concat(inputs.first.chars).push(a_seg.first)
 
   # now what?
   # 0, 6, and 9 have 1 digit less than 8; "d", "c", and "e", respectively
   dce = inputs.select { |input| input.length == 6 }
-              .map { |zsn| inputs.last.split("") - zsn.split("") }.flatten
+              .map { |zsn| inputs.last.chars - zsn.chars }.flatten
   # get "b" and "f" from subtracting "d", "c", and "e" from "b", "d" and "c", "f"
-  bf = bd.dup.concat(inputs.first.split("")) - dce
+  bf = bd.dup.concat(inputs.first.chars) - dce
   # get "b" from subtracting "b", "f" from "c", "f"
-  b_seg = bf - inputs.first.split("")
+  b_seg = bf - inputs.first.chars
   # get "f" from subtracting "b" from "b", "f"
   f_seg = bf - b_seg
   # get "c" from subtracting "f" from "c", "f"
-  c_seg = inputs.first.split("") - f_seg
+  c_seg = inputs.first.chars - f_seg
   # get "d" from subtracting "d" from "b", "d"
   d_seg = bd - b_seg
   # get "e" from subtracting "d" and "c" from "d", "c", "e"
@@ -69,7 +69,7 @@ data.each do |inputs, outputs|
   ]
   # use above array to find values in outputs
   output_value.push(
-    outputs.map { |output| new_values.find_index(output.split("").sort.join) }.join.to_i
+    outputs.map { |output| new_values.find_index(output.chars.sort.join) }.join.to_i
   )
 end
 

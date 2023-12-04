@@ -4,7 +4,7 @@
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def compare_and_remove_chars(string)
   index_array = []
-  char_array = string.split("")
+  char_array = string.chars
   index = 0
   until index >= string.length
     char = char_array[index]
@@ -16,7 +16,7 @@ def compare_and_remove_chars(string)
       next_char == (char.match?(/[[:lower:]]/) ? char.upcase : char.downcase)
     if next_char_match
       index_array << index
-      index_array << index + 1
+      index_array << (index + 1)
       index += 2
     else
       index += 1

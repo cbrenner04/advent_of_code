@@ -240,7 +240,7 @@ end
 
 data = INPUT.each_line.map(&:chomp)
 initial_state = data.each_with_index.flat_map do |row, x|
-  row.split("").each_with_index.map { |cell, y| [x, y] if cell == "#" }.compact
+  row.chars.each_with_index.map { |cell, y| [x, y] if cell == "#" }.compact
 end
 dimension = PocketDimension.new(initial_state)
 dimension.run(6)

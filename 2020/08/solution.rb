@@ -10,7 +10,7 @@ def run(instructions)
   until seen.include?(current_instruction) || current_instruction >= instructions.length
     seen << current_instruction
 
-    op, value = instructions[current_instruction].split(" ")
+    op, value = instructions[current_instruction].split
 
     case op
     when "acc"
@@ -29,7 +29,7 @@ end
 p run(data)[0]
 
 data.each_with_index do |datum, index|
-  op, value = datum.split(" ")
+  op, value = datum.split
 
   next if op == "acc"
 

@@ -3,7 +3,7 @@
 # passport object for validating passports
 class Passport
   def initialize(data)
-    p_data = data.split(" ")
+    p_data = data.split
     passport_data = {}
     p_data.each do |pd|
       k, v = pd.split(":")

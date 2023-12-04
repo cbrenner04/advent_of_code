@@ -6,7 +6,7 @@
 # 33549
 # 35390"
 
-data = INPUT.each_line.map { |l| l.chomp.split(//).map(&:to_i) }
+data = INPUT.each_line.map { |l| l.chomp.chars.map(&:to_i) }
 p_1 = (2 * (data.count - 2)) + (2 * data.count)
 p_2 = 0
 
@@ -48,7 +48,7 @@ p_2 = 0
 
     p_1 += 1 if left || right || up || down
     lp_2 = lscenic * rscenic * uscenic * dscenic
-    p_2 = lp_2 > p_2 ? lp_2 : p_2
+    p_2 = lp_2 if lp_2 > p_2
   end
 end
 

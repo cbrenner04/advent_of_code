@@ -92,7 +92,7 @@ end
       end
       row << sign
     end
-    puts "#{row.join('')}\n"
+    puts "#{row.join}\n"
   end
   update_coors(points)
   puts "\n\n"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-data = INPUT.each_line.map { |line| line.chomp.split("") }
+data = INPUT.each_line.map { |line| line.chomp.chars }
 
 # 1 2 3
 # 4 5 6
@@ -70,7 +70,7 @@ bathroom_code = data.map do |array|
     current_position = make_move(current_position, move)
   end
   current_position
-end.join("")
+end.join
 
 puts bathroom_code
 
@@ -143,6 +143,6 @@ bathroom_code = data.map do |array|
     index = make_move_2(index, move) unless illegal_move_2?(index, move)
   end
   options[index]
-end.join("")
+end.join
 
 puts bathroom_code

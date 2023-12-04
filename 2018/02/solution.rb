@@ -12,7 +12,7 @@ part_one.each do |box_id|
   counted_chars = []
   already_counted_for_two = false
   already_counted_for_three = false
-  box_id.split("").each do |char|
+  box_id.chars.each do |char|
     next if counted_chars.include? char
 
     char_count = box_id.count(char)
@@ -30,12 +30,12 @@ end
 puts "Part one: #{count_two_letter_repeats * count_three_letter_repeats}"
 
 part_two.each_with_index do |outer_box_id, outer_index|
-  outer_arry = outer_box_id.split("")
+  outer_arry = outer_box_id.chars
   break unless part_two.each_with_index do |inner_box_id, inner_index|
     next if inner_index == outer_index
 
     differing_chars_indexes = []
-    inner_arry = inner_box_id.split("")
+    inner_arry = inner_box_id.chars
     outer_arry.each_with_index do |char, char_index|
       next if inner_arry[char_index] == char
 
@@ -45,7 +45,7 @@ part_two.each_with_index do |outer_box_id, outer_index|
     next unless differing_chars_indexes.length == 1
 
     outer_arry.delete_at(differing_chars_indexes.first)
-    puts "Part two: #{outer_arry.join('')}"
+    puts "Part two: #{outer_arry.join}"
     break
   end
 end

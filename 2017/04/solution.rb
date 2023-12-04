@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-data = INPUT.each_line.map { |line| line.chomp.split(" ") }
+data = INPUT.each_line.map { |line| line.chomp.split }
 
 p data.select { |passphrase| passphrase.count == passphrase.uniq.count }.count
 

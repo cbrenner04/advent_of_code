@@ -13,8 +13,8 @@ end
 # assumes 4 ingredients
 # rubocop:disable Metrics/ParameterLists
 def calculate_total(ingredients, property, count_1, count_2, count_3, count_4)
-  ingredients[0][property] * count_1 + ingredients[1][property] * count_2 +
-    ingredients[2][property] * count_3 + ingredients[3][property] * count_4
+  (ingredients[0][property] * count_1) + (ingredients[1][property] * count_2) +
+    (ingredients[2][property] * count_3) + (ingredients[3][property] * count_4)
 end
 # rubocop:enable Metrics/ParameterLists
 
@@ -24,8 +24,8 @@ def solve(ingredients, part_two: false)
   score = 0
   max = 0
 
-  (0..100).each do |i|
-    (0..100 - i).each do |j|
+  101.times do |i|
+    (0..(100 - i)).each do |j|
       (0..100 - i - j).each do |k|
         l = 100 - i - j - k
         capacity = calculate_total(ingredients, "capacity", i, j, k, l)

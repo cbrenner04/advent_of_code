@@ -12,7 +12,7 @@ INPUT = "2199943210
 8767896789
 9899965678"
 
-data = INPUT.each_line.map { |line| line.chomp.split("").map(&:to_i) }
+data = INPUT.each_line.map { |line| line.chomp.chars.map(&:to_i) }
 low_points = []
 data.each_with_index do |row, rindex|
   row.each_with_index do |height, hindex|

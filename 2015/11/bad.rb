@@ -51,7 +51,7 @@ def contains_two_pairs?(password)
     chunk = password[i..i + 1]
     chunk[0] == chunk[1]
   end
-  pairs.join("") =~ /true.+true/
+  pairs.join =~ /true.+true/
 end
 
 def good_password?(password)
@@ -69,7 +69,7 @@ def increment_char(char)
 end
 
 def increment_password(password)
-  pwd_array = password.split("")
+  pwd_array = password.chars
   current_index = pwd_array.length - 1
   while current_index >= 0
     new_char = increment_char(pwd_array[current_index])
@@ -78,7 +78,7 @@ def increment_password(password)
 
     current_index -= 1
   end
-  pwd_array.join("")
+  pwd_array.join
 end
 
 def next_password(password, count = 0)

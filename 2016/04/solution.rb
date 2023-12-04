@@ -8,7 +8,7 @@ total = 0
 # for each of the strings in the data
 data.each do |string|
   # split the string into chars
-  array = string.split("")
+  array = string.chars
   # initialize new array for putting the counts
   new_array = []
   # for each character
@@ -42,7 +42,7 @@ data.each do |string|
   # pop the last part of the array (that's all you need here)
   # split that into an array
   # pop the last character of the array (']') and keep the array
-  checksum = string.split("[").to_a.pop.split("").tap(&:pop)
+  checksum = string.split("[").to_a.pop.chars.tap(&:pop)
 
   # do nothing unless the first five values are equal to the checksum
   next unless checksum == newest_array[0..4]
@@ -51,7 +51,7 @@ data.each do |string|
   digits = array.map { |char| char if char =~ /[[:digit:]]/ }
 
   # add the digits to the total
-  total += digits.join("").to_i
+  total += digits.join.to_i
 end
 
 p total
@@ -64,7 +64,7 @@ A_ORDINAL = 97
 # for each of the strings in the data
 data.each do |string|
   # split the string into chars
-  array = string.split("")
+  array = string.chars
   # append the digits to the digits variable
   array.each { |char| digits << char if char.match?(/[[:digit:]]/) }
   # initialize new array for putting the counts
@@ -82,7 +82,7 @@ data.each do |string|
     # if char is an alphabetic character
     if char.match?(/[[:alpha:]]/)
       # change digits to integer
-      offset = digits.join("").to_i
+      offset = digits.join.to_i
       # if offset is greater than 26 (number of characters in alphabet)
       # the offset will be the remainder of the offset given divided by 26
       offset = offset % 26 if offset > 26
@@ -97,10 +97,10 @@ data.each do |string|
     new_array.push(num.chr)
   end
   # stop if northpole is found
-  break if new_array.join("").include? "northpole"
+  break if new_array.join.include? "northpole"
 
   # reset digits
   digits = []
 end
 
-p digits.join("").to_i
+p digits.join.to_i

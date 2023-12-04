@@ -45,7 +45,7 @@ best_power = 0
     # max is an arbitrary number here
     # started at 30
     # but once I was close to my answer I adjusted for quicker run time
-    (0..15).each do |n|
+    16.times do |n|
       sub_grid_power = 0
       (x..x + n).each do |xx|
         next if xx > 300

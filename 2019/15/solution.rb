@@ -49,5 +49,5 @@ until queue.empty?
   end
 end
 
-matrix.each { |row| puts row.map { |node| node.type || "#" }.join("") }
+matrix.each { |row| puts row.map { |node| node.type || "#" }.join }
 puts oxygen_system_distance
