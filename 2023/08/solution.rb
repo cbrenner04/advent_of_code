@@ -27,26 +27,26 @@
 # 22Z = (22B, 22B)
 # XXX = (XXX, XXX)"
 
-instructions = INPUT.each_line.first.chomp.split("").map { |i| i == 'R' ? 1 : 0 }
+instructions = INPUT.each_line.first.chomp.split("").map { |i| i == "R" ? 1 : 0 }
 last_instruction_index = instructions.count - 1
 network = {}
 a_nodes = []
 INPUT.each_line.drop(2).each do |line|
   node, left_right = line.chomp.split(" = ")
-  a_nodes << node if node[-1] == 'A'
+  a_nodes << node if node[-1] == "A"
   network[node] = left_right.scan(/\((\w+),\s(\w+)\)/).first
 end
 
 # p1
-current_node = 'AAA'
+current_node = "AAA"
 current_instruction_index = 0
 step = 0
 loop do
-  break if current_node == 'ZZZ'
+  break if current_node == "ZZZ"
 
   step += 1
   current_node = network[current_node][instructions[current_instruction_index]]
-  current_instruction_index = (current_instruction_index >= last_instruction_index) ? 0 : current_instruction_index + 1
+  current_instruction_index = current_instruction_index >= last_instruction_index ? 0 : current_instruction_index + 1
 end
 
 pp step
@@ -56,12 +56,11 @@ step = 0
 current_instruction_index = 0
 current_nodes = a_nodes
 loop do
-  break if current_nodes.all? { |current_node| current_node[-1] == 'Z' }
+  break if current_nodes.all? { |cn| cn[-1] == "Z" }
 
   step += 1
-  next_nodes = []
-  current_nodes = current_nodes.map { |current_node| network[current_node][instructions[current_instruction_index]] }
-  current_instruction_index = (current_instruction_index >= last_instruction_index) ? 0 : current_instruction_index + 1
+  current_nodes = current_nodes.map { |cn| network[cn][instructions[current_instruction_index]] }
+  current_instruction_index = current_instruction_index >= last_instruction_index ? 0 : current_instruction_index + 1
 end
 
 pp step
