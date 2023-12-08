@@ -1,4 +1,4 @@
-# Day 7: Camel Cards 
+# Day 7: Camel Cards
 
 Your all-expenses-paid trip turns out to be a one-way, five-minute ride in an [airship](https://en.wikipedia.org/wiki/Airship). (At least it's a **cool** airship!) It drops you off at the edge of a vast desert and descends back to Island Island.
 
@@ -37,11 +37,11 @@ So, `33332` and `2AAAA` are both **four of a kind** hands, but `33332` is strong
 To play Camel Cards, you are given a list of hands and their corresponding **bid** (your puzzle input). For example:
 
 ```text
-32T3K 765
-T55J5 684
-KK677 28
-KTJJT 220
-QQQJA 483
+32T3K 765 1
+T55J5 684 4
+KK677 28 3
+KTJJT 220 2
+QQQJA 483 5
 ```
 
 This example shows five hands; each hand is followed by its **bid** amount. Each hand wins an amount equal to its bid multiplied by its **rank**, where the weakest hand gets rank 1, the second-weakest hand gets rank 2, and so on up to the strongest hand. Because there are five hands in this example, the strongest hand will have rank 5 and its bid will be multiplied by 5.
