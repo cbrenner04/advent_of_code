@@ -49,26 +49,19 @@ def solution(seeds)
 
     if line.include?("map")
       current_source = current_map || "seeds"
-      current_map = line.split.first.split("-").last
+      current_map = line.match(/-(\w+) map:$/)[1]
       source_values = current_source == "seeds" ? seeds : maps[current_source].values
       next
     end
-
-    pp current_source
 
     destination_start, source_start, count = line.split.map(&:to_i)
     offset = destination_start - source_start
     destination_to_source = maps[current_map] || {}
     source_range = Range.new(source_start, source_start + count - 1)
-    # TODO: with enough source_values this overlap check becomes a little useless
-    source_values.sort.each_slice(1000).with_index do |values, index|
-      pp index
-
+    source_values.each_slice(10_000).with_index do |values, index|
       next unless overlap?(values, source_range)
 
-      values.each do |source_value|
-        destination_to_source[source_value] = source_value + offset if source_range.include?(source_value)
-      end
+      values.each { |v| destination_to_source[v] = v + offset if source_range.include?(v) }
     end
     leftovers = source_values - destination_to_source.keys
     leftovers.each { |leftover| destination_to_source[leftover] = leftover }
@@ -84,7 +77,6 @@ pp solution(part_1_seeds)
 part_2_seeds = []
 current_index = 0
 loop do
-  pp current_index
   break if current_index >= part_1_seeds.count - 1
 
   # TODO: this should be ranges not arrays - this will require an update to the solution
@@ -92,4 +84,4 @@ loop do
   current_index += 2
 end
 
-pp solution(part_2_seeds)
+pp solution(part_2_seeds.sort)
