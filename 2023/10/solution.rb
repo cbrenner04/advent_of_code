@@ -28,6 +28,7 @@ require_relative "../../util"
 . . . . . . . . . . .
 =end
 
+# [2, 6], [3, 6], [7, 6], [8, 6]
 
 INPUT = "...........
 .S-------7.
@@ -153,43 +154,58 @@ cannot_be_higher_than_this = [matrix.first.count, matrix.count].reduce(:*) - pip
 
 contained_coords = []
 out_of_bounds_coords = []
+prev_direction = nil
+current_x_y = nil
+prev_x_y = [pipe_coords.last.first - pipe_coords.first.first, pipe_coords.last.last - pipe_coords.first.last]
 pipe_coords.each_with_index do |coord, index|
   pp "coord: #{coord}"
-  next_index = pipe_coords[index + 1].nil? ? 0 : index + 1
+  next_index = index + 1
+  break if index == pipe_coords.count - 1
   x_diff = pipe_coords[next_index].first - coord.first
   y_diff = pipe_coords[next_index].last - coord.last
+  pp "starting x_diff #{x_diff}"
+  pp "starting y_diff #{y_diff}"
   direction = x_diff.zero? ? "y" : "x"
+  prev_direction = direction if index.zero?
+  pp "direction #{direction}"
+  # pp "prev_direction #{prev_direction}"
+  if prev_direction != direction
+    prev_direction = direction
+    prev_x_y = [coord.first - pipe_coords[index - 1].first, coord.last - pipe_coords[index - 1].last]
+    next
+  end
+  prev_direction = direction
   y_direction = 0
   x_direction = 0
+  pp "prev_x_y #{prev_x_y}"
   if direction == "x"
-    loop do
-      next_index += pipe_coords[next_index + 1].nil? ? 0 : 1
-      y_diff = pipe_coords[next_index].last - coord.last
-      if !y_diff.zero?
-        y_direction = y_diff
-        break
-      end
+    if x_diff > 0
+      y_direction = prev_x_y.last
+    elsif x_diff < 0
+      y_direction = -prev_x_y.last
+    else
+      pp "X DIRECTION IS WRONGLY"
     end
   elsif direction == "y"
-    loop do
-      next_index += pipe_coords[next_index + 1].nil? ? 0 : 1
-      x_diff = pipe_coords[next_index].last - coord.last
-      if !x_diff.zero?
-        x_direction = x_diff
-        break
-      end
+    if y_diff > 0
+      x_direction = -prev_x_y.first
+    elsif y_diff < 0
+      x_direction = prev_x_y.first
+    else
+      pp "Y DIRECTION IS WRONGLY"
     end
   else
-    pp "FAIL"
+    pp "OMG"
   end
-  pp "x_dir, y_dir #{[x_direction, y_direction]}"
+  current_x_y = [x_direction, y_direction]
+  pp "current_x_y #{current_x_y}"
   boundary_hit = false
   local_coords = []
   x, y = coord
   until boundary_hit
     x += x_direction
     y += y_direction
-    pp [x, y]
+    pp "looking #{[x, y]}"
     if x == -1 || x >= (matrix.first.count - 1) || y == -1 || y >= (matrix.count - 1) || out_of_bounds_coords.include?([x, y])
       out_of_bounds_coords.concat(local_coords)
       boundary_hit = true
@@ -199,7 +215,9 @@ pipe_coords.each_with_index do |coord, index|
     else
       local_coords << [x, y]
     end
+    pp "local_coords #{local_coords}"
   end
+  pp "contained_coords #{contained_coords}"
 end
 
 pp contained_coords
