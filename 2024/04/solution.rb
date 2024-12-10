@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "matrix"
+# for `diagonal`
+require_relative "../../util"
 
 # INPUT = "MMMSXXMASM
 # MSAMXMSMSA
@@ -12,64 +14,6 @@ require "matrix"
 # SAXAMASAAA
 # MAMMMXMMMM
 # MXMXAXMASX"
-
-def diagonals(matrix)
-  row_count = matrix.row_count
-  column_count = matrix.column_count
-  diagonals = []
-
-  # Get all diagonals from top-left to bottom-right (positive)
-  (0...row_count).each do |row|
-    diagonal = []
-    i = row
-    j = 0
-    while i < row_count && j < column_count
-      diagonal << matrix[i, j]
-      i += 1
-      j += 1
-    end
-    diagonals << diagonal
-  end
-
-  (1...column_count).each do |col|
-    diagonal = []
-    i = 0
-    j = col
-    while i < row_count && j < column_count
-      diagonal << matrix[i, j]
-      i += 1
-      j += 1
-    end
-    diagonals << diagonal
-  end
-
-  # Get all diagonals from top-right to bottom-left
-  (0...row_count).each do |row|
-    diagonal = []
-    i = row
-    j = column_count - 1
-    while i < row_count && j >= 0
-      diagonal << matrix[i, j]
-      i += 1
-      j -= 1
-    end
-    diagonals << diagonal
-  end
-
-  (0...(column_count - 1)).each do |col|
-    diagonal = []
-    i = 0
-    j = col
-    while i < row_count && j >= 0
-      diagonal << matrix[i, j]
-      i += 1
-      j -= 1
-    end
-    diagonals << diagonal
-  end
-
-  diagonals
-end
 
 part_one = 0
 
