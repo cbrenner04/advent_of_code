@@ -17,6 +17,8 @@ require_relative "../../util"
 # ............
 # ............"
 
+# none of this is right
+
 splitted = INPUT.each_line(chomp: true).map { |line| line.split("") }
 matrix = Matrix.rows(splitted)
 
