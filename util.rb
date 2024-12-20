@@ -11,8 +11,8 @@ def array_subsequences(array)
   (0..array.length).to_a.combination(2).map { |i, j| array[i...j] }
 end
 
-def simple_matrix(number_of_rows, number_of_columns)
-  Array.new(number_of_rows) { Array.new(number_of_columns, false) }
+def simple_matrix(number_of_rows, number_of_columns, default_value = false)
+  Array.new(number_of_rows) { Array.new(number_of_columns, default_value) }
 end
 
 def diagonals(matrix, options = { row_step: 1, column_step: 1 })

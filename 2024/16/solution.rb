@@ -66,15 +66,21 @@ def find_path(matrix, start, goal, part_two)
 
   # Initial state: position, direction, path taken, and score
   queue = [[start, "E", [start], 0]]
+  all_paths = []
 
   until queue.empty?
     # Sort the queue by score to prioritize the lowest-cost path
     queue.sort_by! { |_, _, _, score| score } unless part_two
-    current, direction, path, score = queue.shift unless part_two
-    current, direction, path, score = queue.pop if part_two
+
+    current, direction, path, score = queue.shift
     x, y = current
-    return { path: path, score: score } if current == goal
-    next if visited.include?([current, direction])
+
+    next all_paths << { path: path, score: score }  if current == goal && part_two
+
+    return { path: path, score: score } if current == goal && !part_two
+
+    visit = part_two ? [current, direction, score] : [current, direction]
+    next if visited.include?(visit)
 
     visited.add([current, direction])
 
@@ -92,7 +98,7 @@ def find_path(matrix, start, goal, part_two)
     turns[direction].each { |new_direction| queue << [current, new_direction, path, score + 1000] }
   end
 
-  nil # No path found
+  part_two ? all_paths : nil
 end
 
 start = []
@@ -107,5 +113,7 @@ matrix = Matrix.rows(
 )
 part_one = find_path(matrix, start, goal, false)[:score]
 p part_one
-part_two = find_path(matrix, start, goal, true)[:path]
-p part_two.count # not right; good for first example, off by 1 for second example, off by 2+ for puzzle input
+
+# not efficient enough
+part_two = find_path(matrix, start, goal, true)
+p part_two.count # not right
