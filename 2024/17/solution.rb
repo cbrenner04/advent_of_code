@@ -65,7 +65,7 @@ until output == commands
     when 0
       registers[:A] = registers[:A] / (2**combo_operand(operand, registers))
     when 1
-      registers[:B] = `echo $((#{registers[:B]} ^ #{operand}))`.chomp.to_i
+      registers[:B] = registers[:B] ^ operand
     when 2
       registers[:B] = combo_operand(operand, registers) % 8
     when 3
@@ -76,7 +76,7 @@ until output == commands
         jump = true
       end
     when 4
-      registers[:B] = `echo $((#{registers[:B]} ^ #{registers[:C]}))`.chomp.to_i
+      registers[:B] = registers[:B] ^ registers[:C]
     when 5
       output << combo_operand(operand, registers) % 8
     when 6

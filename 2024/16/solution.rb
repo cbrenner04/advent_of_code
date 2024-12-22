@@ -75,7 +75,7 @@ def find_path(matrix, start, goal, part_two)
     current, direction, path, score = queue.shift
     x, y = current
 
-    next all_paths << { path: path, score: score }  if current == goal && part_two
+    next all_paths << { path: path, score: score } if current == goal && part_two
 
     return { path: path, score: score } if current == goal && !part_two
 
