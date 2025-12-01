@@ -142,12 +142,12 @@ Option one, put a printing press next to the guard's starting position:
 
 ```text
 ....#.....
-....++#
+....+---+#
 ....|...|.
 ..#.|...|.
 ....|..#|.
 ....|...|.
-.#.**O**^+.
+.#.O^---+.
 ........#.
 #.........
 ......#...
@@ -157,13 +157,13 @@ Option two, put a stack of failed suit prototypes in the bottom right quadrant o
 
 ```text
 ....#.....
-....++#
+....+---+#
 ....|...|.
 ..#.|...|.
 ..+-+-+#|.
 ..|.|.|.|.
 .#+-^-+-+.
-......**O**.#.
+......O.#.
 #.........
 ......#...
 ```
@@ -178,8 +178,8 @@ Option three, put a crate of chimney-squeeze prototype fabric next to the standi
 ..+-+-+#|.
 ..|.|.|.|.
 .#+-^-+-+.
-.+-+**O**#.
-#+-+...
+.+----+O#.
+#+----+...
 ......#...
 ```
 
@@ -194,7 +194,7 @@ Option four, put an alchemical retroencabulator near the bottom left corner:
 ..|.|.|.|.
 .#+-^-+-+.
 ..|...|.#.
-#**O**++...
+#O+---+...
 ......#...
 ```
 
@@ -209,7 +209,7 @@ Option five, put the alchemical retroencabulator a bit to the right instead:
 ..|.|.|.|.
 .#+-^-+-+.
 ....|.|.#.
-#..**O**+-+...
+#..O+-+...
 ......#...
 ```
 
@@ -223,9 +223,9 @@ Option six, put a tank of sovereign glue right next to the tank of universal sol
 ..+-+-+#|.
 ..|.|.|.|.
 .#+-^-+-+.
-.+-++#.
-#+-++..
-......#**O**..
+.+----++#.
+#+----++..
+......#O..
 ```
 
 It doesn't really matter what you choose to use as an obstacle so long as you and The Historians can put it into

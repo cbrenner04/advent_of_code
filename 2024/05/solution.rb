@@ -29,6 +29,27 @@
 # 61,13,29
 # 97,13,75,29,47"
 
+def topological_sort(nodes, edges)
+  sorted = []
+  visited = {}
+  queue = {}
+
+  define_singleton_method(:visit) do |node|
+    return true if visited[node] # Already added to sorted list
+    return false if queue[node] # Cycle detected
+
+    queue[node] = true
+    edges[node]&.each { |neighbor| false unless visit(neighbor) }
+    queue.delete(node)
+    visited[node] = true
+    sorted.unshift(node)
+  end
+
+  nodes.each { |node| return [] unless visit(node) } # Cycle detected
+
+  sorted
+end
+
 inputs = INPUT.split("\n\n")
 rules = {}
 inputs.first.each_line do |rule|
@@ -37,7 +58,9 @@ inputs.first.each_line do |rule|
 end
 
 pages = inputs.last.split("\n")
-correct_pages = pages.map do |page|
+correct_pages = []
+incorrect_pages = []
+pages.each do |page|
   split = page.chomp.split(",")
   correctness = split.each_with_index.flat_map do |p, i|
     second_pages = rules[p]
@@ -50,48 +73,27 @@ correct_pages = pages.map do |page|
       i < second_page_index
     end
   end
-  correctness.compact.all?(true)
+  correctness.compact.all?(true) ? correct_pages << split : incorrect_pages << split
 end
 
-incorrect_pages = []
-correct_middles = correct_pages.each_with_index.map do |correct, index|
-  unless correct
-    incorrect_pages << index
-    next
+p correct_pages.map { |correct| correct[(correct.count / 2).ceil].to_i }.compact.reduce(:+)
+
+# part two
+reordered_pages = incorrect_pages.map do |update|
+  unique_pages = update.uniq
+  applicable_rules = rules.select { |key, _| unique_pages.include?(key) }
+  edges = Hash.new { |h, k| h[k] = [] }
+
+  applicable_rules.each do |from, tos|
+    tos.each { |to| edges[from] << to if unique_pages.include?(to) }
   end
-  l_pages = pages[index].split(",")
-  l_pages[(l_pages.count / 2).ceil].to_i
-end.compact
 
-p correct_middles.reduce(:+)
+  sorted = topological_sort(unique_pages, edges)
+  raise "Cycle detected in rules for update: #{update.join(',')}" if sorted.empty?
 
-part_two = incorrect_pages.map do |index|
-  incorrect_page = pages[index].split(",")
-  exhausted = false
-  until exhausted
-    l_ex = false
-    incorrect_page.each_with_index do |p, j|
-      second_pages = rules[p]
-      next unless second_pages
-
-      x_ex = second_pages.map do |sp|
-        second_page_index = incorrect_page.index(sp)
-        next unless second_page_index
-
-        correct = second_page_index > j
-        unless correct
-          insert_index = j + 1 > incorrect_page.count ? incorrect_page.count : j + 1
-          incorrect_page.insert(insert_index, sp)
-          delete_index = insert_index < second_page_index ? second_page_index + 1 : second_page_index
-          incorrect_page.delete_at(delete_index)
-        end
-        correct
-      end.compact
-      l_ex = x_ex.all?(true)
-    end
-    exhausted = l_ex
-  end
-  incorrect_page[incorrect_page.count / 2].to_i
+  sorted
 end
 
-p part_two.reduce(:+)
+# Compute middle page numbers for reordered updates
+reordered_middles = reordered_pages.map { |update| update[update.size / 2].to_i }
+p reordered_middles.reduce(:+)

@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require "matrix"
+# require "matrix"
 require "set"
 
-# for `diagonal`
-require_relative "../../util"
+# # for `diagonal`
+# require_relative "../../util"
 
-INPUT = "............
-........0...
-.....0......
-.......0....
-....0.......
-......A.....
-............
-............
-........A...
-.........A..
-............
-............"
+# INPUT = "............
+# ........0...
+# .....0......
+# .......0....
+# ....0.......
+# ......A.....
+# ............
+# ............
+# ........A...
+# .........A..
+# ............
+# ............"
 
 # none of this is right
 
@@ -66,7 +66,6 @@ INPUT = "............
 
 # p count
 
-
 # gpt'ed - turns out i didn't understand the problem which makes sense why i couldn't solve it
 
 # Find all antennas and their positions
@@ -106,9 +105,63 @@ def calculate_antinodes(matrix)
     end
   end
 
-  antinodes
+  antinodes.count
+end
+
+def count_antinodes_part_two(matrix)
+  rows = matrix.count
+  cols = matrix[0].count
+  antinode_positions = Set.new
+
+  # Group antenna positions by frequency
+  antennas = Hash.new { |h, k| h[k] = [] }
+  matrix.each_with_index do |row, r|
+    row.each_with_index do |char, c|
+      antennas[char] << [r, c] if char != "."
+    end
+  end
+
+  # Process each frequency group
+  antennas.each do |_, positions|
+    next if positions.count < 2 # Single antenna cannot create antinodes
+
+    # Add every pair of positions to the set of antinodes
+    positions.combination(2).each do |(r1, c1), (r2, c2)|
+      dr, dc = r2 - r1, c2 - c1
+      gcd = dr.gcd(dc)
+      dr /= gcd
+      dc /= gcd
+
+      # Add all collinear positions between the two antennas
+      k = -1
+      loop do
+        r = r1 + k * dr
+        c = c1 + k * dc
+        break unless r.between?(0, rows - 1) && c.between?(0, cols - 1)
+
+        antinode_positions.add([r, c])
+        k -= 1
+      end
+
+      k = 1
+      loop do
+        r = r2 + k * dr
+        c = c2 + k * dc
+        break unless r.between?(0, rows - 1) && c.between?(0, cols - 1)
+
+        antinode_positions.add([r, c])
+        k += 1
+      end
+    end
+
+    # Add all antenna positions for this frequency as antinodes
+    positions.each { |pos| antinode_positions.add(pos) }
+  end
+
+  antinode_positions.count
 end
 
 matrix = INPUT.each_line(chomp: true).map { |line| line.split("") }
 # Run the function on the sample matrix
-p calculate_antinodes(matrix).count
+p calculate_antinodes(matrix)
+p count_antinodes_part_two(matrix)

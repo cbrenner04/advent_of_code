@@ -11,18 +11,18 @@ Scanning across the city, you find that there are actually many such antennas. E
 of these antennas. For example:
 
 ```text
-. . . . . . . . . . . .
-. . . . . . . . 0 . . .
-. . . . . 0 . . . . . .
-. . . . . . . 0 . . . .
-. . . . 0 . . . . . . .
-. . . . . . A . . . . .
-. . . . . . . . . . . .
-. . . . . . . . . . . .
-. . . . . . . . A . . .
-. . . . . . . . . A . .
-. . . . . . . . . . . .
-. . . . . . . . . . . .
+............
+........0...
+.....0......
+.......0....
+....0.......
+......A.....
+............
+............
+........A...
+.........A..
+............
+............
 ```
 
 The signal only applies its nefarious effect at specific **antinodes** based on the resonant frequencies of the
@@ -45,8 +45,8 @@ So, for these two antennas with frequency `a`, they create the two antinodes mar
 ..........
 ```
 
-Adding a third antenna with the same frequency creates several more antinodes. It would ideally add four antinodes,
-but two are off the right side of the map, so instead it adds only two:
+Adding a third antenna with the same frequency creates several more antinodes. It would ideally add four antinodes, but
+two are off the right side of the map, so instead it adds only two:
 
 ```text
 ..........
@@ -62,8 +62,8 @@ but two are off the right side of the map, so instead it adds only two:
 ```
 
 Antennas with different frequencies don't create antinodes; `A` and `a` count as different frequencies. However,
-antinodes **can** occur at locations that contain antennas. In this diagram, the lone antenna with frequency capital `A`
-creates no antinodes but has a lowercase-`a`-frequency antinode at its location:
+antinodes **can** occur at locations that contain antennas. In this diagram, the lone antenna with frequency capital
+`A` creates no antinodes but has a lowercase-`a`-frequency antinode at its location:
 
 ```text
 ..........
@@ -82,21 +82,70 @@ The first example has antennas with two different frequencies, so the antinodes 
 antinode overlapping the topmost `A`-frequency antenna:
 
 ```text
-. . . . . . # . . . . #
-. . . # . . . . 0 . . .
-. . . . # 0 . . . . # .
-. . # . . . . 0 . . . .
-. . . . 0 . . . . # . .
-. # . . . . A . . . . .
-. . . # . . . . . . . .
-# . . . . . . # . . . .
-. . . . . . . . A . . .
-. . . . . . . . . A . .
-. . . . . . . . . . # .
-. . . . . . . . . . # .
+......#....#
+...#....0...
+....#0....#.
+..#....0....
+....0....#..
+.#....A.....
+...#........
+#......#....
+........A...
+.........A..
+..........#.
+..........#.
 ```
 
 Because the topmost `A`-frequency antenna overlaps with a `0`-frequency antinode, there are **14** total unique
 locations that contain an antinode within the bounds of the map.
 
 Calculate the impact of the signal. **How many unique locations within the bounds of the map contain an antinode?**
+
+## Part Two
+
+Watching over your shoulder as you work, one of The Historians asks if you took the effects of resonant harmonics into
+your calculations.
+
+Whoops!
+
+After updating your model, it turns out that an antinode occurs at **any grid position** exactly in line with at least
+two antennas of the same frequency, regardless of distance. This means that some of the new antinodes will occur at the
+position of each antenna (unless that antenna is the only one of its frequency).
+
+So, these three `T`-frequency antennas now create many antinodes:
+
+```text
+T....#....
+...T......
+.T....#...
+.........#
+..#.......
+..........
+...#......
+..........
+....#.....
+..........
+```
+
+In fact, the three `T`-frequency antennas are all exactly in line with two antennas, so they are all also antinodes!
+This brings the total number of antinodes in the above example to **9**.
+
+The original example now has **34** antinodes, including the antinodes that appear on every antenna:
+
+```text
+##....#....#
+.#.#....0...
+..#.#0....#.
+..##...0....
+....0....#..
+.#...#A....#
+...#..#.....
+#....#.#....
+..#.....A...
+....#....A..
+.#........#.
+...#......##
+```
+
+Calculate the impact of the signal using this updated model.
+**How many unique locations within the bounds of the map contain an antinode?**
